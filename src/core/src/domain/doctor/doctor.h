@@ -2,6 +2,7 @@
 #define DOCTOR_H
 
 #include <optional>
+#include <QUrl>
 
 #include "../user/user.h"
 #include "employeeid.h"
@@ -24,6 +25,9 @@ public:
     const std::optional<Profile>& getProfile() const;
     void setProfile(Profile value);
 
+    const std::optional<QUrl>& getPhoto() const;
+    void setPhoto(QUrl value);
+
     const std::optional<WorkSchedule>& getWorkSchedule() const;
     void setWorkSchedule(WorkSchedule value);
 
@@ -38,6 +42,7 @@ private:
     std::optional<EmployeeId> employeeId;
     std::optional<Department> department;
     std::optional<Profile> profile;
+    std::optional<QUrl> photo;
     std::optional<WorkSchedule> workSchedule;
     std::optional<RegistrationFee> registrationFee;
     std::optional<DailyPatientLimit> dailyPatientLimit;

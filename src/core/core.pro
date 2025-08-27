@@ -23,6 +23,7 @@ SOURCES += \
     src/domain/appointment/appointment.cpp \
     src/domain/appointment/appointmentstatus.cpp \
     src/domain/appointment/appointmenttimeslot.cpp \
+    src/domain/attendance/attendance.cpp \
     src/domain/case/case.cpp \
     src/domain/case/caseadvice.cpp \
     src/domain/case/casediagnosis.cpp \
@@ -35,6 +36,9 @@ SOURCES += \
     src/domain/doctor/registrationfee.cpp \
     src/domain/doctor/workschedule.cpp \
     src/domain/id.cpp \
+    src/domain/leave/leaveperiod.cpp \
+    src/domain/leave/leaverecord.cpp \
+    src/domain/leave/leavestatus.cpp \
     src/domain/patient/birthday.cpp \
     src/domain/patient/email.cpp \
     src/domain/patient/gender.cpp \
@@ -50,6 +54,7 @@ HEADERS += \
     src/domain/appointment/appointment.h \
     src/domain/appointment/appointmentstatus.h \
     src/domain/appointment/appointmenttimeslot.h \
+    src/domain/attendance/attendance.h \
     src/domain/case/case.h \
     src/domain/case/caseadvice.h \
     src/domain/case/casediagnosis.h \
@@ -62,6 +67,9 @@ HEADERS += \
     src/domain/doctor/registrationfee.h \
     src/domain/doctor/workschedule.h \
     src/domain/id.h \
+    src/domain/leave/leaveperiod.h \
+    src/domain/leave/leaverecord.h \
+    src/domain/leave/leavestatus.h \
     src/domain/patient/birthday.h \
     src/domain/patient/email.h \
     src/domain/patient/gender.h \

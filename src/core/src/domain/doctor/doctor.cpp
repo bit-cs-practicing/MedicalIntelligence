@@ -35,6 +35,14 @@ void Doctor::setProfile(Profile value) {
     profile = std::make_optional(value);
 }
 
+void Doctor::setPhoto(QUrl value) {
+    photo = std::make_optional(value);
+}
+
+const std::optional<QUrl> &Doctor::getPhoto() const {
+    return photo;
+}
+
 const std::optional<WorkSchedule>& Doctor::getWorkSchedule() const {
     return workSchedule;
 }
