@@ -4,7 +4,7 @@
 
 LeavePeriod::LeavePeriod(const QDateTime& startTime, const QDateTime& endTime) {
     if (startTime >= endTime) {
-        throw std::logic_error("请假结束时间不能早于或等于开始时间");
+        throw std::invalid_argument("请假结束时间不能早于或等于开始时间");
     }
     this->startTime = startTime;
     this->endTime = endTime;

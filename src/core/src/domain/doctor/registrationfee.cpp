@@ -4,7 +4,7 @@
 
 RegistrationFee::RegistrationFee(double fee): fee(fee) {
     if (fee <= 0) {
-        throw std::logic_error("挂号费用必须大于 0");
+        throw std::invalid_argument("挂号费用必须大于 0");
     }
 }
 

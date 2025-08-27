@@ -4,7 +4,7 @@
 
 CasePrescription::CasePrescription(const QString& prescription) {
     if (prescription.isEmpty()) {
-        throw std::logic_error("处方不能为空");
+        throw std::invalid_argument("处方不能为空");
     }
     this->prescription = prescription;
 }

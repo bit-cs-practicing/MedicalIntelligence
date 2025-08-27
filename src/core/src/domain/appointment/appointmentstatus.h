@@ -5,6 +5,10 @@
 
 class AppointmentStatus {
 public:
+    static const QString SCHEDULED;
+    static const QString COMPLETED;
+    static const QString CANCELLED;
+
     explicit AppointmentStatus(const QString& status);
 
     const QString& getValue() const;

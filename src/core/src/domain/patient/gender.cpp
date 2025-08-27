@@ -2,9 +2,12 @@
 
 #include <stdexcept>
 
+const QString MALE = "male";
+const QString FEMALE = "female";
+
 Gender::Gender(QString gender): gender(gender.toLower()) {
-    if (this->gender != "male" && this->gender != "female") {
-        throw std::logic_error("性别必须为男 (male) 或女 (female)");
+    if (this->gender != Gender::MALE && this->gender != Gender::FEMALE) {
+        throw std::invalid_argument("性别必须为男 (male) 或女 (female)");
     }
 }
 

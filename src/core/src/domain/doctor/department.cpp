@@ -4,7 +4,7 @@
 
 Department::Department(QString department): department(department) {
     if (this->department.isEmpty()) {
-        throw std::logic_error("科室不可以为空");
+        throw std::invalid_argument("科室不可以为空");
     }
 }
 

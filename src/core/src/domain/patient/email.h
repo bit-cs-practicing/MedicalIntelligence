@@ -10,6 +10,8 @@ public:
     const QString& getValue() const;
 private:
     QString email;
+
+    void validateEmail(const QString &email);
 };
 
 #endif // EMAIL_H

@@ -5,6 +5,9 @@
 
 class Gender {
 public:
+    static const QString MALE;
+    static const QString FEMALE;
+
     explicit Gender(QString gender);
 
     const QString& getValue() const;

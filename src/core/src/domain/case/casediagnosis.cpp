@@ -4,7 +4,7 @@
 
 CaseDiagnosis::CaseDiagnosis(const QString& diagnosis) {
     if (diagnosis.isEmpty()) {
-        throw std::logic_error("诊断结果不能为空");
+        throw std::invalid_argument("诊断结果不能为空");
     }
     this->diagnosis = diagnosis;
 }

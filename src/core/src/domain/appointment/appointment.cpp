@@ -14,7 +14,7 @@ Appointment::Appointment(
     , patientId(patientId)
     , date(date)
     , timeSlot(timeSlot)
-    , status(AppointmentStatus("scheduled"))
+    , status(AppointmentStatus(AppointmentStatus::SCHEDULED))
 {
 }
 
@@ -43,15 +43,15 @@ const AppointmentStatus& Appointment::getStatus() const {
 }
 
 void Appointment::markAsCompleted() {
-    if (status.getValue() != "scheduled") {
+    if (status.getValue() != AppointmentStatus::SCHEDULED) {
         throw std::logic_error("预约无法再次标记为完成");
     }
-    status = AppointmentStatus("completed");
+    status = AppointmentStatus(AppointmentStatus::COMPLETED);
 }
 
 void Appointment::markAsCancelled() {
-    if (status.getValue() != "scheduled") {
+    if (status.getValue() != AppointmentStatus::SCHEDULED) {
         throw std::logic_error("预约无法再次标记为取消");
     }
-    status = AppointmentStatus("cancelled");
+    status = AppointmentStatus(AppointmentStatus::CANCELLED);
 }

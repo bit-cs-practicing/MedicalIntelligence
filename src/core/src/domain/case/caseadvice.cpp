@@ -4,7 +4,7 @@
 
 CaseAdvice::CaseAdvice(const QString& advice) {
     if (advice.isEmpty()) {
-        throw std::logic_error("医嘱不能为空");
+        throw std::invalid_argument("医嘱不能为空");
     }
     this->advice = advice;
 }
