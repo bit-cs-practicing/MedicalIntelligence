@@ -19,10 +19,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        main.cpp
+    src/main.cpp
 
-INCLUDEPATH += $$PWD/../core/
-DEPENDPATH += $$PWD/../core/
+INCLUDEPATH += $$PWD/../core/src/
+DEPENDPATH += $$PWD/../core/src/
 
 win32-g++ {
     exists($$OUT_PWD/../core/libcore.a) {

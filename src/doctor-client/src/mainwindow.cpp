@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    Core core;
+    QMessageBox::information(this, "title", QString::number(core.add(1, 2)));
     ui->setupUi(this);
 }
 
