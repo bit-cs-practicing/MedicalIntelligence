@@ -20,6 +20,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     src/core.cpp \
+    src/domain/appointment/appointment.cpp \
+    src/domain/appointment/appointmentstatus.cpp \
+    src/domain/appointment/appointmenttimeslot.cpp \
     src/domain/doctor/dailypatientlimit.cpp \
     src/domain/doctor/department.cpp \
     src/domain/doctor/doctor.cpp \
@@ -40,6 +43,9 @@ SOURCES += \
 
 HEADERS += \
     src/core.h \
+    src/domain/appointment/appointment.h \
+    src/domain/appointment/appointmentstatus.h \
+    src/domain/appointment/appointmenttimeslot.h \
     src/domain/doctor/dailypatientlimit.h \
     src/domain/doctor/department.h \
     src/domain/doctor/doctor.h \
