@@ -167,10 +167,10 @@
 
 #### 请求字段
 
-- `name (string)` 姓名
-- `phone (string)` 手机号
+- `name (string, optional)` 姓名
+- `phone (string, optional)` 手机号
 - `birthday (string, optional)` 出生日期，格式 `yyyy-MM-dd`
-- `gender (string)` 性别，可选项 `male | female`
+- `gender (string, optional)` 性别，可选项 `male | female`
 - `email (string, optional)` 邮箱
 - `emergencyContact (string, optional)` 紧急联系人电话
 
@@ -407,13 +407,13 @@
 
 #### 请求字段
 
-- `employeeId (string)` 工号
-- `department (string)` 科室
-- `profile (string)` 个人资料
-- `photo (string)` 照片 URL
-- `workSchedule (string)` 上班时间，格式由系统定义
-- `registrationFee (number)` 挂号费用
-- `dailyPatientLimit (number)` 单日患者上限
+- `employeeId (string, optional)` 工号
+- `department (string, optional)` 科室
+- `profile (string, optional)` 个人资料
+- `photo (string, optional)` 照片 URL
+- `workSchedule (string, optional)` 上班时间，格式由系统定义
+- `registrationFee (number, optional)` 挂号费用
+- `dailyPatientLimit (number, optional)` 单日患者上限
 
 #### 响应格式
 
@@ -547,7 +547,7 @@
   "endpoint": "appointment.create",
   "credential": "patient-auth-token",
   "data": {
-    "userId": "D001",
+    "doctorId": "D001",
     "date": "2025-09-01",
     "timeSlot": "09:00-10:00"
   }
@@ -556,7 +556,7 @@
 
 #### 请求字段
 
-- `userId (string)` 医生唯一标识
+- `doctorId (string)` 医生唯一标识
 - `date (string)` 预约日期，格式 `yyyy-MM-dd`
 - `timeSlot (string)` 预约时间段，格式 `HH:mm-HH:mm`
 
@@ -1274,6 +1274,8 @@
 - 若用户不在话题参与者列表中，则返回无权限发送失败
 - 若消息内容为空或格式不正确，则返回消息格式错误失败
 
+发送后在服务端需要在消息中记录发送者名字 `senderName`。
+
 #### 请求格式
 
 ```json
@@ -1353,6 +1355,7 @@
       {
         "messageId": "M987654",
         "senderId": "doctor-uuid",
+        "senderName": "张三",
         "content": "您好，您可以改预约时间。",
         "time": "2025-09-01T10:10:00"
       }
@@ -1367,5 +1370,6 @@
 
   - `messageId (string)` 消息唯一标识
   - `senderId (string)` 发送者唯一标识
+  - `senderName (string)` 发送者名字
   - `content (string)` 消息内容
   - `time (string)` 消息时间，格式 `yyyy-MM-ddTHH:mm:ss`
