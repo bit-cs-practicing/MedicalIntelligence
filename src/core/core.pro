@@ -39,10 +39,13 @@ SOURCES += \
     src/domain/leave/leaveperiod.cpp \
     src/domain/leave/leaverecord.cpp \
     src/domain/leave/leavestatus.cpp \
+    src/domain/message/message.cpp \
+    src/domain/message/messagecontent.cpp \
     src/domain/patient/birthday.cpp \
     src/domain/patient/email.cpp \
     src/domain/patient/gender.cpp \
     src/domain/patient/patient.cpp \
+    src/domain/topic/topic.cpp \
     src/domain/user/idcard.cpp \
     src/domain/user/name.cpp \
     src/domain/user/password.cpp \
@@ -70,10 +73,13 @@ HEADERS += \
     src/domain/leave/leaveperiod.h \
     src/domain/leave/leaverecord.h \
     src/domain/leave/leavestatus.h \
+    src/domain/message/message.h \
+    src/domain/message/messagecontent.h \
     src/domain/patient/birthday.h \
     src/domain/patient/email.h \
     src/domain/patient/gender.h \
     src/domain/patient/patient.h \
+    src/domain/topic/topic.h \
     src/domain/user/idcard.h \
     src/domain/user/name.h \
     src/domain/user/password.h \
