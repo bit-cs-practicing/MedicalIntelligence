@@ -49,3 +49,7 @@ const std::optional<Phone>& Patient::getEmergencyContact() const {
 void Patient::setEmergencyContact(Phone value) {
     emergencyContact = std::make_optional(value);
 }
+
+QString Patient::getRole() const {
+    return QString("patient");
+}

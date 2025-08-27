@@ -1,6 +1,7 @@
 #ifndef USER_H
 #define USER_H
 
+#include "../id.h"
 #include "name.h"
 #include "idcard.h"
 #include "password.h"
@@ -19,6 +20,8 @@ public:
     Password getPassword() const;
     void setPassword(const Password &value);
 
+    Id getId() const;
+    virtual QString getRole() const = 0;
 private:
     Name name;
     IdCard idCard;

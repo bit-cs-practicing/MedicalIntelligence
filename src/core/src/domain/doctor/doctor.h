@@ -33,6 +33,7 @@ public:
     const std::optional<DailyPatientLimit>& getDailyPatientLimit() const;
     void setDailyPatientLimit(DailyPatientLimit value);
 
+    virtual QString getRole() const override;
 private:
     std::optional<EmployeeId> employeeId;
     std::optional<Department> department;

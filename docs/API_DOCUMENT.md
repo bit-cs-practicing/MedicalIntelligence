@@ -167,10 +167,10 @@
 
 #### 请求字段
 
-- `name (string)` 姓名
-- `phone (string)` 手机号
+- `name (string, optional)` 姓名
+- `phone (string, optional)` 手机号
 - `birthday (string, optional)` 出生日期，格式 `yyyy-MM-dd`
-- `gender (string)` 性别，可选项 `male | female`
+- `gender (string, optional)` 性别，可选项 `male | female`
 - `email (string, optional)` 邮箱
 - `emergencyContact (string, optional)` 紧急联系人电话
 
@@ -407,13 +407,13 @@
 
 #### 请求字段
 
-- `employeeId (string)` 工号
-- `department (string)` 科室
-- `profile (string)` 个人资料
-- `photo (string)` 照片 URL
-- `workSchedule (string)` 上班时间，格式由系统定义
-- `registrationFee (number)` 挂号费用
-- `dailyPatientLimit (number)` 单日患者上限
+- `employeeId (string, optional)` 工号
+- `department (string, optional)` 科室
+- `profile (string, optional)` 个人资料
+- `photo (string, optional)` 照片 URL
+- `workSchedule (string, optional)` 上班时间，格式由系统定义
+- `registrationFee (number, optional)` 挂号费用
+- `dailyPatientLimit (number, optional)` 单日患者上限
 
 #### 响应格式
 

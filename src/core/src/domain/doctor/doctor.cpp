@@ -58,3 +58,7 @@ const std::optional<DailyPatientLimit>& Doctor::getDailyPatientLimit() const {
 void Doctor::setDailyPatientLimit(DailyPatientLimit value) {
     dailyPatientLimit = std::make_optional(value);
 }
+
+QString Doctor::getRole() const {
+    return QString("doctor");
+}

@@ -28,6 +28,7 @@ public:
     const std::optional<Phone>& getEmergencyContact() const;
     void setEmergencyContact(Phone value);
 
+    virtual QString getRole() const override;
 private:
     Gender gender;
     Phone phone;

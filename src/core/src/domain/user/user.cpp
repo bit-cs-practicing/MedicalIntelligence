@@ -31,3 +31,7 @@ Password User::getPassword() const {
 void User::setPassword(const Password &value) {
     password = value;
 }
+
+Id User::getId() const {
+    return Id(this->getRole() + this->idCard.getValue());
+}

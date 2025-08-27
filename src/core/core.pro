@@ -27,6 +27,7 @@ SOURCES += \
     src/domain/doctor/profile.cpp \
     src/domain/doctor/registrationfee.cpp \
     src/domain/doctor/workschedule.cpp \
+    src/domain/id.cpp \
     src/domain/patient/birthday.cpp \
     src/domain/patient/email.cpp \
     src/domain/patient/gender.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     src/domain/doctor/profile.h \
     src/domain/doctor/registrationfee.h \
     src/domain/doctor/workschedule.h \
+    src/domain/id.h \
     src/domain/patient/birthday.h \
     src/domain/patient/email.h \
     src/domain/patient/gender.h \
