@@ -23,6 +23,10 @@ SOURCES += \
     src/domain/appointment/appointment.cpp \
     src/domain/appointment/appointmentstatus.cpp \
     src/domain/appointment/appointmenttimeslot.cpp \
+    src/domain/case/case.cpp \
+    src/domain/case/caseadvice.cpp \
+    src/domain/case/casediagnosis.cpp \
+    src/domain/case/caseprescription.cpp \
     src/domain/doctor/dailypatientlimit.cpp \
     src/domain/doctor/department.cpp \
     src/domain/doctor/doctor.cpp \
@@ -46,6 +50,10 @@ HEADERS += \
     src/domain/appointment/appointment.h \
     src/domain/appointment/appointmentstatus.h \
     src/domain/appointment/appointmenttimeslot.h \
+    src/domain/case/case.h \
+    src/domain/case/caseadvice.h \
+    src/domain/case/casediagnosis.h \
+    src/domain/case/caseprescription.h \
     src/domain/doctor/dailypatientlimit.h \
     src/domain/doctor/department.h \
     src/domain/doctor/doctor.h \
