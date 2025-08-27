@@ -1129,6 +1129,48 @@
 
 ---
 
+### `attendance.fetchLastRequest`
+
+#### 功能描述
+
+医生查询最近的请假申请。该接口用于获取医生最后一次提交的请假申请记录。如果医生没有请假记录，则返回无数据错误。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "attendance.fetchLastRequest",
+  "credential": "doctor-auth-token",
+  "data": {}
+}
+```
+
+#### 请求字段
+
+- 无额外字段
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "查询成功",
+  "data": {
+    "leaveId": "L123456",
+    "startTime": "2025-09-02T09:00:00",
+    "endTime": "2025-09-05T17:00:00"
+  }
+}
+```
+
+#### 响应字段
+
+- `leaveId (string)` 请假记录唯一标识
+- `startTime (string)` 请假开始时间，格式 `yyyy-MM-ddTHH:mm:ss`
+- `endTime (string)` 请假结束时间，格式 `yyyy-MM-ddTHH:mm:ss`
+
+---
+
 ## 医患沟通模块
 
 ### `chat.createTopic`
