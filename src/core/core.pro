@@ -21,6 +21,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     src/core.cpp \
     src/domain/appointment/appointment.cpp \
+    src/domain/appointment/appointmentfactory.cpp \
+    src/domain/appointment/appointmentservice.cpp \
     src/domain/appointment/appointmentstatus.cpp \
     src/domain/appointment/appointmenttimeslot.cpp \
     src/domain/attendance/attendance.cpp \
@@ -59,7 +61,9 @@ SOURCES += \
 HEADERS += \
     src/core.h \
     src/domain/appointment/appointment.h \
+    src/domain/appointment/appointmentfactory.h \
     src/domain/appointment/appointmentrepository.h \
+    src/domain/appointment/appointmentservice.h \
     src/domain/appointment/appointmentstatus.h \
     src/domain/appointment/appointmenttimeslot.h \
     src/domain/attendance/attendance.h \
