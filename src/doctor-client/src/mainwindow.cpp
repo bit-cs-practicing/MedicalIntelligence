@@ -4,8 +4,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "domain/id.h"
-#include "core.h"
+#include "core/src/domain/id.h"
+#include "core/src/core.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
