@@ -55,16 +55,20 @@ SOURCES += \
 HEADERS += \
     src/core.h \
     src/domain/appointment/appointment.h \
+    src/domain/appointment/appointmentrepository.h \
     src/domain/appointment/appointmentstatus.h \
     src/domain/appointment/appointmenttimeslot.h \
     src/domain/attendance/attendance.h \
+    src/domain/attendance/attendancerepository.h \
     src/domain/case/case.h \
     src/domain/case/caseadvice.h \
     src/domain/case/casediagnosis.h \
     src/domain/case/caseprescription.h \
+    src/domain/case/caserepository.h \
     src/domain/doctor/dailypatientlimit.h \
     src/domain/doctor/department.h \
     src/domain/doctor/doctor.h \
+    src/domain/doctor/doctorrepository.h \
     src/domain/doctor/employeeid.h \
     src/domain/doctor/profile.h \
     src/domain/doctor/registrationfee.h \
@@ -72,14 +76,18 @@ HEADERS += \
     src/domain/id.h \
     src/domain/leave/leaveperiod.h \
     src/domain/leave/leaverecord.h \
+    src/domain/leave/leaverecordrepository.h \
     src/domain/leave/leavestatus.h \
     src/domain/message/message.h \
     src/domain/message/messagecontent.h \
+    src/domain/message/messagerepository.h \
     src/domain/patient/birthday.h \
     src/domain/patient/email.h \
     src/domain/patient/gender.h \
     src/domain/patient/patient.h \
+    src/domain/patient/patientrepository.h \
     src/domain/topic/topic.h \
+    src/domain/topic/topicrepository.h \
     src/domain/user/idcard.h \
     src/domain/user/name.h \
     src/domain/user/password.h \
