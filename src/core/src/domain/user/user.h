@@ -12,7 +12,7 @@ public:
     static const QString ROLE_PATIENT;
 
     User(Name name, IdCard idCard, Password password);
-    virtual ~User() = 0;
+    virtual ~User() = default;
 
     Name getName() const;
     void setName(const Name &value);

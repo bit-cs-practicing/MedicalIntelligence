@@ -2,8 +2,8 @@
 
 #include <stdexcept>
 
-const QString MALE = "male";
-const QString FEMALE = "female";
+const QString Gender::MALE = "male";
+const QString Gender::FEMALE = "female";
 
 Gender::Gender(QString gender): gender(gender.toLower()) {
     if (this->gender != Gender::MALE && this->gender != Gender::FEMALE) {

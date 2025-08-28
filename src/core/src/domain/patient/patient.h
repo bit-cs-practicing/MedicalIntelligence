@@ -12,6 +12,7 @@
 class Patient : public User {
 public:
     Patient(Name name, IdCard idCard, Gender gender, Phone phone, Password password);
+    ~Patient() = default;
 
     const Gender& getGender() const;
     void setGender(Gender value);
