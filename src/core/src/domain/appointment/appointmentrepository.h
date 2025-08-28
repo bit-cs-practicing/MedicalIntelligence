@@ -14,6 +14,7 @@ public:
     virtual QList<Appointment> getAllByPatientId(const Id& patientId) = 0;
     virtual QList<Appointment> getAllByDoctorId(const Id& doctorId) = 0;
     virtual QList<Appointment> getAllByDoctorIdAndPatientId(const Id& doctorId, const Id& patientId) = 0;
+    virtual QList<Appointment> getAllByDoctorIdAndDate(const Id& doctorId, const QDate& date) = 0;
 };
 
 #endif // APPOINTMENTREPOSITORY_H
