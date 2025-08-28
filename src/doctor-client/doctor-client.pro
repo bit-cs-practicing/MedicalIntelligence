@@ -17,6 +17,47 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += $$PWD/../core/src/
+DEPENDPATH += $$PWD/../core/src/
+
+sfiles = $$files($$PWD/../core/src/*, true)
+#message($$sfiles)
+#message("=========================")
+#for(f, sfiles) {
+#    ccc = "ccpp"
+#    message("=+++")
+#    ff = $$clean_path($$f))
+#    message($$ff)
+#    message("()()()()()")
+#    contains(ccc, "cpp"): {
+#        message($$clean_path($$f))
+#    }
+#    message("*****")
+#    contains($$file, ".cpp") {
+#        message($$file)
+#        #SOURCES += $$file
+#    }
+#}
+#message("---------------")
+ccc = "c.cpp"
+contains(ccc, "c.cpp"): {
+    message("aaa")
+}
+message("----")
+
+hfiles = $$files($$PWD/../core/src/*)
+for(file, hfiles):!exists($$file/*):contains($$file, ".h"):HEADERS += $$file
+
+#SOURCES += $$PWD/../core/src/core.cpp
+#HEADERS += $$PWD/../core/src/core.h
+
+#message($$PWD/../core/src/**/*.cpp)
+#message("aa")
+#message($$files($$PWD/../core/src/**/*.cpp, true))
+#message("bbb")
+#SOURCES += $$files($$PWD/../core/src/**/*.cpp, recursive=true)
+#HEADERS += $$files($$PWD/../core/src/**/*.h, recursive=true)
+
 SOURCES += \
     src/main.cpp \
     src/mainwindow.cpp
@@ -27,35 +68,34 @@ HEADERS += \
 FORMS += \
     src/mainwindow.ui
 
-INCLUDEPATH += $$PWD/../core/src/
-DEPENDPATH += $$PWD/../core/src/
 
-win32-g++ {
-    exists($$OUT_PWD/../core/libcore.a) {
-        PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
-        LIBS += -L$$OUT_PWD/../core -lcore
-    } else:exists($$OUT_PWD/../core/debug/libcore.a) {
-        PRE_TARGETDEPS += $$OUT_PWD/../core/debug/libcore.a
-        LIBS += -L$$OUT_PWD/../core/debug -lcore
-    } else:exists($$OUT_PWD/../core/release/libcore.a) {
-        PRE_TARGETDEPS += $$OUT_PWD/../core/release/libcore.a
-        LIBS += -L$$OUT_PWD/../core/release -lcore
-    }
-} else:win32:!win32-g++ {
-    exists($$OUT_PWD/../core/core.lib) {
-        PRE_TARGETDEPS += $$OUT_PWD/../core/core.lib
-        LIBS += -L$$OUT_PWD/../core -lcore
-    } else:exists($$OUT_PWD/../core/debug/core.lib) {
-        PRE_TARGETDEPS += $$OUT_PWD/../core/debug/core.lib
-        LIBS += -L$$OUT_PWD/../core/debug -lcore
-    } else:exists($$OUT_PWD/../core/release/core.lib) {
-        PRE_TARGETDEPS += $$OUT_PWD/../core/release/core.lib
-        LIBS += -L$$OUT_PWD/../core/release -lcore
-    }
-} else:unix {
-    PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
-    LIBS += -L$$OUT_PWD/../core -lcore
-}
+
+#win32-g++ {
+#    exists($$OUT_PWD/../core/libcore.a) {
+#        PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
+#        LIBS += -L$$OUT_PWD/../core -lcore
+#    } else:exists($$OUT_PWD/../core/debug/libcore.a) {
+#        PRE_TARGETDEPS += $$OUT_PWD/../core/debug/libcore.a
+#        LIBS += -L$$OUT_PWD/../core/debug -lcore
+#    } else:exists($$OUT_PWD/../core/release/libcore.a) {
+#        PRE_TARGETDEPS += $$OUT_PWD/../core/release/libcore.a
+#        LIBS += -L$$OUT_PWD/../core/release -lcore
+#    }
+#} else:win32:!win32-g++ {
+#    exists($$OUT_PWD/../core/core.lib) {
+#        PRE_TARGETDEPS += $$OUT_PWD/../core/core.lib
+#        LIBS += -L$$OUT_PWD/../core -lcore
+#    } else:exists($$OUT_PWD/../core/debug/core.lib) {
+#        PRE_TARGETDEPS += $$OUT_PWD/../core/debug/core.lib
+#        LIBS += -L$$OUT_PWD/../core/debug -lcore
+#    } else:exists($$OUT_PWD/../core/release/core.lib) {
+#        PRE_TARGETDEPS += $$OUT_PWD/../core/release/core.lib
+#        LIBS += -L$$OUT_PWD/../core/release -lcore
+#    }
+#} else:unix {
+#    PRE_TARGETDEPS += $$OUT_PWD/../core/libcore.a
+#    LIBS += -L$$OUT_PWD/../core -lcore
+#}
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

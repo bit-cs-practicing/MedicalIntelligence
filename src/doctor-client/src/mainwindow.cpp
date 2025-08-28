@@ -1,4 +1,5 @@
 #include <QMessageBox>
+#include <QDebug>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -10,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     Core core;
-    QMessageBox::information(this, "title", QString::number(core.add(1, 2)));
+//    QMessageBox::information(this, "title", QString::number(core.add(1, 2)));
     ui->setupUi(this);
 }
 
