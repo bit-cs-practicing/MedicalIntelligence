@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <iostream>
 
-#include "core.h"
+#include "core/src/core.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
