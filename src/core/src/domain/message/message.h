@@ -9,9 +9,17 @@
 
 class Message {
 public:
-    explicit Message(Id messageId, Id senderId, Name senderName, MessageContent content, QDateTime time);
+    explicit Message(
+        Id messageId,
+        Id topicId,
+        Id senderId,
+        Name senderName,
+        MessageContent content,
+        QDateTime time
+    );
 
     const Id& getMessageId() const;
+    const Id& getTopicId() const;
     const Id& getSenderId() const;
     const Name& getSenderName() const;
     const MessageContent& getContent() const;
@@ -19,6 +27,7 @@ public:
 
 private:
     Id messageId;
+    Id topicId;
     Id senderId;
     Name senderName;
     MessageContent content;
