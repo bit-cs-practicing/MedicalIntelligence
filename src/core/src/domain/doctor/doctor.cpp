@@ -68,5 +68,5 @@ void Doctor::setDailyPatientLimit(DailyPatientLimit value) {
 }
 
 QString Doctor::getRole() const {
-    return QString("doctor");
+    return User::ROLE_DOCTOR;
 }

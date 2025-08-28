@@ -1,5 +1,8 @@
 #include "user.h"
 
+const QString User::ROLE_DOCTOR = "doctor";
+const QString User::ROLE_PATIENT = "patient";
+
 User::User(Name name, IdCard idCard, Password password)
     : name(name)
     , idCard(idCard)

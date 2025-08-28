@@ -51,5 +51,5 @@ void Patient::setEmergencyContact(Phone value) {
 }
 
 QString Patient::getRole() const {
-    return QString("patient");
+    return User::ROLE_PATIENT;
 }
