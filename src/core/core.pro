@@ -45,6 +45,8 @@ SOURCES += \
     src/domain/patient/email.cpp \
     src/domain/patient/gender.cpp \
     src/domain/patient/patient.cpp \
+    src/domain/patient/patientfactory.cpp \
+    src/domain/patient/patientservice.cpp \
     src/domain/topic/topic.cpp \
     src/domain/user/idcard.cpp \
     src/domain/user/name.cpp \
@@ -85,7 +87,9 @@ HEADERS += \
     src/domain/patient/email.h \
     src/domain/patient/gender.h \
     src/domain/patient/patient.h \
+    src/domain/patient/patientfactory.h \
     src/domain/patient/patientrepository.h \
+    src/domain/patient/patientservice.h \
     src/domain/topic/topic.h \
     src/domain/topic/topicrepository.h \
     src/domain/user/idcard.h \
