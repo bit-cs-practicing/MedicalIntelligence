@@ -10,8 +10,8 @@ public:
 
     virtual void save(const Patient& patient) = 0;
 
-    virtual std::optional<Patient> getById(const Id& id) = 0;
-    virtual std::optional<Patient> getByIdCard(const IdCard& idCard) = 0;
+    virtual std::optional<Patient> getById(const Id& id) const = 0;
+    virtual std::optional<Patient> getByIdCard(const IdCard& idCard) const = 0;
 };
 
 #endif // PATIENTREPOSITORY_H

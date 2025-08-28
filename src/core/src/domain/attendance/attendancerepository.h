@@ -10,8 +10,8 @@ public:
     virtual ~AttendanceRepository() = 0;
 
     virtual void save(const Attendance& attendance) = 0;
-    virtual std::optional<Attendance> getById(const Id& attendanceId) = 0;
-    virtual QList<Attendance> getByDoctorId(const Id& doctorId) = 0;
+    virtual std::optional<Attendance> getById(const Id& attendanceId) const = 0;
+    virtual QList<Attendance> getByDoctorId(const Id& doctorId) const = 0;
 };
 
 #endif // ATTENDANCEREPOSITORY_H

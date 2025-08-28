@@ -11,7 +11,7 @@ public:
 
     virtual void save(const Message& message) = 0;
 
-    virtual QList<Message> getAllByTopicIdOrderedByTime(const Id& topicId, int start, int limit) = 0;
+    virtual QList<Message> getAllByTopicIdOrderedByTime(const Id& topicId, int start, int limit) const = 0;
 };
 
 #endif // MESSAGEREPOSITORY_H

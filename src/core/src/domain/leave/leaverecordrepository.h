@@ -9,8 +9,8 @@ public:
     virtual ~LeaveRecordRepository() = 0;
 
     virtual void save(const LeaveRecord& leaveRecord) = 0;
-    virtual std::optional<LeaveRecord> getById(const Id& leaveId) = 0;
-    virtual std::optional<LeaveRecord> getLastByDoctorId(const Id& doctorId) = 0;
+    virtual std::optional<LeaveRecord> getById(const Id& leaveId) const = 0;
+    virtual std::optional<LeaveRecord> getLastByDoctorId(const Id& doctorId) const = 0;
 };
 
 #endif // LEAVERECORDREPOSITORY_H
