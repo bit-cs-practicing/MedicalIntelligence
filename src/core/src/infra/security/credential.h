@@ -10,6 +10,7 @@ public:
     Credential(Id userId, QString token);
 
     static Credential fromUserId(Id userId);
+    static Credential parse(QString str);
 
     const QString& getUserId() const;
     QString getRole() const;
