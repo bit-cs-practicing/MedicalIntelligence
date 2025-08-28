@@ -1,10 +1,14 @@
 #include "leaverecord.h"
 
-LeaveRecord::LeaveRecord(Id leaveId, LeavePeriod leavePeriod)
-    : leaveId(leaveId), leavePeriod(leavePeriod), leaveStatus(LeaveStatus::ACTIVE) {}
+LeaveRecord::LeaveRecord(Id leaveId, Id doctorId, LeavePeriod leavePeriod)
+    : leaveId(leaveId), doctorId(doctorId), leavePeriod(leavePeriod), leaveStatus(LeaveStatus::ACTIVE) {}
 
 const Id& LeaveRecord::getLeaveId() const {
     return leaveId;
+}
+
+const Id& LeaveRecord::getDoctorId() const {
+    return doctorId;
 }
 
 const LeavePeriod& LeaveRecord::getLeavePeriod() const {
