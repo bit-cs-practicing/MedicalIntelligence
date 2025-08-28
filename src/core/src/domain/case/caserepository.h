@@ -9,8 +9,8 @@ public:
     virtual ~CaseRepository() = 0;
 
     virtual void save(const Case& caseEntity) = 0;
-    virtual std::optional<Case> getById(const Id& caseId) = 0;
-    virtual std::optional<Case> getByAppointmentId(const Id& appointmentId) = 0;
+    virtual std::optional<Case> getById(const Id& caseId) const = 0;
+    virtual std::optional<Case> getByAppointmentId(const Id& appointmentId) const = 0;
 };
 
 #endif // CASEREPOSITORY_H

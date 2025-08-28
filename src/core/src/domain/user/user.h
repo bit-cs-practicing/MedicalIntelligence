@@ -8,6 +8,9 @@
 
 class User {
 public:
+    static const QString ROLE_DOCTOR;
+    static const QString ROLE_PATIENT;
+
     User(Name name, IdCard idCard, Password password);
     virtual ~User() = 0;
 

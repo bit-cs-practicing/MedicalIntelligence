@@ -10,8 +10,8 @@ public:
     virtual ~TopicRepository() = 0;
 
     virtual void save(const Topic& topic) = 0;
-    virtual std::optional<Topic> getById(const Id& topicId) = 0;
-    virtual QList<Topic> getAllByContainingParticipantId(const Id& participantId) = 0;
+    virtual std::optional<Topic> getById(const Id& topicId) const = 0;
+    virtual QList<Topic> getAllByContainingParticipantId(const Id& participantId) const = 0;
 };
 
 #endif // TOPICREPOSITORY_H
