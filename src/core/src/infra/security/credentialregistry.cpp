@@ -17,5 +17,5 @@ void CredentialRegistry::revoke(const Credential& credential) {
 bool CredentialRegistry::contains(const Credential& credential) const {
     std::lock_guard<std::mutex> lock(mutex);
     auto iter = reg.find(credential.getUserId());
-    return iter == reg.end() || iter->toKey() != credential.toKey();
+    return iter == reg.end() || iter->toString() != credential.toString();
 }

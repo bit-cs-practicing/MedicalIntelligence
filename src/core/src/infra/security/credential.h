@@ -13,7 +13,7 @@ public:
 
     const QString& getUserId() const;
     QString getRole() const;
-    QString toKey() const;
+    QString toString() const;
 private:
     Id userId;
     QString token;

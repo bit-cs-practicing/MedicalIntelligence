@@ -24,6 +24,6 @@ QString Credential::getRole() const {
     }
 }
 
-QString Credential::toKey() const {
+QString Credential::toString() const {
     return QString("token:%1+id:%2").arg(token).arg(userId.getId());
 }
