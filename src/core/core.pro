@@ -50,7 +50,10 @@ SOURCES += \
     src/domain/user/name.cpp \
     src/domain/user/password.cpp \
     src/domain/patient/phone.cpp \
-    src/domain/user/user.cpp
+    src/domain/user/user.cpp \
+    src/infra/security/credential.cpp \
+    src/infra/security/credentialmanager.cpp \
+    src/infra/security/credentialregistry.cpp
 
 HEADERS += \
     src/core.h \
@@ -84,7 +87,10 @@ HEADERS += \
     src/domain/user/name.h \
     src/domain/user/password.h \
     src/domain/patient/phone.h \
-    src/domain/user/user.h
+    src/domain/user/user.h \
+    src/infra/security/credential.h \
+    src/infra/security/credentialmanager.h \
+    src/infra/security/credentialregistry.h
 
 # Default rules for deployment.
 unix {
