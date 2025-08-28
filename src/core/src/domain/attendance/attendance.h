@@ -7,13 +7,15 @@
 
 class Attendance {
 public:
-    Attendance(Id attendanceId, const QDateTime& attendanceTime);
+    Attendance(Id attendanceId, Id doctorId, const QDateTime& attendanceTime);
 
     const Id& getAttendanceId() const;
+    const Id& getDoctorId() const;
     const QDateTime& getAttendanceTime() const;
 
 private:
     Id attendanceId;
+    Id doctorId;
     QDateTime attendanceTime;
 };
 
