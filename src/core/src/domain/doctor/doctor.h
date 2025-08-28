@@ -15,6 +15,7 @@
 class Doctor : public User {
 public:
     Doctor(Name name, IdCard idCard, Password password);
+    ~Doctor() = default;
 
     const std::optional<EmployeeId>& getEmployeeId() const;
     void setEmployeeId(EmployeeId value);
