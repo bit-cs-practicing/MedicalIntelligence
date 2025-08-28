@@ -31,6 +31,8 @@ SOURCES += \
     src/domain/doctor/dailypatientlimit.cpp \
     src/domain/doctor/department.cpp \
     src/domain/doctor/doctor.cpp \
+    src/domain/doctor/doctorfactory.cpp \
+    src/domain/doctor/doctorservice.cpp \
     src/domain/doctor/employeeid.cpp \
     src/domain/doctor/profile.cpp \
     src/domain/doctor/registrationfee.cpp \
@@ -70,7 +72,9 @@ HEADERS += \
     src/domain/doctor/dailypatientlimit.h \
     src/domain/doctor/department.h \
     src/domain/doctor/doctor.h \
+    src/domain/doctor/doctorfactory.h \
     src/domain/doctor/doctorrepository.h \
+    src/domain/doctor/doctorservice.h \
     src/domain/doctor/employeeid.h \
     src/domain/doctor/profile.h \
     src/domain/doctor/registrationfee.h \
