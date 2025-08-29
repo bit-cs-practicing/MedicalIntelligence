@@ -4,7 +4,7 @@ set(CMAKE_SH "CMAKE_SH-NOTFOUND")
 
 project(server)
 
-find_package(Qt5 REQUIRED Core Network)
+find_package(Qt5 REQUIRED Core Network Sql)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -37,7 +37,7 @@ file(GLOB_RECURSE RESOURCES "src/*.qrc")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${FORMS} ${RESOURCES})
 
-target_link_libraries(server Qt5::Core Qt5::Network)
+target_link_libraries(server Qt5::Core Qt5::Network Qt5::Sql)
 
 target_compile_definitions(server PRIVATE QT_DEPRECATED_WARNINGS)
 
