@@ -913,9 +913,9 @@
 #### 请求字段
 
 - `caseId (string)` 病例项唯一标识
-- `diagnosis (string)` 诊断结果
-- `prescription (string)` 处方
-- `advice (string)` 医嘱
+- `diagnosis (string, optional)` 诊断结果
+- `prescription (string, optional)` 处方
+- `advice (string, optional)` 医嘱
 
 #### 响应格式
 

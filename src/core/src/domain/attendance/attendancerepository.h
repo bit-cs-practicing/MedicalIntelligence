@@ -11,7 +11,8 @@ public:
 
     virtual void save(const Attendance& attendance) = 0;
     virtual std::optional<Attendance> getById(const Id& attendanceId) const = 0;
-    virtual QList<Attendance> getByDoctorId(const Id& doctorId) const = 0;
+    virtual std::optional<Attendance> getLastByDoctorIdOrderedByTime(const Id& doctorId) const = 0;
+    virtual QList<Attendance> getAllByDoctorId(const Id& doctorId) const = 0;
 };
 
 #endif // ATTENDANCEREPOSITORY_H
