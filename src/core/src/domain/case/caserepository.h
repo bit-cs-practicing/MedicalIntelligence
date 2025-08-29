@@ -6,7 +6,7 @@
 
 class CaseRepository {
 public:
-    virtual ~CaseRepository() = 0;
+    virtual ~CaseRepository() = default;
 
     virtual void save(const Case& caseEntity) = 0;
     virtual std::optional<Case> getById(const Id& caseId) const = 0;

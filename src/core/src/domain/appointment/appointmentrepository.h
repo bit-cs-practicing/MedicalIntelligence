@@ -7,7 +7,7 @@
 
 class AppointmentRepository {
 public:
-    virtual ~AppointmentRepository() = 0;
+    virtual ~AppointmentRepository() = default;
 
     virtual void save(const Appointment& appointment) = 0;
     virtual std::optional<Appointment> getById(const Id& appointmentId) const = 0;

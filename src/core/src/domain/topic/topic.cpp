@@ -10,3 +10,11 @@ const Id& Topic::getTopicId() const {
 const QList<Id>& Topic::getParticipants() const {
     return participants;
 }
+
+const QDateTime& Topic::getLastMessageTime() const {
+    return lastMessageTime;
+}
+
+void Topic::setLastMessageTime(QDateTime value) {
+    lastMessageTime = value;
+}

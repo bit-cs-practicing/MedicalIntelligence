@@ -6,7 +6,7 @@
 
 class LeaveRecordRepository {
 public:
-    virtual ~LeaveRecordRepository() = 0;
+    virtual ~LeaveRecordRepository() = default;
 
     virtual void save(const LeaveRecord& leaveRecord) = 0;
     virtual std::optional<LeaveRecord> getById(const Id& leaveId) const = 0;

@@ -7,7 +7,7 @@
 
 class MessageRepository {
 public:
-    virtual ~MessageRepository() = 0;
+    virtual ~MessageRepository() = default;
 
     virtual void save(const Message& message) = 0;
 

@@ -6,7 +6,7 @@
 
 class PatientRepository {
 public:
-    virtual ~PatientRepository() = 0;
+    virtual ~PatientRepository() = default;
 
     virtual void save(const Patient& patient) = 0;
 

@@ -11,6 +11,8 @@ public:
 
     const QString& getId() const;
 
+    bool operator==(const Id& rhs) const;
+
 private:
     QString id;
 };

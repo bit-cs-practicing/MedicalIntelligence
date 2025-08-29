@@ -7,7 +7,7 @@
 
 class TopicRepository {
 public:
-    virtual ~TopicRepository() = 0;
+    virtual ~TopicRepository() = default;
 
     virtual void save(const Topic& topic) = 0;
     virtual std::optional<Topic> getById(const Id& topicId) const = 0;
