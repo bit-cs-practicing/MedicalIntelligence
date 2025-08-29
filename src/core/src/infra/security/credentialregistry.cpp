@@ -19,3 +19,9 @@ bool CredentialRegistry::contains(const Credential& credential) const {
     auto iter = reg.find(credential.getUserId());
     return iter == reg.end() || iter->toString() != credential.toString();
 }
+
+void CredentialRegistry::check(const Credential &credential) const {
+    if (!contains(credential)) {
+        throw std::logic_error("无效凭证");
+    }
+}
