@@ -2,15 +2,21 @@
 #define WORKSCHEDULE_H
 
 #include <QString>
+#include <QTime>
 
 class WorkSchedule {
 public:
-    explicit WorkSchedule(QString workSchedule);
+    explicit WorkSchedule(QTime startTime, QTime endTime);
 
-    const QString& getValue() const;
+    static WorkSchedule fromString(const QString& str);
+    QString toString() const;
+
+    QTime getStartTime() const;
+    QTime getEndTime() const;
 
 private:
-    QString workSchedule;
+    QTime startTime;
+    QTime endTime;
 };
 
 #endif // WORKSCHEDULE_H
