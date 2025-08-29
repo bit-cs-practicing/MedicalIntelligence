@@ -7,7 +7,7 @@
 
 class AttendanceRepository {
 public:
-    virtual ~AttendanceRepository() = 0;
+    virtual ~AttendanceRepository() = default;
 
     virtual void save(const Attendance& attendance) = 0;
     virtual std::optional<Attendance> getById(const Id& attendanceId) const = 0;
