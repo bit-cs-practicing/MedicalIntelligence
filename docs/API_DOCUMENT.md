@@ -222,6 +222,8 @@
   "message": "获取成功",
   "data": {
     "name": "张三",
+    "gender": "male",
+    "idCard": "123456789012345678",
     "phone": "13900139000",
     "birthday": "1991-01-01",
     "gender": "male",
@@ -234,6 +236,8 @@
 #### 响应字段
 
 - `name (string)` 姓名
+- `gender (string)` 性别
+- `idCard (string)` 身份证号
 - `phone (string)` 手机号
 - `birthday (string)` 出生日期，格式 `yyyy-MM-dd`
 - `gender (string)` 性别，格式 `male | female`
@@ -388,6 +392,7 @@
 修改时必须进行以下检查：
 
 - 工号、科室、个人资料、照片、上班时间、挂号费用、单日患者上限字段必须符合格式要求
+- 上班时间按照 `HH:mm-HH:mm` 格式
 
 #### 请求格式
 
@@ -396,11 +401,12 @@
   "endpoint": "doctor.updateInfo",
   "credential": "auth-token",
   "data": {
+    "name": "李四",
     "employeeId": "D001",
     "department": "内科",
     "profile": "副主任医师，从业10年",
     "photo": "http://example.com/photo.jpg",
-    "workSchedule": "Mon-Fri 9:00-17:00",
+    "workSchedule": "09:00-17:00",
     "registrationFee": 50,
     "dailyPatientLimit": 30
   }
@@ -409,6 +415,7 @@
 
 #### 请求字段
 
+- `name (string, optional)` 姓名
 - `employeeId (string, optional)` 工号
 - `department (string, optional)` 科室
 - `profile (string, optional)` 个人资料
@@ -464,11 +471,13 @@
   "success": true,
   "message": "获取成功",
   "data": {
+    "name": "李四",
+    "idCard": "123456789012345678",
     "employeeId": "D001",
     "department": "内科",
     "profile": "副主任医师，从业10年",
     "photo": "http://example.com/photo.jpg",
-    "workSchedule": "Mon-Fri 9:00-17:00",
+    "workSchedule": "09:00-17:00",
     "registrationFee": 50,
     "dailyPatientLimit": 30
   }
@@ -477,6 +486,8 @@
 
 #### 响应字段
 
+- `name (string)` 姓名
+- `password (string)` 密码
 - `employeeId (string)` 工号
 - `department (string)` 科室
 - `profile (string)` 个人资料
@@ -517,11 +528,13 @@
   "message": "获取成功",
   "data": [
     {
+      "name": "李四",
+      "idCard": "123456789012345678",
       "employeeId": "D001",
       "department": "内科",
       "profile": "副主任医师，从业10年",
       "photo": "http://example.com/photo.jpg",
-      "workSchedule": "Mon-Fri 9:00-17:00",
+      "workSchedule": "09:00-17:00",
       "registrationFee": 50,
       "dailyPatientLimit": 30
     }
@@ -531,6 +544,8 @@
 
 #### 响应字段
 
+- `name (string)` 姓名
+- `password (string)` 密码
 - `employeeId (string)` 工号
 - `department (string)` 科室
 - `profile (string)` 个人资料
