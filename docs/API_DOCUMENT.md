@@ -203,14 +203,16 @@
 ```json
 {
   "endpoint": "patient.fetchInfo",
-  "credential": "auth-token",
-  "data": {}
+  "credential": "",
+  "data": {
+    "patientId": "U001"
+  }
 }
 ```
 
 #### 请求字段
 
-- 无额外字段
+- `patientId (string)` 患者 ID
 
 #### 响应格式
 
@@ -444,14 +446,16 @@
 ```json
 {
   "endpoint": "doctor.fetchInfo",
-  "credential": "auth-token",
-  "data": {}
+  "credential": "",
+  "data": {
+    "doctorId": "D001"
+  }
 }
 ```
 
 #### 请求字段
 
-- 无额外字段
+- `doctorId (string)`：医生 ID
 
 #### 响应格式
 
@@ -468,6 +472,60 @@
     "registrationFee": 50,
     "dailyPatientLimit": 30
   }
+}
+```
+
+#### 响应字段
+
+- `employeeId (string)` 工号
+- `department (string)` 科室
+- `profile (string)` 个人资料
+- `photo (string)` 照片 URL
+- `workSchedule (string)` 上班时间，格式由系统定义
+- `registrationFee (number)` 挂号费用
+- `dailyPatientLimit (number)` 单日患者上限
+
+---
+
+### `doctor.fetchAllInfo`
+
+#### 功能描述
+
+获取医生的基本信息。
+
+- 返回医生的工号、科室、个人资料、照片、上班时间、挂号费用、单日患者上限等信息。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "doctor.fetchAllInfo",
+  "credential": "",
+  "data": {}
+}
+```
+
+#### 请求字段
+
+- 无额外字段
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": [
+    {
+      "employeeId": "D001",
+      "department": "内科",
+      "profile": "副主任医师，从业10年",
+      "photo": "http://example.com/photo.jpg",
+      "workSchedule": "Mon-Fri 9:00-17:00",
+      "registrationFee": 50,
+      "dailyPatientLimit": 30
+    }
+  ]
 }
 ```
 
