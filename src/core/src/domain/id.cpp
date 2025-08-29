@@ -14,3 +14,7 @@ Id Id::fromUuid() {
 const QString& Id::getId() const {
     return id;
 }
+
+bool Id::operator==(const Id &rhs) const {
+    return id == rhs.id;
+}
