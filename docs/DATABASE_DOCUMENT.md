@@ -54,7 +54,8 @@ CREATE TABLE patient(
 - `department`: 医生科室。
 - `profile`: 医生简介。
 - `photo`: 医生照片URL。
-- `workSchedule`: 医生工作日程。
+- `startTime`: 医生工作开始时间。
+- `endTime`: 医生工作结束时间。
 - `registrationFee`: 医生挂号费用。
 - `dailyPatientLimit`: 医生每日患者限制。
 
@@ -69,7 +70,8 @@ CREATE TABLE doctor(
     department TEXT,
     profile TEXT,
     photo TEXT,
-    workSchedule TEXT,
+    startTime DATETIME,
+    endTime DATETIME,
     registrationFee REAL,
     dailyPatientLimit INTEGER
 );
