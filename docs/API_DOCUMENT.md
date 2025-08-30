@@ -3,8 +3,8 @@
 - [患者用户管理模块](#患者用户管理模块)
   - [patient.register](#patientregister)
   - [patient.login](#patientlogin)
-  - [patient.fetchInfo](#patientfetchinfo)
   - [patient.updateInfo](#patientupdateinfo)
+  - [patient.fetchInfo](#patientfetchinfo)
   - [patient.updatePassword](#patientupdatepassword)
 - [医生用户管理模块](#医生用户管理模块)
   - [doctor.register](#doctorregister)
@@ -145,10 +145,10 @@
 
 #### 功能描述
 
-修改患者信息。
-修改时必须进行以下检查：
+修改患者信息。修改时必须进行以下检查：
 
-- 姓名、手机号等字段必须符合格式要求
+- 姓名、手机号等字段必须符合格式要求。若请求中不填写相关字段，则不修改对应字段。
+- 对于可选字段，若未设置或为空字符串，则相关字段不会被修改。
 
 #### 请求格式
 
@@ -199,6 +199,7 @@
 获取患者的基本信息。
 
 - 返回患者的姓名、性别、手机号、生日、邮箱和紧急联系人等信息。
+- 对于可选字段，若未设置，则相关字段的值未 `null`。
 
 #### 请求格式
 
@@ -223,12 +224,12 @@
   "success": true,
   "message": "获取成功",
   "data": {
+    "patientId": "P001",
     "name": "张三",
     "gender": "male",
     "idCard": "123456789012345678",
     "phone": "13900139000",
     "birthday": "1991-01-01",
-    "gender": "male",
     "email": "example@example.com",
     "emergencyContact": "13900139001"
   }
@@ -237,14 +238,14 @@
 
 #### 响应字段
 
+- `patientId (string)` 患者 ID
 - `name (string)` 姓名
-- `gender (string)` 性别
+- `gender (string)` 性别，格式 `male | female`
 - `idCard (string)` 身份证号
 - `phone (string)` 手机号
-- `birthday (string)` 出生日期，格式 `yyyy-MM-dd`
-- `gender (string)` 性别，格式 `male | female`
-- `email (string)` 邮箱
-- `emergencyContact (string)` 紧急联系人电话
+- `birthday (string, optional)` 出生日期，格式 `yyyy-MM-dd`
+- `email (string, optional)` 邮箱
+- `emergencyContact (string, optional)` 紧急联系人电话
 
 ---
 
@@ -395,6 +396,7 @@
 
 - 工号、科室、个人资料、照片、上班时间、挂号费用、单日患者上限字段必须符合格式要求
 - 上班时间按照 `HH:mm-HH:mm` 格式
+- 对于可选字段，若未设置或为空字符串，则相关字段不会被修改。
 
 #### 请求格式
 
@@ -404,7 +406,7 @@
   "credential": "auth-token",
   "data": {
     "name": "李四",
-    "employeeId": "D001",
+    "employeeId": "E001",
     "department": "内科",
     "profile": "副主任医师，从业10年",
     "photo": "http://example.com/photo.jpg",
@@ -449,6 +451,7 @@
 获取医生的基本信息。
 
 - 返回医生的工号、科室、个人资料、照片、上班时间、挂号费用、单日患者上限等信息。
+- 对于可选字段，若未设置，则相关字段的值未 `null`。
 
 #### 请求格式
 
@@ -473,9 +476,10 @@
   "success": true,
   "message": "获取成功",
   "data": {
+    "doctorId": "D001",
     "name": "李四",
     "idCard": "123456789012345678",
-    "employeeId": "D001",
+    "employeeId": "E001",
     "department": "内科",
     "profile": "副主任医师，从业10年",
     "photo": "http://example.com/photo.jpg",
@@ -488,15 +492,16 @@
 
 #### 响应字段
 
+- `doctorId (string)` 医生 ID
 - `name (string)` 姓名
-- `password (string)` 密码
-- `employeeId (string)` 工号
-- `department (string)` 科室
-- `profile (string)` 个人资料
-- `photo (string)` 照片 URL
-- `workSchedule (string)` 上班时间，格式由系统定义
-- `registrationFee (number)` 挂号费用
-- `dailyPatientLimit (number)` 单日患者上限
+- `idCard (string)` 身份证号
+- `employeeId (string, optional)` 工号
+- `department (string, optional)` 科室
+- `profile (string, optional)` 个人资料
+- `photo (string, optional)` 照片 URL
+- `workSchedule (string, optional)` 上班时间，格式由系统定义
+- `registrationFee (number, optional)` 挂号费用
+- `dailyPatientLimit (number, optional)` 单日患者上限
 
 ---
 
@@ -528,33 +533,38 @@
 {
   "success": true,
   "message": "获取成功",
-  "data": [
-    {
-      "name": "李四",
-      "idCard": "123456789012345678",
-      "employeeId": "D001",
-      "department": "内科",
-      "profile": "副主任医师，从业10年",
-      "photo": "http://example.com/photo.jpg",
-      "workSchedule": "09:00-17:00",
-      "registrationFee": 50,
-      "dailyPatientLimit": 30
-    }
-  ]
+  "data": {
+    "doctors": [
+      {
+        "doctorId": "D001",
+        "name": "李四",
+        "idCard": "123456789012345678",
+        "employeeId": "D001",
+        "department": "内科",
+        "profile": "副主任医师，从业10年",
+        "photo": "http://example.com/photo.jpg",
+        "workSchedule": "09:00-17:00",
+        "registrationFee": 50,
+        "dailyPatientLimit": 30
+      }
+    ]
+  }
 }
 ```
 
 #### 响应字段
 
-- `name (string)` 姓名
-- `password (string)` 密码
-- `employeeId (string)` 工号
-- `department (string)` 科室
-- `profile (string)` 个人资料
-- `photo (string)` 照片 URL
-- `workSchedule (string)` 上班时间，格式由系统定义
-- `registrationFee (number)` 挂号费用
-- `dailyPatientLimit (number)` 单日患者上限
+- `doctors (array[object])` 所有医生信息
+  - `doctorId (string)` 医生 ID
+  - `name (string)` 姓名
+  - `idCard (string)` 身份证号
+  - `employeeId (string, optional)` 工号
+  - `department (string, optional)` 科室
+  - `profile (string, optional)` 个人资料
+  - `photo (string, optional)` 照片 URL
+  - `workSchedule (string, optional)` 上班时间，格式由系统定义
+  - `registrationFee (number, optional)` 挂号费用
+  - `dailyPatientLimit (number, optional)` 单日患者上限
 
 ---
 
@@ -783,8 +793,7 @@
 
 #### 响应字段
 
-- `appointments (array)` 患者的预约列表
-
+- `appointments (array[object])` 患者的预约列表
   - `appointmentId (string)` 预约唯一标识
   - `doctorId (string)` 医生唯一标识
   - `date (string)` 预约日期
@@ -837,8 +846,7 @@
 
 #### 响应字段
 
-- `appointments (array)` 医生的预约列表
-
+- `appointments (array[object])` 医生的预约列表
   - `appointmentId (string)` 预约唯一标识
   - `patientId (string)` 患者唯一标识
   - `date (string)` 预约日期
@@ -911,6 +919,7 @@
 - 若病例项 ID 不存在，则返回病例不存在失败
 - 若医生凭证与病例项 ID 不匹配，则返回无权限修改失败
 - 若输入的诊断结果、处方、医嘱不符合格式，则返回信息格式错误失败
+- 对于可选字段，若未设置或为空字符串，则相关字段不会被修改。
 
 #### 请求格式
 
@@ -979,32 +988,35 @@
 {
   "success": true,
   "message": "获取成功",
-  "data": [
-    {
-      "caseId": "C987654",
-      "visitDate": "2023-08-15",
-      "diagnosis": "慢性支气管炎",
-      "prescription": "氨溴索片 30mg 每日两次",
-      "advice": "避免受凉，按时复诊"
-    },
-    {
-      "caseId": "C123456",
-      "visitDate": "2023-05-20",
-      "diagnosis": "上呼吸道感染",
-      "prescription": "对乙酰氨基酚 500mg 每日三次",
-      "advice": "多喝水，注意休息"
-    }
-  ]
+  "data": {
+    "cases": [
+      {
+        "caseId": "C987654",
+        "visitDate": "2023-08-15",
+        "diagnosis": "慢性支气管炎",
+        "prescription": "氨溴索片 30mg 每日两次",
+        "advice": "避免受凉，按时复诊"
+      },
+      {
+        "caseId": "C123456",
+        "visitDate": "2023-05-20",
+        "diagnosis": "上呼吸道感染",
+        "prescription": "对乙酰氨基酚 500mg 每日三次",
+        "advice": "多喝水，注意休息"
+      }
+    ]
+  }
 }
 ```
 
 #### 响应字段
 
-- `caseId (string)` 病例项唯一标识
-- `visitDate (string)` 就诊日期，格式 `yyyy-MM-dd`
-- `diagnosis (string)` 诊断结果
-- `prescription (string)` 处方
-- `advice (string)` 医嘱
+- `cases (array[object])` 所有符合条件的病例项
+  - `caseId (string)` 病例项唯一标识
+  - `visitDate (string)` 就诊日期，格式 `yyyy-MM-dd`
+  - `diagnosis (string)` 诊断结果
+  - `prescription (string)` 处方
+  - `advice (string)` 医嘱
 
 ---
 
@@ -1041,32 +1053,35 @@
 {
   "success": true,
   "message": "获取成功",
-  "data": [
-    {
-      "caseId": "C987654",
-      "visitDate": "2023-08-15",
-      "diagnosis": "慢性支气管炎",
-      "prescription": "氨溴索片 30mg 每日两次",
-      "advice": "避免受凉，按时复诊"
-    },
-    {
-      "caseId": "C123456",
-      "visitDate": "2023-05-20",
-      "diagnosis": "上呼吸道感染",
-      "prescription": "对乙酰氨基酚 500mg 每日三次",
-      "advice": "多喝水，注意休息"
-    }
-  ]
+  "data": {
+    "cases": [
+      {
+        "caseId": "C987654",
+        "visitDate": "2023-08-15",
+        "diagnosis": "慢性支气管炎",
+        "prescription": "氨溴索片 30mg 每日两次",
+        "advice": "避免受凉，按时复诊"
+      },
+      {
+        "caseId": "C123456",
+        "visitDate": "2023-05-20",
+        "diagnosis": "上呼吸道感染",
+        "prescription": "对乙酰氨基酚 500mg 每日三次",
+        "advice": "多喝水，注意休息"
+      }
+    ]
+  }
 }
 ```
 
 #### 响应字段
 
-- `caseId (string)` 病例项唯一标识
-- `visitDate (string)` 就诊日期，格式 `yyyy-MM-dd`
-- `diagnosis (string)` 诊断结果
-- `prescription (string)` 处方
-- `advice (string)` 医嘱
+- `cases (array[object])` 所有符合条件的病例项
+  - `caseId (string)` 病例项唯一标识
+  - `visitDate (string)` 就诊日期，格式 `yyyy-MM-dd`
+  - `diagnosis (string)` 诊断结果
+  - `prescription (string)` 处方
+  - `advice (string)` 医嘱
 
 ---
 
@@ -1332,8 +1347,7 @@
 
 #### 响应字段
 
-- `topics (array)` 用户关联的话题列表
-
+- `topics (array[object])` 用户关联的话题列表
   - `topicId (string)` 话题唯一标识
   - `lastMessageTime (string)` 最近消息时间，格式 `yyyy-MM-ddTHH:mm:ss`
 
@@ -1441,8 +1455,7 @@
 
 #### 响应字段
 
-- `messages (array)` 消息列表
-
+- `messages (array[object])` 消息列表
   - `messageId (string)` 消息唯一标识
   - `senderId (string)` 发送者唯一标识
   - `senderName (string)` 发送者名字
