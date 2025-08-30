@@ -77,3 +77,10 @@ Doctor DatabaseOperator::getDoctorFromQuery(const QSqlQuery& query) {
         doctor.setDailyPatientLimit(DailyPatientLimit(dailyPatientLimit.toInt()));
     return doctor;
 }
+
+Attendance DatabaseOperator::getAttendanceFromQuery(const QSqlQuery& query) {
+    Id attendanceId(query.value(0).toString());
+    Id doctorId(query.value(1).toString());
+    QDateTime attendanceTime(query.value(2).toDateTime());
+    return Attendance(attendanceId, doctorId, attendanceTime);
+}

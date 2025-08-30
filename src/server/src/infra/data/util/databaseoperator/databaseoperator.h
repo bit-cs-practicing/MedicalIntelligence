@@ -3,6 +3,7 @@
 
 #include "core/src/domain/patient/patient.h"
 #include "core/src/domain/doctor/doctor.h"
+#include "core/src/domain/attendance/attendance.h"
 
 #include <QtSql>
 #include <QString>
@@ -14,6 +15,7 @@ public:
     static void addUserInfo(QSqlQuery *query, const User& user);
     static Patient getPatientFromQuery(const QSqlQuery& query);
     static Doctor getDoctorFromQuery(const QSqlQuery& query);
+    static Attendance getAttendanceFromQuery(const QSqlQuery& query);
 };
 
 #endif // DATABASEOPERATOR_H
