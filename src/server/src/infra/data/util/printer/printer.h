@@ -3,6 +3,7 @@
 
 #include "core/src/domain/patient/patient.h"
 #include "core/src/domain/doctor/doctor.h"
+#include "core/src/domain/attendance/attendance.h"
 
 #include <optional>
 
@@ -11,6 +12,7 @@ class Printer
 public:
     static void printPatient(const std::optional<Patient>& obj);
     static void printDoctor(const std::optional<Doctor>& obj);
+    static void printAttendance(const std::optional<Attendance>& obj);
 };
 
 #endif // PRINTER_H

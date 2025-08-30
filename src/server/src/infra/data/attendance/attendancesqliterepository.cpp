@@ -55,8 +55,11 @@ std::optional<Attendance> AttendanceSQLiteRepository::getLastByDoctorIdOrderedBy
 
 QList<Attendance> AttendanceSQLiteRepository::getAllByDoctorId(const Id &doctorId) const {
     QSqlQuery query(db);
-    query.exec("SELECT * FROM attandance WHERE WHERE doctorId = :doctorId;");
+    query.prepare("SELECT * FROM attendance WHERE doctorId = :doctorId;");
     query.bindValue(":doctorId", doctorId.getId());
+    bool result = query.exec();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
     QList<Attendance> que;
     while(query.next())
         que.push_back(DatabaseOperator::getAttendanceFromQuery(query));
