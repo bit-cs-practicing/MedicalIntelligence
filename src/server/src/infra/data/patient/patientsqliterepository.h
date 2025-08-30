@@ -3,7 +3,6 @@
 
 #include <QtSql/QSqlDatabase>
 #include <QString>
-#include <memory>
 #include <optional>
 
 #include "core/src/domain/patient/patientrepository.h"
