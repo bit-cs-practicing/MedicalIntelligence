@@ -13,6 +13,7 @@ public:
     void add(Credential credential);
     void revoke(const Credential& credential);
     bool contains(const Credential& crendential) const;
+    void check(const Credential& credential) const;
 private:
     QMap<QString, Credential> reg;
     mutable std::mutex mutex;

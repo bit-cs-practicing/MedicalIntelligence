@@ -7,7 +7,10 @@ class Birthday {
 public:
     explicit Birthday(QDate birthday);
 
+    static Birthday parse(const QString& str);
+
     const QDate& getValue() const;
+    QString toString() const;
 private:
     QDate birthday;
 };
