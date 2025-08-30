@@ -1,14 +1,14 @@
 #ifndef ATTENDANCESQLITEREPOSITORY_H
 #define ATTENDANCESQLITEREPOSITORY_H
 
-#include <QtSql/QSqlDatabase>
-#include <QString>
 #include <optional>
+
+#include <QString>
+#include <QtSql/QSqlDatabase>
 
 #include "domain/attendance/attendancerepository.h"
 
-class AttendanceSQLiteRepository : public AttendanceRepository
-{
+class AttendanceSQLiteRepository : public AttendanceRepository {
 public:
     AttendanceSQLiteRepository(const QString& path);
     ~AttendanceSQLiteRepository();

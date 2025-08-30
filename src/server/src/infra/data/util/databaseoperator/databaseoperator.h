@@ -1,15 +1,14 @@
 #ifndef DATABASEOPERATOR_H
 #define DATABASEOPERATOR_H
 
-#include "domain/patient/patient.h"
-#include "domain/doctor/doctor.h"
 #include "domain/attendance/attendance.h"
+#include "domain/doctor/doctor.h"
+#include "domain/patient/patient.h"
 
-#include <QtSql>
 #include <QString>
+#include <QtSql>
 
-class DatabaseOperator
-{
+class DatabaseOperator {
 public:
     static void createConnection(QSqlDatabase *db, const QString& identifier, const QString& path);
     static void addUserInfo(QSqlQuery *query, const User& user);

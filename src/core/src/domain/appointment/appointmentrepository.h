@@ -1,9 +1,11 @@
 #ifndef APPOINTMENTREPOSITORY_H
 #define APPOINTMENTREPOSITORY_H
 
-#include "appointment.h"
 #include <optional>
+
 #include <QList>
+
+#include "appointment.h"
 
 class AppointmentRepository {
 public:

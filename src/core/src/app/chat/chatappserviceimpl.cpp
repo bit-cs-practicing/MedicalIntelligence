@@ -1,7 +1,7 @@
 #include "chatappserviceimpl.h"
 
-#include <QList>
 #include <QJsonArray>
+#include <QList>
 
 ChatAppServiceImpl::ChatAppServiceImpl(
     std::shared_ptr<TopicRepository> topicRepository,

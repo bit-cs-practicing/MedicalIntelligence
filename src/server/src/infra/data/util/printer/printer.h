@@ -1,14 +1,13 @@
 #ifndef PRINTER_H
 #define PRINTER_H
 
-#include "domain/patient/patient.h"
-#include "domain/doctor/doctor.h"
-#include "domain/attendance/attendance.h"
-
 #include <optional>
 
-class Printer
-{
+#include "domain/attendance/attendance.h"
+#include "domain/doctor/doctor.h"
+#include "domain/patient/patient.h"
+
+class Printer {
 public:
     static void printPatient(const std::optional<Patient>& obj);
     static void printDoctor(const std::optional<Doctor>& obj);

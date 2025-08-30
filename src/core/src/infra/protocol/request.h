@@ -1,8 +1,8 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
-#include <QString>
 #include <QJsonObject>
+#include <QString>
 
 class Request {
 public:

@@ -1,8 +1,9 @@
 #ifndef CASEREPOSITORY_H
 #define CASEREPOSITORY_H
 
-#include "case.h"
 #include <optional>
+
+#include "case.h"
 
 class CaseRepository {
 public:

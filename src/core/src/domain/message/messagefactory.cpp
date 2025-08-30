@@ -1,7 +1,8 @@
 #include "messagefactory.h"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
+
 #include <QDateTime>
 
 MessageFactory::MessageFactory(std::shared_ptr<TopicRepository> topicRepository)

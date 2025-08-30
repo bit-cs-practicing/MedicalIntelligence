@@ -9,8 +9,7 @@ class CaseDataBrief;
 
 class MainWindow;
 
-class CaseDataBrief : public QWidget
-{
+class CaseDataBrief : public QWidget {
     Q_OBJECT
 
 public:

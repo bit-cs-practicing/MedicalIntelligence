@@ -2,8 +2,10 @@
 #include "casedatadetails.h"
 #include "mainwindow.h"
 #include "ui_casedatabrief.h"
+
 #include <QDate>
 #include <QJsonObject>
+
 CaseDataBrief::CaseDataBrief(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CaseDataBrief)
@@ -13,8 +15,7 @@ CaseDataBrief::CaseDataBrief(QWidget *parent) :
     ui->caseDateTime->setEnabled(false);
 }
 
-CaseDataBrief::~CaseDataBrief()
-{
+CaseDataBrief::~CaseDataBrief() {
     delete ui;
 }
 
@@ -23,8 +24,7 @@ void CaseDataBrief::setCaseInfo(QString caseId, QString date) {
     ui->caseId->setText(caseId);
 }
 
-void CaseDataBrief::on_details_clicked()
-{
+void CaseDataBrief::on_details_clicked() {
     CaseDataDetails *caseDetails = new CaseDataDetails;
     QJsonObject details = fatherMainWindow->queryByCaseId(ui->caseId->text());
     caseDetails->setCaseDataDetails(details);

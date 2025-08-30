@@ -2,9 +2,11 @@
 #define ATTENDANCEFACTORY_H
 
 #include <memory>
+
 #include <QTime>
 
-#include "../doctor/doctor.h"
+#include "domain/doctor/doctor.h"
+
 #include "attendancerepository.h"
 
 class AttendanceFactory {

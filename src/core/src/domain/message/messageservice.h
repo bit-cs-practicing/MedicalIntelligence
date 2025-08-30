@@ -2,10 +2,12 @@
 #define MESSAGESERVICE_H
 
 #include <memory>
+
 #include <QList>
 
-#include "../user/user.h"
-#include "../topic/topic.h"
+#include "domain/topic/topic.h"
+#include "domain/user/user.h"
+
 #include "message.h"
 #include "messagerepository.h"
 

@@ -3,8 +3,9 @@
 
 #include <memory>
 
-#include "../user/user.h"
-#include "../topic/topicrepository.h"
+#include "domain/topic/topicrepository.h"
+#include "domain/user/user.h"
+
 #include "message.h"
 
 class MessageFactory {
