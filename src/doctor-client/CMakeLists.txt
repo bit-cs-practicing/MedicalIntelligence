@@ -11,14 +11,9 @@ if(WIN32)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/../core/src)
-
-file(GLOB_RECURSE CORE_SOURCES "../core/src/**/*.cpp")
-file(GLOB_RECURSE CORE_SOURCES "../core/src/*.cpp")
-file(GLOB_RECURSE CORE_HEADERS "../core/src/**/*.h")
-file(GLOB_RECURSE CORE_HEADERS "../core/src/*.h")
+link_directories(${CMAKE_BINARY_DIR}/src/core)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-
 file(GLOB_RECURSE SOURCES "src/**/*.cpp")
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/**/*.h")
@@ -28,8 +23,8 @@ file(GLOB_RECURSE FORMS "src/*.ui")
 file(GLOB_RECURSE RESOURCES "src/**/*.qrc")
 file(GLOB_RECURSE RESOURCES "src/*.qrc")
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${FORMS} ${RESOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${FORMS} ${RESOURCES})
 
-target_link_libraries(doctor-client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network core)
 
-target_compile_definitions(doctor-client PRIVATE QT_DEPRECATED_WARNINGS)
+target_compile_definitions(${PROJECT_NAME} PRIVATE QT_DEPRECATED_WARNINGS)

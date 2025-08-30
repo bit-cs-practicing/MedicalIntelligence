@@ -11,14 +11,9 @@ if(WIN32)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/../core/src)
-
-file(GLOB_RECURSE CORE_SOURCES "../core/src/**/*.cpp")
-file(GLOB_RECURSE CORE_SOURCES "../core/src/*.cpp")
-file(GLOB_RECURSE CORE_HEADERS "../core/src/**/*.h")
-file(GLOB_RECURSE CORE_HEADERS "../core/src/*.h")
+link_directories(${CMAKE_BINARY_DIR}/src/core)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-
 file(GLOB_RECURSE SOURCES "src/**/*.cpp")
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/**/*.h")
@@ -28,7 +23,7 @@ file(GLOB_RECURSE RESOURCES "src/*.qrc")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${RESOURCES})
 
-target_link_libraries(server Qt5::Core Qt5::Network Qt5::Sql)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Network Qt5::Sql core)
 
-target_compile_definitions(server PRIVATE QT_DEPRECATED_WARNINGS)
+target_compile_definitions(${PROJECT_NAME} PRIVATE QT_DEPRECATED_WARNINGS)
 
