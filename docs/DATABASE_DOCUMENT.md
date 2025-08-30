@@ -129,9 +129,9 @@ CREATE TABLE attendance(
 键：
 - `caseId`: 病例ID，主键，非空。
 - `appointmentId`: 预约ID，外键关联预约表，非空。
-- `diagnosis`: 诊断信息
-- `prescription`: 处方信息
-- `advice`: 医嘱信息
+- `diagnosis`: 诊断信息，非空。
+- `prescription`: 处方信息，非空。
+- `advice`: 医嘱信息，非空
 - `visitDate`: 就诊日期，非空。
 
 建表：
@@ -202,13 +202,34 @@ CREATE TABLE message(
 表名：`topic`
 
 键：
+
 - `topicId`: 话题ID，主键，非空。
-- `participants`: 参与者ID列表（存储为JSON数组），非空。
+
+- `lastMessageTime`: 最后消息时间，非空。
 
 建表：
+
 ```sqlite
 CREATE TABLE topic(
     topicId TEXT PRIMARY KEY,
-    participants TEXT NOT NULL
+    lastMessageTime DATETIME NOT NULL
+);
+```
+
+## 参与者话题表
+
+表名：`participant-topic`
+
+键：
+- `topicId`: 话题ID，非空。
+- `participantId`: 参与者ID，非空。
+- `topicId` 与 `participantId` 构成联合主键。
+
+建表：
+```sqlite
+CREATE TABLE participant-topic(
+    topicId TEXT NOT NULL,
+    participantId TEXT NOT NULL,
+    PRIMARY KRY (topicId, participantId)
 );
 ```
