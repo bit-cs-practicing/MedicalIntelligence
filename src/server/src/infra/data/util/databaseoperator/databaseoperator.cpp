@@ -13,6 +13,14 @@ void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identif
     }
 }
 
+void addUserInfo(QSqlQuery *query, const User& user)
+{
+    query->bindValue(":id", user.getId().getId());
+    query->bindValue(":name", user.getName().getValue());
+    query->bindValue(":idCard", user.getIdCard().getValue());
+    query->bindValue(":password", user.getPassword().getValue());
+}
+
 Patient DatabaseOperator::getPatientFromQuery(const QSqlQuery& query) {
 //    qDebug() << "1";
     Name name(query.value(1).toString());

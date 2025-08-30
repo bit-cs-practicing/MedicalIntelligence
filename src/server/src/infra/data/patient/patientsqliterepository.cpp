@@ -20,11 +20,7 @@ void PatientSQLiteRepository::save(const Patient &patient) {
         "VALUES (:id,:name,:idCard,:password,"
         ":gender,:phone,:birthday,:email,:emergencyContact);"
     );
-
-    query.bindValue(":id", patient.getId().getId());
-    query.bindValue(":name", patient.getName().getValue());
-    query.bindValue(":idCard", patient.getIdCard().getValue());
-    query.bindValue(":password", patient.getPassword().getValue());
+    DatabaseOperator::addUserInfo(&query, patient);
     query.bindValue(":gender", patient.getGender().getValue());
     query.bindValue(":phone", patient.getPhone().getValue());
     if (patient.getBirthday().has_value())
