@@ -3,7 +3,7 @@
 
 #include <QString>
 
-#include "../../domain/id.h"
+#include "domain/id.h"
 
 class Credential {
 public:

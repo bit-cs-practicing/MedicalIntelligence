@@ -1,7 +1,8 @@
 #ifndef LEAVERECORD_H
 #define LEAVERECORD_H
 
-#include "../id.h"
+#include "domain/id.h"
+
 #include "leaveperiod.h"
 #include "leavestatus.h"
 

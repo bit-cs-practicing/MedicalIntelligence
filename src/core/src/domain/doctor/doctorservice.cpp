@@ -1,7 +1,7 @@
 #include "doctorservice.h"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 DoctorService::DoctorService() {
 

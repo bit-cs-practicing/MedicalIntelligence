@@ -3,14 +3,15 @@
 
 #include <memory>
 
-#include "../../domain/attendance/attendance.h"
-#include "../../domain/attendance/attendancerepository.h"
-#include "../../domain/attendance/attendancefactory.h"
-#include "../../domain/leave/leaverecordrepository.h"
-#include "../../domain/leave/leaverecordfactory.h"
-#include "../../domain/leave/leaverecordservice.h"
-#include "../../domain/doctor/doctorrepository.h"
-#include "../../infra/security/credentialregistry.h"
+#include "domain/attendance/attendance.h"
+#include "domain/attendance/attendancefactory.h"
+#include "domain/attendance/attendancerepository.h"
+#include "domain/doctor/doctorrepository.h"
+#include "domain/leave/leaverecordfactory.h"
+#include "domain/leave/leaverecordrepository.h"
+#include "domain/leave/leaverecordservice.h"
+#include "infra/security/credentialregistry.h"
+
 #include "attendanceappservice.h"
 
 class AttendanceAppServiceImpl : public AttendanceAppService {

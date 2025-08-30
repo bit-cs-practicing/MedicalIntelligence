@@ -1,15 +1,18 @@
 #include "attendancesqliterepository.h"
-#include "../util/databaseoperator/databaseoperator.h"
 
-#include <QVariant>
-#include <QtSql/QSqlQuery>
 #include <QDebug>
+#include <QtSql/QSqlQuery>
+#include <QVariant>
+
+#include "infra/data/util/databaseoperator/databaseoperator.h"
 
 AttendanceSQLiteRepository::AttendanceSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Attendance", path);
 }
 
-AttendanceSQLiteRepository::~AttendanceSQLiteRepository() {db.close();}
+AttendanceSQLiteRepository::~AttendanceSQLiteRepository() {
+    db.close();
+}
 
 void AttendanceSQLiteRepository::save(const Attendance &attendance) {
     QSqlQuery query(db);

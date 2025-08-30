@@ -1,7 +1,7 @@
 #include "appointmentservice.h"
 
-#include <stdexcept>
 #include <cassert>
+#include <stdexcept>
 
 AppointmentService::AppointmentService() {
 

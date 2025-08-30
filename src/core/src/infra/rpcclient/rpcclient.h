@@ -1,14 +1,14 @@
-#ifndef CLIENT_H
-#define CLIENT_H
+#ifndef RPCCLIENT_H
+#define RPCCLIENT_H
 
+#include <QEventLoop>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTimer>
-#include <QEventLoop>
 
-#include "../protocol/request.h"
-#include "../protocol/response.h"
-#include "../protocol/responseparser.h"
+#include "infra/protocol/request.h"
+#include "infra/protocol/response.h"
+#include "infra/protocol/responseparser.h"
 
 class RpcClient: public QObject {
     Q_OBJECT
@@ -34,4 +34,4 @@ private slots:
     void slotTimeout();
 };
 
-#endif // CLIENT_H
+#endif // RPCCLIENT_H

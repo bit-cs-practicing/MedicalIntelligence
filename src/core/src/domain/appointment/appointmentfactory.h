@@ -3,12 +3,13 @@
 
 #include <memory>
 
+#include "domain/doctor/doctor.h"
+#include "domain/doctor/doctorfactory.h"
+#include "domain/leave/leaverecordrepository.h"
+#include "domain/patient/patient.h"
+
 #include "appointment.h"
 #include "appointmentrepository.h"
-#include "../patient/patient.h"
-#include "../doctor/doctor.h"
-#include "../doctor/doctorfactory.h"
-#include "../leave/leaverecordrepository.h"
 
 class AppointmentFactory {
 public:

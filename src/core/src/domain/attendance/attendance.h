@@ -1,9 +1,9 @@
 #ifndef ATTENDANCE_H
 #define ATTENDANCE_H
 
-#include "../id.h"
-
 #include <QDateTime>
+
+#include "domain/id.h"
 
 class Attendance {
 public:

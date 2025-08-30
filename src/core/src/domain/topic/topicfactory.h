@@ -2,12 +2,14 @@
 #define TOPICFACTORY_H
 
 #include <memory>
+
 #include <QList>
 
-#include "../patient/patient.h"
-#include "../patient/patientrepository.h"
-#include "../doctor/doctor.h"
-#include "../doctor/doctorrepository.h"
+#include "domain/doctor/doctor.h"
+#include "domain/doctor/doctorrepository.h"
+#include "domain/patient/patient.h"
+#include "domain/patient/patientrepository.h"
+
 #include "topic.h"
 
 class TopicFactory {

@@ -1,9 +1,11 @@
 #ifndef TOPICREPOSITORY_H
 #define TOPICREPOSITORY_H
 
-#include "topic.h"
 #include <optional>
+
 #include <QList>
+
+#include "topic.h"
 
 class TopicRepository {
 public:

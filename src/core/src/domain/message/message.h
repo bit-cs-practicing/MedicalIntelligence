@@ -3,8 +3,9 @@
 
 #include <QDateTime>
 
-#include "../id.h"
-#include "../user/name.h"
+#include "domain/id.h"
+#include "domain/user/name.h"
+
 #include "messagecontent.h"
 
 class Message {

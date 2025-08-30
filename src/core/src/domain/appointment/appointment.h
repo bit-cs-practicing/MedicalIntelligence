@@ -1,12 +1,13 @@
 #ifndef APPOINTMENT_H
 #define APPOINTMENT_H
 
-#include <QString>
 #include <QDate>
+#include <QString>
 
-#include "../id.h"
-#include "appointmenttimeslot.h"
+#include "domain/id.h"
+
 #include "appointmentstatus.h"
+#include "appointmenttimeslot.h"
 
 class Appointment {
 public:

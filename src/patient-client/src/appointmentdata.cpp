@@ -1,7 +1,9 @@
 #include "appointmentdata.h"
 #include "ui_appointmentdata.h"
+
 #include <QJsonObject>
 #include <QMessageBox>
+
 AppointmentData::AppointmentData(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AppointmentData)
@@ -13,8 +15,7 @@ AppointmentData::AppointmentData(QWidget *parent) :
     ui->status->setEnabled(false);
 }
 
-AppointmentData::~AppointmentData()
-{
+AppointmentData::~AppointmentData() {
     delete ui;
 }
 
@@ -27,8 +28,7 @@ void AppointmentData::setAppointmentData(QString appId, QString doctorId, QStrin
     else ui->cancelBtn->setEnabled(false);
 }
 
-void AppointmentData::on_cancelBtn_clicked()
-{
+void AppointmentData::on_cancelBtn_clicked() {
     QMessageBox::StandardButton reply = QMessageBox::question(
         this,
         "确认操作",

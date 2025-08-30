@@ -1,8 +1,8 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
-#include <QString>
 #include <QJsonObject>
+#include <QString>
 
 class Response {
 public:

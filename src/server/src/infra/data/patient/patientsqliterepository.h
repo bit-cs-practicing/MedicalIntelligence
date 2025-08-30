@@ -1,14 +1,13 @@
 #ifndef PATIENTSQLITEREPOSITORY_H
 #define PATIENTSQLITEREPOSITORY_H
 
-#include <QtSql/QSqlDatabase>
-#include <QString>
 #include <optional>
+#include <QString>
+#include <QtSql/QSqlDatabase>
 
-#include "core/src/domain/patient/patientrepository.h"
+#include "domain/patient/patientrepository.h"
 
-class PatientSQLiteRepository : public PatientRepository
-{
+class PatientSQLiteRepository : public PatientRepository {
 public:
     PatientSQLiteRepository(const QString& path);
     ~PatientSQLiteRepository();

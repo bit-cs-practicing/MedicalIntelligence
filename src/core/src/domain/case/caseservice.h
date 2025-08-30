@@ -4,9 +4,10 @@
 #include <memory>
 #include <optional>
 
+#include "domain/appointment/appointmentrepository.h"
+#include "domain/doctor/doctor.h"
+
 #include "case.h"
-#include "../doctor/doctor.h"
-#include "../appointment/appointmentrepository.h"
 
 class CaseService {
 public:

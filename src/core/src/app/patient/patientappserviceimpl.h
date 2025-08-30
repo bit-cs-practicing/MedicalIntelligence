@@ -3,12 +3,13 @@
 
 #include <memory>
 
-#include "../../domain/patient/patient.h"
-#include "../../domain/patient/patientrepository.h"
-#include "../../domain/patient/patientfactory.h"
-#include "../../domain/patient/patientservice.h"
-#include "../../infra/security/credential.h"
-#include "../../infra/security/credentialregistry.h"
+#include "domain/patient/patient.h"
+#include "domain/patient/patientfactory.h"
+#include "domain/patient/patientrepository.h"
+#include "domain/patient/patientservice.h"
+#include "infra/security/credential.h"
+#include "infra/security/credentialregistry.h"
+
 #include "patientappservice.h"
 
 class PatientAppServiceImpl : public PatientAppService {
