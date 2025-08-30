@@ -1,6 +1,7 @@
 #include "messagefactory.h"
 
 #include <stdexcept>
+#include <cassert>
 #include <QDateTime>
 
 MessageFactory::MessageFactory(std::shared_ptr<TopicRepository> topicRepository)
@@ -8,16 +9,19 @@ MessageFactory::MessageFactory(std::shared_ptr<TopicRepository> topicRepository)
 {
 }
 
-Message MessageFactory::createMessage(const User &sender, const Topic& topic, MessageContent content) const {
-    checkSenderInTopic(sender, topic);
-    return Message(
+Message MessageFactory::createMessage(const User &sender, Topic* topic, MessageContent content) const {
+    assert(topic != nullptr);
+    checkSenderInTopic(sender, *topic);
+    auto message = Message(
         Id::fromUuid(),
-        topic.getTopicId(),
+        topic->getTopicId(),
         sender.getId(),
         sender.getName(),
         content,
         QDateTime::currentDateTime()
     );
+    topic->setLastMessageTime(message.getTime());
+    return message;
 }
 
 void MessageFactory::checkSenderInTopic(const User &sender, const Topic& topic) const {
