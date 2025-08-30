@@ -1,14 +1,6 @@
-cmake_minimum_required(VERSION 3.10.0)
-
-set(CMAKE_SH "CMAKE_SH-NOTFOUND")
-
 project(server)
 
 find_package(Qt5 REQUIRED Core Network Sql)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -19,12 +11,14 @@ if(WIN32)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/../core/src)
+
 file(GLOB_RECURSE CORE_SOURCES "../core/src/**/*.cpp")
 file(GLOB_RECURSE CORE_SOURCES "../core/src/*.cpp")
 file(GLOB_RECURSE CORE_HEADERS "../core/src/**/*.h")
 file(GLOB_RECURSE CORE_HEADERS "../core/src/*.h")
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
+
 file(GLOB_RECURSE SOURCES "src/**/*.cpp")
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/**/*.h")
