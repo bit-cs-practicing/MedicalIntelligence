@@ -5,7 +5,7 @@
 #include <QString>
 #include <optional>
 
-#include "core/src/domain/attendance/attendancerepository.h"
+#include "domain/attendance/attendancerepository.h"
 
 class AttendanceSQLiteRepository : public AttendanceRepository
 {

@@ -18,24 +18,21 @@ if(WIN32)
   set(CMAKE_WIN32_EXECUTABLE ON)
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
+include_directories(${PROJECT_SOURCE_DIR}/../core/src)
 file(GLOB_RECURSE CORE_SOURCES "../core/src/**/*.cpp")
 file(GLOB_RECURSE CORE_SOURCES "../core/src/*.cpp")
 file(GLOB_RECURSE CORE_HEADERS "../core/src/**/*.h")
 file(GLOB_RECURSE CORE_HEADERS "../core/src/*.h")
 
-include_directories(${CMAKE_SOURCE_DIR}/../core/src)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 file(GLOB_RECURSE SOURCES "src/**/*.cpp")
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/**/*.h")
 file(GLOB_RECURSE HEADERS "src/*.h")
-file(GLOB_RECURSE FORMS "src/**/*.ui")
-file(GLOB_RECURSE FORMS "src/*.ui")
 file(GLOB_RECURSE RESOURCES "src/**/*.qrc")
 file(GLOB_RECURSE RESOURCES "src/*.qrc")
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${FORMS} ${RESOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${RESOURCES})
 
 target_link_libraries(server Qt5::Core Qt5::Network Qt5::Sql)
 

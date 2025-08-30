@@ -17,14 +17,15 @@ if(WIN32)
   set(CMAKE_WIN32_EXECUTABLE ON)
 endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/../core/src)
 
 file(GLOB_RECURSE CORE_SOURCES "../core/src/**/*.cpp")
 file(GLOB_RECURSE CORE_SOURCES "../core/src/*.cpp")
 file(GLOB_RECURSE CORE_HEADERS "../core/src/**/*.h")
 file(GLOB_RECURSE CORE_HEADERS "../core/src/*.h")
 
-include_directories(${CMAKE_SOURCE_DIR}/../core/src)
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
 file(GLOB_RECURSE SOURCES "src/**/*.cpp")
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/**/*.h")

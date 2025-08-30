@@ -5,7 +5,7 @@
 #include <QString>
 #include <optional>
 
-#include "core/src/domain/doctor/doctorrepository.h"
+#include "domain/doctor/doctorrepository.h"
 
 class DoctorSQLiteRepository : public DoctorRepository
 {

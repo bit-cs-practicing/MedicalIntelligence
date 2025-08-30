@@ -1,9 +1,9 @@
 #ifndef PRINTER_H
 #define PRINTER_H
 
-#include "core/src/domain/patient/patient.h"
-#include "core/src/domain/doctor/doctor.h"
-#include "core/src/domain/attendance/attendance.h"
+#include "domain/patient/patient.h"
+#include "domain/doctor/doctor.h"
+#include "domain/attendance/attendance.h"
 
 #include <optional>
 
