@@ -31,11 +31,11 @@
 CREATE TABLE patient(
     id TEXT PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
-    idCard TEXT NOT NULL,
+    idCard TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     gender TEXT NOT NULL,
     phone TEXT NOT NULL,
-    birthday TEXT,
+    birthday DATE,
     email TEXT,
     emergencyContact TEXT
 );
