@@ -31,11 +31,11 @@
 CREATE TABLE patient(
     id TEXT PRIMARY KEY NOT NULL,
     name TEXT NOT NULL,
-    idCard TEXT NOT NULL,
+    idCard TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     gender TEXT NOT NULL,
     phone TEXT NOT NULL,
-    birthday TEXT,
+    birthday DATE,
     email TEXT,
     emergencyContact TEXT
 );
@@ -54,7 +54,8 @@ CREATE TABLE patient(
 - `department`: 医生科室。
 - `profile`: 医生简介。
 - `photo`: 医生照片URL。
-- `workSchedule`: 医生工作日程。
+- `startTime`: 医生工作开始时间。
+- `endTime`: 医生工作结束时间。
 - `registrationFee`: 医生挂号费用。
 - `dailyPatientLimit`: 医生每日患者限制。
 
@@ -69,7 +70,8 @@ CREATE TABLE doctor(
     department TEXT,
     profile TEXT,
     photo TEXT,
-    workSchedule TEXT,
+    startTime DATETIME,
+    endTime DATETIME,
     registrationFee REAL,
     dailyPatientLimit INTEGER
 );
@@ -85,7 +87,7 @@ CREATE TABLE doctor(
 - `patientId`: 患者ID，外键关联患者表，非空。
 - `date`: 预约日期，非空。
 - `timeSlot`: 预约时间段，非空。
-- `status`: 预约状态（SCHEDULED/COMPLETED/CANCELLED）
+- `status`: 预约状态（SCHEDULED/COMPLETED/CANCELLED），非空。
 
 建表：
 ```sqlite
@@ -93,8 +95,8 @@ CREATE TABLE appointment(
     appointmentId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
     patientId TEXT NOT NULL,
-    date TEXT NOT NULL,
-    timeSlot TEXT NOT NULL,
+    date DATE NOT NULL,
+    timeSlot DATETIME NOT NULL,
     status TEXT NOT NULL,
     FOREIGN KEY (doctorId) REFERENCES doctor(id),
     FOREIGN KEY (patientId) REFERENCES patient(id)
@@ -106,16 +108,16 @@ CREATE TABLE appointment(
 表名：`attendance`
 
 键：
-- `attendanceId`: 考勤ID，主键
-- `doctorId`: 医生ID，外键关联医生表
-- `attendanceTime`: 考勤时间
+- `attendanceId`: 考勤ID，主键，非空。
+- `doctorId`: 医生ID，外键关联医生表，非空。
+- `attendanceTime`: 考勤时间，非空。
 
 建表：
 ```sqlite
 CREATE TABLE attendance(
     attendanceId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
-    attendanceTime TEXT NOT NULL,
+    attendanceTime DATETIME NOT NULL,
     FOREIGN KEY (doctorId) REFERENCES doctor(id)
 );
 ```
@@ -125,12 +127,12 @@ CREATE TABLE attendance(
 表名：`case`
 
 键：
-- `caseId`: 病例ID，主键
-- `appointmentId`: 预约ID，外键关联预约表
+- `caseId`: 病例ID，主键，非空。
+- `appointmentId`: 预约ID，外键关联预约表，非空。
 - `diagnosis`: 诊断信息
 - `prescription`: 处方信息
 - `advice`: 医嘱信息
-- `visitDate`: 就诊日期
+- `visitDate`: 就诊日期，非空。
 
 建表：
 ```sqlite
@@ -140,7 +142,7 @@ CREATE TABLE case(
     diagnosis TEXT NOT NULL,
     prescription TEXT NOT NULL,
     advice TEXT NOT NULL,
-    visitDate TEXT NOT NULL,
+    visitDate DATE NOT NULL,
     FOREIGN KEY (appointmentId) REFERENCES appointment(appointmentId)
 );
 ```
@@ -152,19 +154,19 @@ CREATE TABLE case(
 表名：`leave_record`
 
 键：
-- `leaveId`: 请假ID，主键
-- `doctorId`: 医生ID，外键关联医生表
-- `startTime`: 请假开始时间
-- `endTime`: 请假结束时间
-- `status`: 请假状态（ACTIVE/CANCELED）
+- `leaveId`: 请假ID，主键，非空。
+- `doctorId`: 医生ID，外键关联医生表，非空。
+- `startTime`: 请假开始时间，非空。
+- `endTime`: 请假结束时间，非空。
+- `status`: 请假状态（ACTIVE/CANCELED），非空。
 
 建表：
 ```sqlite
 CREATE TABLE leave_record(
     leaveId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
-    startTime TEXT NOT NULL,
-    endTime TEXT NOT NULL,
+    startTime DATETIME NOT NULL,
+    endTime DATETIME NOT NULL,
     status TEXT NOT NULL,
     FOREIGN KEY (doctorId) REFERENCES doctor(id)
 );
@@ -175,12 +177,12 @@ CREATE TABLE leave_record(
 表名：`message`
 
 键：
-- `messageId`: 消息ID，主键
-- `topicId`: 话题ID，外键关联话题表
-- `senderId`: 发送者ID
-- `senderName`: 发送者姓名
-- `content`: 消息内容
-- `time`: 发送时间
+- `messageId`: 消息ID，主键，非空。
+- `topicId`: 话题ID，外键关联话题表，非空。
+- `senderId`: 发送者ID，非空。
+- `senderName`: 发送者姓名，非空。
+- `content`: 消息内容，非空。
+- `sendTime`: 发送时间，非空。
 
 建表：
 ```sqlite
@@ -190,7 +192,7 @@ CREATE TABLE message(
     senderId TEXT NOT NULL,
     senderName TEXT NOT NULL,
     content TEXT NOT NULL,
-    time TEXT NOT NULL,
+    sendTime DATETIME NOT NULL,
     FOREIGN KEY (topicId) REFERENCES topic(topicId)
 );
 ```
@@ -200,8 +202,8 @@ CREATE TABLE message(
 表名：`topic`
 
 键：
-- `topicId`: 话题ID，主键
-- `participants`: 参与者ID列表（存储为JSON数组）
+- `topicId`: 话题ID，主键，非空。
+- `participants`: 参与者ID列表（存储为JSON数组），非空。
 
 建表：
 ```sqlite
