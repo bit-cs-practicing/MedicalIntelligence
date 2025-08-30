@@ -1,10 +1,14 @@
 #include <QCoreApplication>
 #include <QDebug>
+#include <QDateTime>
+#include <QDate>
+#include <QTime>
 #include <iostream>
 #include <optional>
 
 #include "infra/data/doctor/doctorsqliterepository.h"
 #include "infra/data/util/printer/printer.h"
+#include "infra/data/attendance/attendancesqliterepository.h"
 
 
 int main(int argc, char *argv[]) {
@@ -33,5 +37,18 @@ int main(int argc, char *argv[]) {
     qDebug() << "List:";
     for (Doctor ch: que) Printer::printDoctor(ch);
     qDebug() << "end";
+
+    AttendanceSQLiteRepository attendanceRepository("E:/project/MedicalIntelligence/build/"
+    "build-MedicalIntelligence-Desktop_Qt_5_12_8_MinGW_64_bit-Debug/doctor_test.db");
+    Attendance record1(Id("attendance1"), user1.getId(), QDateTime(QDate(1999,9,9),QTime(22,31,27)));
+    Attendance record2(Id("attendance5"), user2.getId(), QDateTime(QDate(2099,2,28),QTime(10,20,17)));
+    Attendance record3(Id("attendance6"), user1.getId(), QDateTime(QDate(1009,2,28),QTime(10,20,17)));
+    attendanceRepository.save(record1);
+    attendanceRepository.save(record2);
+    attendanceRepository.save(record3);
+    QList<Attendance> Record4 = attendanceRepository.getAllByDoctorId(user1.getId());
+    qDebug() << "List:";
+    for (auto record: Record4) Printer::printAttendance(record);
+
     return a.exec();
 }

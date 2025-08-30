@@ -39,3 +39,14 @@ void Printer::printDoctor(const std::optional<Doctor>& obj)
              << startTime << '|' << endTime << '|'
              << fee << '|' << limit;
 }
+
+void Printer::printAttendance(const std::optional<Attendance>& obj)
+{
+    if (!obj.has_value()) {
+        qDebug() << "Record aren't existed";
+        return;
+    }
+    Attendance p = obj.value();
+    qDebug() << p.getAttendanceId().getId() << '|' << p.getDoctorId().getId() << '|'
+             << p.getAttendanceTime().toString(Qt::ISODate);
+}
