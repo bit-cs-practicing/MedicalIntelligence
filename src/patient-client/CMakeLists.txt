@@ -18,6 +18,7 @@ if(WIN32)
 endif()
 
 include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 file(GLOB_RECURSE CORE_SOURCES "../core/src/**/*.cpp")
 file(GLOB_RECURSE CORE_SOURCES "../core/src/*.cpp")
@@ -34,7 +35,10 @@ file(GLOB_RECURSE FORMS "src/*.ui")
 file(GLOB_RECURSE RESOURCES "src/**/*.qrc")
 file(GLOB_RECURSE RESOURCES "src/*.qrc")
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${FORMS} ${RESOURCES})
+add_executable(
+    ${PROJECT_NAME}
+    ${SOURCES} ${HEADERS} ${CORE_SOURCES} ${CORE_HEADERS} ${FORMS} ${RESOURCES}
+)
 
 target_link_libraries(patient-client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network)
 

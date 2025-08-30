@@ -93,3 +93,10 @@ Appointment DatabaseOperator::getAppointmentFromQuery(const QSqlQuery& query) {
         appointment.markAsCancelled();
     return appointment;
 }
+
+Attendance DatabaseOperator::getAttendanceFromQuery(const QSqlQuery& query) {
+    Id attendanceId(query.value(0).toString());
+    Id doctorId(query.value(1).toString());
+    QDateTime attendanceTime(query.value(2).toDateTime());
+    return Attendance(attendanceId, doctorId, attendanceTime);
+}
