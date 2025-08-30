@@ -59,3 +59,12 @@ std::optional<Patient> PatientSQLiteRepository::getByIdCard(const IdCard &idCard
     if (!query.next()) return std::nullopt;
     return DatabaseOperator::getPatientFromQuery(query);
 }
+
+std::optional<Patient> PatientSQLiteRepository::getFirstByName(const Name &name) const {
+    QSqlQuery query(db);
+    query.prepare("SELECT * FROM patient WHERE name = :name;");
+    query.bindValue(":name", name.getValue());
+    query.exec();
+    if (!query.next()) return std::nullopt;
+    return DatabaseOperator::getPatientFromQuery(query);
+}
