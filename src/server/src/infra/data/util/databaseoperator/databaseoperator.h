@@ -12,7 +12,8 @@ class DatabaseOperator
 public:
     static void createConnection(QSqlDatabase *db, const QString& identifier, const QString& path);
     static void addUserInfo(QSqlQuery *query, const User& user);
-    static Patient DatabaseOperator::getPatientFromQuery(const QSqlQuery& query);
+    static Patient getPatientFromQuery(const QSqlQuery& query);
+    static Doctor getDoctorFromQuery(const QSqlQuery& query);
 };
 
 #endif // DATABASEOPERATOR_H

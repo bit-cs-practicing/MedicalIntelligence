@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QUuid>
 #include <QtSql>
+#include <QUrl>
 
 void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identifier, const QString& path) {
     *db = QSqlDatabase::addDatabase("QSQLITE", identifier + QUuid::createUuid().toString());
@@ -13,7 +14,7 @@ void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identif
     }
 }
 
-void addUserInfo(QSqlQuery *query, const User& user)
+void DatabaseOperator::addUserInfo(QSqlQuery *query, const User& user)
 {
     query->bindValue(":id", user.getId().getId());
     query->bindValue(":name", user.getName().getValue());
@@ -21,27 +22,58 @@ void addUserInfo(QSqlQuery *query, const User& user)
     query->bindValue(":password", user.getPassword().getValue());
 }
 
+bool isEmpty(const QVariant& obj) {return obj.isNull() || obj.toString() == "";}
+
 Patient DatabaseOperator::getPatientFromQuery(const QSqlQuery& query) {
-//    qDebug() << "1";
     Name name(query.value(1).toString());
     IdCard idCard(query.value(2).toString());
     Password password(query.value(3).toString());
     Gender gender(query.value(4).toString());
     Phone phone(query.value(5).toString());
     Patient patient(name, idCard, gender, phone, password);
-//    qDebug() << "7";
 
     QVariant birthday = query.value(6);
-    if (!birthday.isNull() && birthday.toString() != "")
+    if (!isEmpty(birthday))
         patient.setBirthday(Birthday(birthday.toDate()));
-//    qDebug() << "9";
+
     QVariant email = query.value(7);
-    if (!email.isNull() && email.toString() != "")
+    if (!isEmpty(email))
         patient.setEmail(Email(email.toString()));
-//    qDebug() << "11";
     QVariant emergencyContact = query.value(8);
-    if (!emergencyContact.isNull() && emergencyContact.toString() != "")
+    if (!isEmpty(emergencyContact))
         patient.setEmergencyContact(Phone(emergencyContact.toString()));
-//    qDebug() << "13";
     return patient;
+}
+
+Doctor DatabaseOperator::getDoctorFromQuery(const QSqlQuery& query) {
+    Name name(query.value(1).toString());
+    IdCard idCard(query.value(2).toString());
+    Password password(query.value(3).toString());
+    Doctor doctor(name, idCard, password);
+
+    QVariant employeeId = query.value(4);
+    if (!isEmpty(employeeId))
+        doctor.setEmployeeId(EmployeeId(employeeId.toString()));
+    QVariant department = query.value(5);
+    if (!isEmpty(department))
+        doctor.setDepartment(Department(department.toString()));
+    QVariant profile = query.value(6);
+    if (!isEmpty(profile))
+        doctor.setProfile(Profile(profile.toString()));
+    QVariant photo = query.value(7);
+    if (!isEmpty(photo))
+        doctor.setPhoto(QUrl(photo.toString()));
+
+    QVariant startTime = query.value(8);
+    QVariant endTime = query.value(9);
+    if (!isEmpty(startTime) && !isEmpty(endTime))
+        doctor.setWorkSchedule(WorkSchedule(startTime.toTime(), endTime.toTime()));
+
+    QVariant registrationFee = query.value(10);
+    if (!isEmpty(registrationFee))
+        doctor.setRegistrationFee(RegistrationFee(registrationFee.toReal()));
+    QVariant dailyPatientLimit = query.value(11);
+    if (!isEmpty(dailyPatientLimit))
+        doctor.setDailyPatientLimit(DailyPatientLimit(dailyPatientLimit.toInt()));
+    return doctor;
 }
