@@ -7,14 +7,12 @@
 #include <QDebug>
 
 PatientSQLiteRepository::PatientSQLiteRepository(const QString& path) {
-//    qDebug() << "try to open";
     db = QSqlDatabase::addDatabase("QSQLITE", "Patient" + QUuid::createUuid().toString());
-//    qDebug() << "try to set";
     db.setDatabaseName(path);
 //    qDebug() << "set over";
     if (!db.open()) {
-//        qDebug() << "open failed.";
-        throw std::system_error();
+        QString msg = QString("Fail to open the database from %1").arg(path);
+        throw std::runtime_error(msg.toStdString());
     }
 //    qDebug() << "over";
 }
