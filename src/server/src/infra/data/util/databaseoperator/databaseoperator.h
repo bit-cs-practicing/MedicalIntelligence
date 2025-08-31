@@ -7,6 +7,7 @@
 #include "domain/attendance/attendance.h"
 #include "domain/case/case.h"
 #include "domain/leave/leaverecord.h"
+#include "domain/message/message.h"
 
 #include <QtSql>
 
@@ -20,6 +21,7 @@ public:
     static Attendance getAttendanceFromQuery(const QSqlQuery& query);
     static Case getCaseFromQuery(const QSqlQuery& query);
     static LeaveRecord getLeaveRecordFromQuery(const QSqlQuery& query);
+    static Message getMessageFromQuery(const QSqlQuery& query);
 };
 
 #endif // DATABASEOPERATOR_H

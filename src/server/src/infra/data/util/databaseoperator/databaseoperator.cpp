@@ -123,3 +123,13 @@ LeaveRecord DatabaseOperator::getLeaveRecordFromQuery(const QSqlQuery& query) {
         leaveRecord.cancelLeave();
     return leaveRecord;
 }
+
+Message DatabaseOperator::getMessageFromQuery(const QSqlQuery& query) {
+    Id messageId(query.value(0).toString());
+    Id topicId(query.value(1).toString());
+    Id senderId(query.value(2).toString());
+    Name senderName(query.value(3).toString());
+    MessageContent content(query.value(4).toString());
+    QDateTime sendTime(query.value(5).toDateTime());
+    return Message(messageId,topicId,senderId,senderName,content,sendTime);
+}
