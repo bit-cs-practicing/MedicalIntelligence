@@ -9,6 +9,8 @@
 #include "domain/appointment/appointment.h"
 #include "domain/case/case.h"
 #include "domain/leave/leaverecord.h"
+#include "domain/message/message.h"
+#include "domain/topic/topic.h"
 
 class Printer {
 public:
@@ -18,6 +20,8 @@ public:
     static void printAppointment(const std::optional<Appointment>& obj);
     static void printCase(const std::optional<Case>& obj);
     static void printLeaveRecord(const std::optional<LeaveRecord>& obj);
+    static void printMessage(const std::optional<Message>& obj);
+    static void printTopic(const std::optional<Topic>& obj);
 };
 
 #endif // PRINTER_H
