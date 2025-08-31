@@ -99,7 +99,7 @@ CREATE TABLE appointment(
     date DATE NOT NULL,
     startTime DATETIME NOT NULL,
     endTime DATETIME NOT NULL,
-    status TEXT NOT NULL,
+    status TEXT NOT NULL
 );
 ```
 
@@ -117,7 +117,7 @@ CREATE TABLE appointment(
 CREATE TABLE attendance(
     attendanceId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
-    attendanceTime DATETIME NOT NULL,
+    attendanceTime DATETIME NOT NULL
 );
 ```
 
@@ -141,7 +141,7 @@ CREATE TABLE cases(
     diagnosis TEXT NOT NULL,
     prescription TEXT NOT NULL,
     advice TEXT NOT NULL,
-    visitDate DATE NOT NULL,
+    visitDate DATE NOT NULL
 );
 ```
 
@@ -165,7 +165,7 @@ CREATE TABLE leaveRecord(
     doctorId TEXT NOT NULL,
     startTime DATETIME NOT NULL,
     endTime DATETIME NOT NULL,
-    status TEXT NOT NULL,
+    status TEXT NOT NULL
 );
 ```
 
@@ -189,7 +189,7 @@ CREATE TABLE message(
     senderId TEXT NOT NULL,
     senderName TEXT NOT NULL,
     content TEXT NOT NULL,
-    sendTime DATETIME NOT NULL,
+    sendTime DATETIME NOT NULL
 );
 ```
 
