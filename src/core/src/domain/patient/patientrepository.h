@@ -13,6 +13,7 @@ public:
 
     virtual std::optional<Patient> getById(const Id& id) const = 0;
     virtual std::optional<Patient> getByIdCard(const IdCard& idCard) const = 0;
+    virtual std::optional<Patient> getFirstByName(const Name &name) const = 0;
 };
 
 #endif // PATIENTREPOSITORY_H

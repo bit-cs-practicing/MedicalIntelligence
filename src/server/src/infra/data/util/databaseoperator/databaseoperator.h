@@ -1,9 +1,10 @@
 #ifndef DATABASEOPERATOR_H
 #define DATABASEOPERATOR_H
 
-#include "domain/attendance/attendance.h"
-#include "domain/doctor/doctor.h"
 #include "domain/patient/patient.h"
+#include "domain/doctor/doctor.h"
+#include "domain/appointment/appointment.h"
+#include "domain/attendance/attendance.h"
 
 #include "domain/case/case.h"
 
@@ -16,6 +17,7 @@ public:
     static void addUserInfo(QSqlQuery *query, const User& user);
     static Patient getPatientFromQuery(const QSqlQuery& query);
     static Doctor getDoctorFromQuery(const QSqlQuery& query);
+    static Appointment getAppointmentFromQuery(const QSqlQuery& query);
     static Attendance getAttendanceFromQuery(const QSqlQuery& query);
 
     static Case getCaseFromQuery(const QSqlQuery& query);
