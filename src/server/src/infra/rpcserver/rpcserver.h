@@ -38,7 +38,7 @@ public:
 private:
     RequestParser parser;
     RpcController* rpcController;
-private slots:
+public slots:
     void onReadyRead();
 };
 
