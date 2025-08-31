@@ -1,7 +1,5 @@
 #include "doctorsqliterepository.h"
 
-#include <exception>
-
 #include <QDebug>
 #include <QtSql/QSqlQuery>
 #include <QVariant>

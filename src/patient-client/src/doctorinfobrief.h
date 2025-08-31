@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <memory>
+#include "infra/rpcclient/rpcclient.h"
+#include "infra/security/credentialmanager.h"
 namespace Ui {
 class DoctorInfoBrief;
 }
@@ -14,7 +16,7 @@ class DoctorInfoBrief : public QWidget
     Q_OBJECT
 
 public:
-    explicit DoctorInfoBrief(QWidget *parent = nullptr);
+    explicit DoctorInfoBrief(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~DoctorInfoBrief();
     void setDoctorBriefInfo(QString, QString, QString);
     void setFatherMainWindow(MainWindow *p) {fatherMainWindow = p;}
@@ -27,6 +29,8 @@ private slots:
 private:
     Ui::DoctorInfoBrief *ui;
     MainWindow *fatherMainWindow;
+    CredentialManager *patientCredential;
+    RpcClient *requestSender;
 };
 
 #endif // DOCTORINFOBRIEF_H

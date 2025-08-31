@@ -86,7 +86,8 @@ CREATE TABLE doctor(
 - `doctorId`: 医生ID，外键关联医生表，非空。
 - `patientId`: 患者ID，外键关联患者表，非空。
 - `date`: 预约日期，非空。
-- `timeSlot`: 预约时间段，非空。
+- `startTime`: 预约起始时间，非空。
+- `endTime`: 预约结束时间，非空。
 - `status`: 预约状态（SCHEDULED/COMPLETED/CANCELLED），非空。
 
 建表：
@@ -96,7 +97,8 @@ CREATE TABLE appointment(
     doctorId TEXT NOT NULL,
     patientId TEXT NOT NULL,
     date DATE NOT NULL,
-    timeSlot DATETIME NOT NULL,
+    startTime DATETIME NOT NULL,
+    endTime DATETIME NOT NULL,
     status TEXT NOT NULL,
     FOREIGN KEY (doctorId) REFERENCES doctor(id),
     FOREIGN KEY (patientId) REFERENCES patient(id)
@@ -233,3 +235,4 @@ CREATE TABLE participant-topic(
     PRIMARY KRY (topicId, participantId)
 );
 ```
+

@@ -3,9 +3,9 @@
 #include <QDebug>
 #include <QJsonObject>
 #include <QMessageBox>
-PatientAppointment::PatientAppointment(QWidget *parent) :
+PatientAppointment::PatientAppointment(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
-    ui(new Ui::PatientAppointment)
+    ui(new Ui::PatientAppointment), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
     ui->startTime->setDisplayFormat("HH:mm");
@@ -48,11 +48,10 @@ void PatientAppointment::on_submit_clicked()
     submitAppointment["date"] = ui->date->date().toString("yyyy-MM-dd");
     submitAppointment["timeSlot"] = ui->startTime->time().toString("HH:mm") + "-" + ui->endTime->time().toString("HH:mm");
 //    qDebug() << submitAppointment["date"] << "\n" << submitAppointment["timeSlot"] << "\n";
-
-    QJsonObject resultAppointment;
-    resultAppointment["success"] = QString("true"), resultAppointment["Appointment"] = "A12345";
-    if(resultAppointment["success"].toString() == "true") {
-        QMessageBox::information(this, "Congratulations", "Your appointment ID is " + resultAppointment["Appointment"].toString());
+    Response result = requestSender->rpc(Request("appointment.create", patientCredential->get(), submitAppointment));
+    qDebug() << result.data << "\n";
+    if(result.success) {
+        QMessageBox::information(this, "Congratulations", "Your appointment ID is " + result.data["appointmentId"].toString());
         this->close();
     }
     else {

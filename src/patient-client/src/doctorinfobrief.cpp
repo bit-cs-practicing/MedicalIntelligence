@@ -5,9 +5,9 @@
 #include "patientappointment.h"
 #include <QJsonObject>
 #include <QDebug>
-DoctorInfoBrief::DoctorInfoBrief(QWidget *parent) :
+DoctorInfoBrief::DoctorInfoBrief(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
-    ui(new Ui::DoctorInfoBrief)
+    ui(new Ui::DoctorInfoBrief), patientCredential(pC), requestSender(rSender)
 {
     fatherMainWindow = nullptr;
     ui->setupUi(this);
@@ -39,7 +39,7 @@ void DoctorInfoBrief::on_details_clicked()
 
 void DoctorInfoBrief::on_pushButton_clicked()
 {
-    PatientAppointment *newAppointment = new PatientAppointment;
+    PatientAppointment *newAppointment = new PatientAppointment(nullptr, requestSender, patientCredential);
     newAppointment->setDoctorInformation(ui->name->text(), ui->doctorID->text());
     newAppointment->show();
 }

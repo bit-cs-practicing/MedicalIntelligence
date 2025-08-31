@@ -4,9 +4,9 @@
 #include <QJsonObject>
 #include <QMessageBox>
 
-AppointmentData::AppointmentData(QWidget *parent) :
+AppointmentData::AppointmentData(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
-    ui(new Ui::AppointmentData)
+    ui(new Ui::AppointmentData), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
     ui->doctorId->setReadOnly(true);
@@ -39,7 +39,8 @@ void AppointmentData::on_cancelBtn_clicked() {
     QJsonObject cancelApplication;
     cancelApplication["appointmentId"] = ui->appId->text();
 
-    bool flag = true;
-    if(flag) QMessageBox::information(this, "Congratulations!", "取消成功");
+    Response result = requestSender->rpc(Request("appointment.cancel", patientCredential->get(), cancelApplication));
+    qDebug() << result.data << "\n";
+    if(result.success) QMessageBox::information(this, "Congratulations!", "取消成功");
     else QMessageBox::warning(this, "Warning", "取消失败");
 }
