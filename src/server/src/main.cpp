@@ -181,6 +181,8 @@ int main(int argc, char *argv[]) {
     dispatcher->add("patient.login", std::make_shared<PatientLoginHandler>(patientAppService));
     dispatcher->add("patient.updateInfo", std::make_shared<PatientUpdateInfoHandler>(patientAppService));
     dispatcher->add("patient.fetchInfo", std::make_shared<PatientFetchInfoHandler>(patientAppService));
+    dispatcher->add("patient.fetchInfoByName", std::make_shared<PatientFetchInfoByNameHandler>(patientAppService));
+    dispatcher->add("patient.fetchInfoByIdCard", std::make_shared<PatientFetchInfoByIdCardHandler>(patientAppService));
     dispatcher->add("patient.updatePassword", std::make_shared<PatientUpdatePasswordHandler>(patientAppService));
 
     // Bootstrap

@@ -50,6 +50,28 @@ private:
     std::shared_ptr<PatientAppService> service;
 };
 
+class PatientFetchInfoByNameHandler : public RpcHandler {
+public:
+    PatientFetchInfoByNameHandler(std::shared_ptr<PatientAppService> service): service(service) {};
+protected:
+    virtual Response handle(const QJsonObject &data) override {
+        return Response::ok(service->fetchInfoByName(data));
+    }
+private:
+    std::shared_ptr<PatientAppService> service;
+};
+
+class PatientFetchInfoByIdCardHandler : public RpcHandler {
+public:
+    PatientFetchInfoByIdCardHandler(std::shared_ptr<PatientAppService> service): service(service) {};
+protected:
+    virtual Response handle(const QJsonObject &data) override {
+        return Response::ok(service->fetchInfoByIdCard(data));
+    }
+private:
+    std::shared_ptr<PatientAppService> service;
+};
+
 class PatientUpdatePasswordHandler : public RpcAuthHandler {
 public:
     PatientUpdatePasswordHandler(std::shared_ptr<PatientAppService> service): service(service) {};
