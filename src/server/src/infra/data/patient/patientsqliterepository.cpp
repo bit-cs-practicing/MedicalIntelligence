@@ -9,7 +9,9 @@ PatientSQLiteRepository::PatientSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Patient", path);
 }
 
-PatientSQLiteRepository::~PatientSQLiteRepository() {db.close();}
+PatientSQLiteRepository::~PatientSQLiteRepository() {
+    db.close();
+}
 
 void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);
@@ -30,7 +32,7 @@ void PatientSQLiteRepository::save(const Patient &patient) {
     query.bindValue(":gender", patient.getGender().getValue());
     query.bindValue(":phone", patient.getPhone().getValue());
     if (patient.getBirthday().has_value())
-        query.bindValue(":birthday", patient.getBirthday()->getValue().toString());
+        query.bindValue(":birthday", patient.getBirthday()->getValue().toString(Qt::ISODate));
     else query.bindValue(":birthday", "");
     if (patient.getEmail().has_value())
         query.bindValue(":email", patient.getEmail()->getValue());

@@ -24,8 +24,8 @@ void Printer::printDoctor(const std::optional<Doctor>& obj) {
     if (p.getProfile().has_value()) profile = p.getProfile()->getValue();
     QString startTime(""), endTime("");
     if (p.getWorkSchedule().has_value()) {
-        startTime = p.getWorkSchedule()->getStartTime().toString();
-        endTime = p.getWorkSchedule()->getEndTime().toString();
+        startTime = p.getWorkSchedule()->getStartTime().toString(Qt::ISODate);
+        endTime = p.getWorkSchedule()->getEndTime().toString(Qt::ISODate);
     }
     double fee = -1;
     if (p.getRegistrationFee().has_value()) fee = p.getRegistrationFee()->getValue();
@@ -53,12 +53,11 @@ void Printer::printAppointment(const std::optional<Appointment>& obj) {
         qDebug() << "Appointment isn't existed";
         return;
     }
-    static const QString format("hh:mm:ss");
     Appointment p = obj.value();
     qDebug() << p.getAppointmentId().getId() << '|' << p.getDoctorId().getId() << '|'
              << p.getPatientId().getId() << '|' << p.getDate().toString(Qt::ISODate) << '|'
-             << p.getTimeSlot().getStartTime().toString(format) << '|'
-             << p.getTimeSlot().getEndTime().toString(format) << '|'
+             << p.getTimeSlot().getStartTime().toString(Qt::ISODate) << '|'
+             << p.getTimeSlot().getEndTime().toString(Qt::ISODate) << '|'
              << p.getStatus().getValue();
 }
 
@@ -67,7 +66,6 @@ void Printer::printCase(const std::optional<Case>& obj) {
         qDebug() << "Case isn't existed";
         return;
     }
-    static const QString format("hh:mm:ss");
     Case p = obj.value();
     qDebug() << p.getCaseId().getId() << '|' << p.getAppointmentId().getId() << '|'
              << p.getDiagnosis().getValue() << '|' << p.getPrescription().getValue() << '|'
@@ -97,11 +95,16 @@ void Printer::printMessage(const std::optional<Message>& obj) {
              << p.getContent().getContent() << '|' << p.getTime().toString(Qt::ISODate);
 }
 
-void Printer::printTopicParticipate(const std::optional<TopicParticipant>& obj) {
-    // TODO
-}
-
-void Printer::printTopicTime(const std::optional<TopicTime>& obj) {
-    // TODO
+void Printer::printTopic(const std::optional<Topic> &obj) {
+    if (!obj.has_value()) {
+        qDebug() << "Topic isn't existed";
+        return;
+    }
+    Topic p = obj.value();
+    qDebug() << p.getTopicId().getId() << '|' << p.getLastMessageTime().toString(Qt::ISODate) << '|'
+             << "participants' id in this topic:";
+    for (const auto& id: p.getParticipants()) {
+        qDebug() << "   " << id.getId();
+    }
 }
 
