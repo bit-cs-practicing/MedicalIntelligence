@@ -1,7 +1,8 @@
 #include "workschedule.h"
 
-#include <QRegularExpression>
 #include <stdexcept>
+
+#include <QRegularExpression>
 
 WorkSchedule::WorkSchedule(QTime startTime, QTime endTime)
     : startTime(startTime), endTime(endTime) {}

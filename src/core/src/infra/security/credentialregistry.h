@@ -2,6 +2,7 @@
 #define CREDENTIALREGISTRY_H
 
 #include <mutex>
+
 #include <QMap>
 
 #include "credential.h"

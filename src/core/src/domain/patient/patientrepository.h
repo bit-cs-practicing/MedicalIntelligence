@@ -1,8 +1,9 @@
 #ifndef PATIENTREPOSITORY_H
 #define PATIENTREPOSITORY_H
 
-#include "patient.h"
 #include <optional>
+
+#include "patient.h"
 
 class PatientRepository {
 public:

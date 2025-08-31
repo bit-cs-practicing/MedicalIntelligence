@@ -3,7 +3,8 @@
 
 #include <optional>
 
-#include "../user/user.h"
+#include "domain/user/user.h"
+
 #include "birthday.h"
 #include "email.h"
 #include "gender.h"

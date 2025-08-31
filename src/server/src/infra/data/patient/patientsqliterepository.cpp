@@ -1,16 +1,19 @@
 #include "patientsqliterepository.h"
-#include "../util/databaseoperator/databaseoperator.h"
+#include "infra/data/util/databaseoperator/databaseoperator.h"
 
-#include <QVariant>
 #include <exception>
-#include <QtSql/QSqlQuery>
+
 #include <QDebug>
+#include <QtSql/QSqlQuery>
+#include <QVariant>
 
 PatientSQLiteRepository::PatientSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Patient", path);
 }
 
-PatientSQLiteRepository::~PatientSQLiteRepository() {db.close();}
+PatientSQLiteRepository::~PatientSQLiteRepository() {
+    db.close();
+}
 
 void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);

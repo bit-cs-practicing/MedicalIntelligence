@@ -1,9 +1,11 @@
 #ifndef DOCTORREPOSITORY_H
 #define DOCTORREPOSITORY_H
 
-#include "doctor.h"
 #include <optional>
+
 #include <QList>
+
+#include "doctor.h"
 
 class DoctorRepository {
 public:

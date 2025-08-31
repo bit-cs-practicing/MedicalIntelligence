@@ -3,12 +3,13 @@
 
 #include <memory>
 
-#include "../../domain/doctor/doctor.h"
-#include "../../domain/doctor/doctorrepository.h"
-#include "../../domain/doctor/doctorfactory.h"
-#include "../../domain/doctor/doctorservice.h"
-#include "../../infra/security/credential.h"
-#include "../../infra/security/credentialregistry.h"
+#include "domain/doctor/doctor.h"
+#include "domain/doctor/doctorfactory.h"
+#include "domain/doctor/doctorrepository.h"
+#include "domain/doctor/doctorservice.h"
+#include "infra/security/credential.h"
+#include "infra/security/credentialregistry.h"
+
 #include "doctorappservice.h"
 
 class DoctorAppServiceImpl : public DoctorAppService {

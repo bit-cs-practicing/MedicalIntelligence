@@ -1,6 +1,7 @@
 #include "appointmenttimeslot.h"
 
 #include <stdexcept>
+
 #include <QRegExp>
 
 AppointmentTimeSlot::AppointmentTimeSlot(const QTime& startTime, const QTime& endTime)

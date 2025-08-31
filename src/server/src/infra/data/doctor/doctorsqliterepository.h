@@ -1,14 +1,14 @@
 #ifndef DOCTORSQLITEREPOSITORY_H
 #define DOCTORSQLITEREPOSITORY_H
 
-#include <QtSql/QSqlDatabase>
-#include <QString>
 #include <optional>
 
-#include "core/src/domain/doctor/doctorrepository.h"
+#include <QString>
+#include <QtSql/QSqlDatabase>
 
-class DoctorSQLiteRepository : public DoctorRepository
-{
+#include "domain/doctor/doctorrepository.h"
+
+class DoctorSQLiteRepository : public DoctorRepository {
 public:
     DoctorSQLiteRepository(const QString& path);
     ~DoctorSQLiteRepository();

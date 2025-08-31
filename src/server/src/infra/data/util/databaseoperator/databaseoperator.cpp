@@ -1,9 +1,9 @@
 #include "databaseoperator.h"
 
 #include <QDebug>
-#include <QUuid>
 #include <QtSql>
 #include <QUrl>
+#include <QUuid>
 
 void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identifier, const QString& path) {
     *db = QSqlDatabase::addDatabase("QSQLITE", identifier + QUuid::createUuid().toString());
@@ -14,15 +14,16 @@ void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identif
     }
 }
 
-void DatabaseOperator::addUserInfo(QSqlQuery *query, const User& user)
-{
+void DatabaseOperator::addUserInfo(QSqlQuery *query, const User& user) {
     query->bindValue(":id", user.getId().getId());
     query->bindValue(":name", user.getName().getValue());
     query->bindValue(":idCard", user.getIdCard().getValue());
     query->bindValue(":password", user.getPassword().getValue());
 }
 
-bool isEmpty(const QVariant& obj) {return obj.isNull() || obj.toString() == "";}
+bool isEmpty(const QVariant& obj) {
+    return obj.isNull() || obj.toString() == "";
+}
 
 Patient DatabaseOperator::getPatientFromQuery(const QSqlQuery& query) {
     Name name(query.value(1).toString());

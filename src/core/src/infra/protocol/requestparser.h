@@ -3,8 +3,8 @@
 
 #include <QByteArray>
 #include <QJsonObject>
-#include <QTcpSocket>
 #include <QQueue>
+#include <QTcpSocket>
 
 #include "request.h"
 

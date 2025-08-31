@@ -3,9 +3,10 @@
 
 #include <memory>
 
+#include "domain/appointment/appointment.h"
+#include "domain/doctor/doctor.h"
+
 #include "case.h"
-#include "../doctor/doctor.h"
-#include "../appointment/appointment.h"
 
 class CaseFactory {
 public:

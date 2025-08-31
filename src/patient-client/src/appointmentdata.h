@@ -7,8 +7,7 @@ namespace Ui {
 class AppointmentData;
 }
 
-class AppointmentData : public QWidget
-{
+class AppointmentData : public QWidget {
     Q_OBJECT
 
 public:

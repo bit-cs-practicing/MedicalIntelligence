@@ -6,8 +6,8 @@
 #include "core/src/domain/appointment/appointment.h"
 #include "core/src/domain/attendance/attendance.h"
 
-#include <QtSql>
 #include <QString>
+#include <QtSql>
 
 class DatabaseOperator {
 public:

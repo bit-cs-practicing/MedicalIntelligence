@@ -1,6 +1,7 @@
 #include "topicfactory.h"
 
 #include <stdexcept>
+
 #include <QDateTime>
 
 TopicFactory::TopicFactory(

@@ -3,10 +3,11 @@
 
 #include <QDate>
 
-#include "../id.h"
+#include "domain/id.h"
+
+#include "caseadvice.h"
 #include "casediagnosis.h"
 #include "caseprescription.h"
-#include "caseadvice.h"
 
 class Case {
 public:

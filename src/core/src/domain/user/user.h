@@ -1,9 +1,10 @@
 #ifndef USER_H
 #define USER_H
 
-#include "../id.h"
-#include "name.h"
+#include "domain/id.h"
+
 #include "idcard.h"
+#include "name.h"
 #include "password.h"
 
 class User {

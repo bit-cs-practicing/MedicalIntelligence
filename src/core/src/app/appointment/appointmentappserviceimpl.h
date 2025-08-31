@@ -3,15 +3,16 @@
 
 #include <memory>
 
-#include "../../domain/appointment/appointment.h"
-#include "../../domain/appointment/appointmentrepository.h"
-#include "../../domain/appointment/appointmentfactory.h"
-#include "../../domain/appointment/appointmentservice.h"
-#include "../../domain/patient/patient.h"
-#include "../../domain/patient/patientrepository.h"
-#include "../../domain/doctor/doctor.h"
-#include "../../domain/doctor/doctorrepository.h"
-#include "../../infra/security/credentialregistry.h"
+#include "domain/appointment/appointment.h"
+#include "domain/appointment/appointmentfactory.h"
+#include "domain/appointment/appointmentrepository.h"
+#include "domain/appointment/appointmentservice.h"
+#include "domain/doctor/doctor.h"
+#include "domain/doctor/doctorrepository.h"
+#include "domain/patient/patient.h"
+#include "domain/patient/patientrepository.h"
+#include "infra/security/credentialregistry.h"
+
 #include "appointmentappservice.h"
 
 class AppointmentAppServiceImpl : public AppointmentAppService {

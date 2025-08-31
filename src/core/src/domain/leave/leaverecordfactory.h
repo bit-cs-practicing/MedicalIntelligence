@@ -3,7 +3,8 @@
 
 #include <memory>
 
-#include "../doctor/doctor.h"
+#include "domain/doctor/doctor.h"
+
 #include "leaverecord.h"
 #include "leaverecordrepository.h"
 
