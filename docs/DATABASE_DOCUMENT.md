@@ -220,7 +220,7 @@ CREATE TABLE topic(
 
 ## 参与者话题表
 
-表名：`participant-topic`
+表名：`topicParticipant`
 
 键：
 - `topicId`: 话题ID，非空。
@@ -229,10 +229,10 @@ CREATE TABLE topic(
 
 建表：
 ```sqlite
-CREATE TABLE participant-topic(
+CREATE TABLE topicParticipant(
     topicId TEXT NOT NULL,
     participantId TEXT NOT NULL,
-    PRIMARY KRY (topicId, participantId)
+    PRIMARY KEY (topicId, participantId)
 );
 ```
 
