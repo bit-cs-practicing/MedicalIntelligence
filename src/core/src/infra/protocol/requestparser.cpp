@@ -24,6 +24,11 @@ bool RequestParser::hasCompleteRequest() {
 
 Request RequestParser::getNextRequest() {
     QJsonObject jsonRequest(completedRequests.dequeue());
+    if (jsonRequest.value("credential").toString().isEmpty()) {
+        return Request(jsonRequest.value("endpoint").toString(),
+                       std::nullopt,
+                       jsonRequest.value("data").toObject());
+    }
     return Request(jsonRequest.value("endpoint").toString(),
                    Credential::parse(jsonRequest.value("credential").toString()),
                    jsonRequest.value("data").toObject());
