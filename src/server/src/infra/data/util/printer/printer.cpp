@@ -5,7 +5,7 @@
 
 void Printer::printPatient(const std::optional<Patient>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Patient aren't existed";
+        qDebug() << "Patient isn't existed";
         return;
     }
     Patient p = obj.value();
@@ -16,7 +16,7 @@ void Printer::printPatient(const std::optional<Patient>& obj) {
 
 void Printer::printDoctor(const std::optional<Doctor>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Doctor aren't existed";
+        qDebug() << "Doctor isn't existed";
         return;
     }
     Doctor p = obj.value();
@@ -40,7 +40,7 @@ void Printer::printDoctor(const std::optional<Doctor>& obj) {
 
 void Printer::printAttendance(const std::optional<Attendance>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Attendance aren't existed";
+        qDebug() << "Attendance isn't existed";
         return;
     }
     Attendance p = obj.value();
@@ -50,7 +50,7 @@ void Printer::printAttendance(const std::optional<Attendance>& obj) {
 
 void Printer::printAppointment(const std::optional<Appointment>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Appointment aren't existed";
+        qDebug() << "Appointment isn't existed";
         return;
     }
     static const QString format("hh:mm:ss");
@@ -61,3 +61,47 @@ void Printer::printAppointment(const std::optional<Appointment>& obj) {
              << p.getTimeSlot().getEndTime().toString(format) << '|'
              << p.getStatus().getValue();
 }
+
+void Printer::printCase(const std::optional<Case>& obj) {
+    if (!obj.has_value()) {
+        qDebug() << "Case isn't existed";
+        return;
+    }
+    static const QString format("hh:mm:ss");
+    Case p = obj.value();
+    qDebug() << p.getCaseId().getId() << '|' << p.getAppointmentId().getId() << '|'
+             << p.getDiagnosis().getValue() << '|' << p.getPrescription().getValue() << '|'
+             << p.getAdvice().getValue() << '|' << p.getVisitDate().toString(Qt::ISODate);
+}
+
+void Printer::printLeaveRecord(const std::optional<LeaveRecord>& obj) {
+    if (!obj.has_value()) {
+        qDebug() << "LeaveRecord isn't existed";
+        return;
+    }
+    LeaveRecord p = obj.value();
+    qDebug() << p.getLeaveId().getId() << '|' << p.getDoctorId().getId() << '|'
+             << p.getLeavePeriod().getStartTime().toString(Qt::ISODate) << '|'
+             << p.getLeavePeriod().getEndTime().toString(Qt::ISODate) << '|'
+             << p.getLeaveStatus().getValue();
+}
+
+void Printer::printMessage(const std::optional<Message>& obj) {
+    if (!obj.has_value()) {
+        qDebug() << "Message isn't existed";
+        return;
+    }
+    Message p = obj.value();
+    qDebug() << p.getMessageId().getId() << '|' << p.getTopicId().getId() << '|'
+             << p.getSenderId().getId() << '|' << p.getSenderName().getValue() << '|'
+             << p.getContent().getContent() << '|' << p.getTime().toString(Qt::ISODate);
+}
+
+void Printer::printTopicParticipate(const std::optional<TopicParticipant>& obj) {
+    // TODO
+}
+
+void Printer::printTopicTime(const std::optional<TopicTime>& obj) {
+    // TODO
+}
+

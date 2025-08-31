@@ -101,3 +101,35 @@ Attendance DatabaseOperator::getAttendanceFromQuery(const QSqlQuery& query) {
     QDateTime attendanceTime(query.value(2).toDateTime());
     return Attendance(attendanceId, doctorId, attendanceTime);
 }
+
+Case DatabaseOperator::getCaseFromQuery(const QSqlQuery& query) {
+    Id caseId(query.value(0).toString());
+    Id appointmentId(query.value(1).toString());
+    CaseDiagnosis diagnosis(query.value(2).toString());
+    CasePrescription prescription(query.value(3).toString());
+    CaseAdvice advice(query.value(4).toString());
+    QDate visitDate(query.value(5).toDate());
+    return Case(caseId,appointmentId,diagnosis,prescription,advice,visitDate);
+}
+
+LeaveRecord DatabaseOperator::getLeaveRecordFromQuery(const QSqlQuery& query) {
+    Id leaveId(query.value(0).toString());
+    Id doctorId(query.value(1).toString());
+    QDateTime startTime(query.value(2).toDateTime());
+    QDateTime endTime(query.value(3).toDateTime());
+    LeaveRecord leaveRecord(leaveId,doctorId,LeavePeriod(startTime,endTime));
+    QString status(query.value(4).toString());
+    if (status == LeaveStatus::CANCELED)
+        leaveRecord.cancelLeave();
+    return leaveRecord;
+}
+
+Message DatabaseOperator::getMessageFromQuery(const QSqlQuery& query) {
+    Id messageId(query.value(0).toString());
+    Id topicId(query.value(1).toString());
+    Id senderId(query.value(2).toString());
+    Name senderName(query.value(3).toString());
+    MessageContent content(query.value(4).toString());
+    QDateTime sendTime(query.value(5).toDateTime());
+    return Message(messageId,topicId,senderId,senderName,content,sendTime);
+}

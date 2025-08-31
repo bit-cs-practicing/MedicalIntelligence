@@ -1,6 +1,5 @@
 #include "appointmentsqliterepository.h"
 
-#include <QtSql/QSqlQuery>
 #include <QDebug>
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
@@ -9,10 +8,19 @@ AppointmentSQLiteRepository::AppointmentSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Appointment", path);
 }
 
-AppointmentSQLiteRepository::~AppointmentSQLiteRepository() {db.close();}
+AppointmentSQLiteRepository::~AppointmentSQLiteRepository() {
+    db.close();
+}
 
 void AppointmentSQLiteRepository::save(const Appointment &appointment) {
     QSqlQuery query(db);
+    query.prepare("DELETE FROM appointment WHERE appointmentId = :appointmentId;");
+    query.bindValue(":appointmentId", appointment.getAppointmentId().getId());
+    bool result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
+
     query.prepare(
         "INSERT INTO appointment(appointmentId,doctorId,patientId,"
         "date,startTime,endTime,status) "
@@ -27,7 +35,7 @@ void AppointmentSQLiteRepository::save(const Appointment &appointment) {
     query.bindValue(":startTime", appointment.getTimeSlot().getStartTime().toString(format));
     query.bindValue(":endTime", appointment.getTimeSlot().getEndTime().toString(format));
     query.bindValue(":status", appointment.getStatus().getValue());
-    bool result = query.exec();
+    result = query.exec();
     qDebug() << query.lastQuery();
     if (result) qDebug() << "success";
     else qDebug() << "fail";

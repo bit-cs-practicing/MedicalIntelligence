@@ -1,11 +1,9 @@
 #ifndef APPOINTMENTSQLITEREPOSITORY_H
 #define APPOINTMENTSQLITEREPOSITORY_H
 
-#include <QtSql/QSqlDatabase>
-#include <QString>
-#include <optional>
-
 #include "domain/appointment/appointmentrepository.h"
+
+#include <QtSql>
 
 class AppointmentSQLiteRepository : public AppointmentRepository
 {

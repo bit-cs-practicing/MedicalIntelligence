@@ -1,7 +1,6 @@
 #include "attendancesqliterepository.h"
 
 #include <QDebug>
-#include <QtSql/QSqlQuery>
 #include <QVariant>
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
@@ -16,17 +15,23 @@ AttendanceSQLiteRepository::~AttendanceSQLiteRepository() {
 
 void AttendanceSQLiteRepository::save(const Attendance &attendance) {
     QSqlQuery query(db);
+    query.prepare("DELETE FROM attendance WHERE attendanceId = :attendanceId;");
+    query.bindValue(":attendanceId", attendance.getAttendanceId().getId());
+    bool result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
+
     query.prepare(
         "INSERT INTO attendance(attendanceId,doctorId,attendanceTime) "
         "VALUES (:attendanceId,:doctorId,:attendanceTime);"
     );
-
     query.bindValue(":attendanceId", attendance.getAttendanceId().getId());
     query.bindValue(":doctorId", attendance.getDoctorId().getId());
     static const QString format("hh:mm:ss");
     query.bindValue(":attendanceTime", attendance.getAttendanceTime().toString(Qt::ISODate));
 
-    bool result = query.exec();
+    result = query.exec();
     qDebug() << query.lastQuery();
     if (result) qDebug() << "success";
     else qDebug() << "fail";

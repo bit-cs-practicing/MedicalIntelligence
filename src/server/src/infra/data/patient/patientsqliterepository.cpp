@@ -1,22 +1,25 @@
 #include "patientsqliterepository.h"
-#include "infra/data/util/databaseoperator/databaseoperator.h"
-
-#include <exception>
 
 #include <QDebug>
-#include <QtSql/QSqlQuery>
 #include <QVariant>
+
+#include "infra/data/util/databaseoperator/databaseoperator.h"
 
 PatientSQLiteRepository::PatientSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Patient", path);
 }
 
-PatientSQLiteRepository::~PatientSQLiteRepository() {
-    db.close();
-}
+PatientSQLiteRepository::~PatientSQLiteRepository() {db.close();}
 
 void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);
+    query.prepare("DELETE FROM patient WHERE id = :id;");
+    query.bindValue(":id", patient.getId().getId());
+    bool result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
+
     query.prepare(
         "INSERT INTO patient(id,name,idCard,password,"
         "gender,phone,birthday,email,emergencyContact) "
@@ -35,11 +38,10 @@ void PatientSQLiteRepository::save(const Patient &patient) {
     if (patient.getEmergencyContact().has_value())
         query.bindValue(":emergencyContact", patient.getEmergencyContact()->getValue());
     else query.bindValue(":emergencyContact", "");
-//    qDebug() << query.lastQuery();
-    bool result = query.exec();
-//    qDebug() << query.lastQuery();
-//    if (result) qDebug() << "success";
-//    else qDebug() << "fail";
+    result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
 }
 
 std::optional<Patient> PatientSQLiteRepository::getById(const Id &id) const {
@@ -47,9 +49,8 @@ std::optional<Patient> PatientSQLiteRepository::getById(const Id &id) const {
     query.prepare("SELECT * FROM patient WHERE id = :id;");
     query.bindValue(":id", id.getId());
     bool result = query.exec();
-//    if (result) qDebug() << "success";
-//    else qDebug() << "fail";
-//    qDebug() << "!";
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
     if (!query.next()) return std::nullopt;
     return DatabaseOperator::getPatientFromQuery(query);
 }
