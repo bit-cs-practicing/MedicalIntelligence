@@ -3,8 +3,7 @@
 #include <QDebug>
 #include <QString>
 
-void Printer::printPatient(const std::optional<Patient>& obj)
-{
+void Printer::printPatient(const std::optional<Patient>& obj) {
     if (!obj.has_value()) {
         qDebug() << "User aren't existed";
         return;
@@ -15,8 +14,7 @@ void Printer::printPatient(const std::optional<Patient>& obj)
              << p.getPhone().getValue();
 }
 
-void Printer::printDoctor(const std::optional<Doctor>& obj)
-{
+void Printer::printDoctor(const std::optional<Doctor>& obj) {
     if (!obj.has_value()) {
         qDebug() << "User aren't existed";
         return;
@@ -40,8 +38,7 @@ void Printer::printDoctor(const std::optional<Doctor>& obj)
              << fee << '|' << limit;
 }
 
-void Printer::printAttendance(const std::optional<Attendance>& obj)
-{
+void Printer::printAttendance(const std::optional<Attendance>& obj) {
     if (!obj.has_value()) {
         qDebug() << "Record aren't existed";
         return;

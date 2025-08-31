@@ -1,7 +1,8 @@
 #ifndef PATIENTSERVICE_H
 #define PATIENTSERVICE_H
 
-#include "../user/password.h"
+#include "domain/user/password.h"
+
 #include "patient.h"
 
 class PatientService {

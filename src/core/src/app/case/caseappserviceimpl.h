@@ -3,12 +3,13 @@
 
 #include <memory>
 
-#include "../../domain/case/caserepository.h"
-#include "../../domain/case/casefactory.h"
-#include "../../domain/case/caseservice.h"
-#include "../../domain/appointment/appointmentrepository.h"
-#include "../../domain/doctor/doctorrepository.h"
-#include "../../infra/security/credentialregistry.h"
+#include "domain/appointment/appointmentrepository.h"
+#include "domain/case/casefactory.h"
+#include "domain/case/caserepository.h"
+#include "domain/case/caseservice.h"
+#include "domain/doctor/doctorrepository.h"
+#include "infra/security/credentialregistry.h"
+
 #include "caseappservice.h"
 
 class CaseAppServiceImpl : public CaseAppService {

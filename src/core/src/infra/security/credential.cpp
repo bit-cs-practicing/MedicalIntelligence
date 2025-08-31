@@ -1,9 +1,9 @@
 #include "credential.h"
 
-#include <QUuid>
 #include <QStringList>
+#include <QUuid>
 
-#include "../../domain/user/user.h"
+#include "domain/user/user.h"
 
 Credential::Credential(Id userId, QString token): userId(userId), token(token) {
 }

@@ -1,9 +1,11 @@
 #ifndef ATTENDANCEREPOSITORY_H
 #define ATTENDANCEREPOSITORY_H
 
-#include "attendance.h"
 #include <optional>
+
 #include <QList>
+
+#include "attendance.h"
 
 class AttendanceRepository {
 public:

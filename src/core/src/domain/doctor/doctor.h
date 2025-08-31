@@ -2,15 +2,17 @@
 #define DOCTOR_H
 
 #include <optional>
+
 #include <QUrl>
 
-#include "../user/user.h"
-#include "employeeid.h"
-#include "department.h"
-#include "profile.h"
-#include "workschedule.h"
-#include "registrationfee.h"
+#include "domain/user/user.h"
+
 #include "dailypatientlimit.h"
+#include "department.h"
+#include "employeeid.h"
+#include "profile.h"
+#include "registrationfee.h"
+#include "workschedule.h"
 
 class Doctor : public User {
 public:

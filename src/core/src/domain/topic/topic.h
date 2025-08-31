@@ -1,10 +1,10 @@
 #ifndef TOPIC_H
 #define TOPIC_H
 
-#include <QList>
 #include <QDateTime>
+#include <QList>
 
-#include "../id.h"
+#include "domain/id.h"
 
 class Topic {
 public:

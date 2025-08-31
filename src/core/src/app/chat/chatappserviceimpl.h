@@ -3,18 +3,19 @@
 
 #include <memory>
 
-#include "../../domain/user/user.h"
-#include "../../domain/patient/patient.h"
-#include "../../domain/patient/patientrepository.h"
-#include "../../domain/doctor/doctor.h"
-#include "../../domain/doctor/doctorrepository.h"
-#include "../../domain/topic/topicrepository.h"
-#include "../../domain/topic/topicfactory.h"
-#include "../../domain/message/message.h"
-#include "../../domain/message/messagerepository.h"
-#include "../../domain/message/messagefactory.h"
-#include "../../domain/message/messageservice.h"
-#include "../../infra/security/credentialregistry.h"
+#include "domain/doctor/doctor.h"
+#include "domain/doctor/doctorrepository.h"
+#include "domain/message/message.h"
+#include "domain/message/messagefactory.h"
+#include "domain/message/messagerepository.h"
+#include "domain/message/messageservice.h"
+#include "domain/patient/patient.h"
+#include "domain/patient/patientrepository.h"
+#include "domain/topic/topicfactory.h"
+#include "domain/topic/topicrepository.h"
+#include "domain/user/user.h"
+#include "infra/security/credentialregistry.h"
+
 #include "chatappservice.h"
 
 class ChatAppServiceImpl : public ChatAppService {
