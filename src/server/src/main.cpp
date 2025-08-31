@@ -42,28 +42,22 @@
 // Infrastructure Layer
 #include "infra/data/appointment/appointmentsqliterepository.h"
 #include "infra/data/attendance/attendancesqliterepository.h"
-
-#include "infra/data/leave/leaverecordsqliterepository.h"
-
-#include "infra/data/util/printer/printer.h"
+#include "infra/data/doctor/doctorsqliterepository.h"
+#include "infra/data/patient/patientsqliterepository.h"
+#include "infra/rpcserver/rpcdispatcher.h"
+#include "infra/rpcserver/rpcserver.h"
+// View Layer
+#include "view/appointmenthandler.h"
+#include "view/attendancehandler.h"
+#include "view/casehandler.h"
+#include "view/chathandler.h"
+#include "view/doctorhandler.h"
+#include "view/patienthandler.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-    LeaveRecordSQLiteRepository leaveRecordRepository(path);
-
-    Patient patient1(Name("吴三"),IdCard("111111111111152111"),Gender("male"),Phone("11234567890"),Password("adeadsdaf"));
-    Patient patient2(Name("刘五"),IdCard("111141211232111111"),Gender("female"),Phone("11234567890"),Password("adeadsdaf"));
-    patient1.setEmail(Email("3@162.com"));
-    patient2.setBirthday(Birthday(QDate(1000,1,31)));
-    patientRepository.save(patient1);
-    patientRepository.save(patient2);
-    std::optional<Patient> patient3 = patientRepository.getById(patient1.getId());
-    Printer::printPatient(patient3);
-    std::optional<Patient> patient4 = patientRepository.getByIdCard(patient2.getIdCard());
-    Printer::printPatient(patient4);
-    std::optional<Patient> patient5 = patientRepository.getFirstByName(Name("吴三"));
-    Printer::printPatient(patient5);
+    auto path = "";
 
     // Infrastructure
     auto credentialRegistry = std::make_shared<CredentialRegistry>();
@@ -190,20 +184,6 @@ int main(int argc, char *argv[]) {
     // Bootstrap
     auto rpcServer = RpcServer(std::move(dispatcher));
     rpcServer.listen(QHostAddress::Any, 8080);
-
-    LeaveRecord record1(Id("record1"),doctor1.getId(),
-                        LeavePeriod(QDateTime(QDate(2025,9,1),QTime(12,30,29)),
-                                    QDateTime(QDate(2025,9,3),QTime(12,30,29))));
-    record1.cancelLeave();
-    LeaveRecord record2(Id("record2"),doctor1.getId(),
-                        LeavePeriod(QDateTime(QDate(2025,9,2),QTime(12,30,29)),
-                                    QDateTime(QDate(2025,9,4),QTime(12,30,29))));
-    leaveRecordRepository.save(record1);
-    leaveRecordRepository.save(record2);
-    std::optional<LeaveRecord> record3 = leaveRecordRepository.getById(Id("record1"));
-    Printer::printLeaveRecord(record3);
-    std::optional<LeaveRecord> record4 = leaveRecordRepository.getLastByDoctorId(doctor1.getId());
-    Printer::printLeaveRecord(record4);
 
     return a.exec();
 }
