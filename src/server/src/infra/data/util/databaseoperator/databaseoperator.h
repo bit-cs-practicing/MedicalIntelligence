@@ -5,6 +5,8 @@
 #include "domain/doctor/doctor.h"
 #include "domain/patient/patient.h"
 
+#include "domain/case/case.h"
+
 #include <QString>
 #include <QtSql>
 
@@ -15,6 +17,8 @@ public:
     static Patient getPatientFromQuery(const QSqlQuery& query);
     static Doctor getDoctorFromQuery(const QSqlQuery& query);
     static Attendance getAttendanceFromQuery(const QSqlQuery& query);
+
+    static Case getCaseFromQuery(const QSqlQuery& query);
 };
 
 #endif // DATABASEOPERATOR_H
