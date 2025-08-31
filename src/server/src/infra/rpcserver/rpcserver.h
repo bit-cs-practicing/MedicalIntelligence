@@ -13,7 +13,7 @@
 class RpcServer : public QTcpServer {
     Q_OBJECT
 public:
-    RpcServer(QObject* parent = nullptr);
+    RpcServer(std::unique_ptr<RpcController> rpcController, QObject* parent = nullptr);
 protected:
     virtual void incomingConnection(qintptr handle) override;
 private:

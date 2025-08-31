@@ -102,7 +102,15 @@ Attendance DatabaseOperator::getAttendanceFromQuery(const QSqlQuery& query) {
     return Attendance(attendanceId, doctorId, attendanceTime);
 }
 
-
+Case DatabaseOperator::getCaseFromQuery(const QSqlQuery& query) {
+    Id caseId(query.value(0).toString());
+    Id appointmentId(query.value(1).toString());
+    CaseDiagnosis diagnosis(query.value(2).toString());
+    CasePrescription prescription(query.value(3).toString());
+    CaseAdvice advice(query.value(4).toString());
+    QDate visitDate(query.value(5).toDate());
+    return Case(caseId,appointmentId,diagnosis,prescription,advice,visitDate);
+}
 
 LeaveRecord DatabaseOperator::getLeaveRecordFromQuery(const QSqlQuery& query) {
     Id leaveId(query.value(0).toString());

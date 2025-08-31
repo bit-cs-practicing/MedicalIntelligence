@@ -14,7 +14,7 @@ class RpcDispatcher : public RpcController {
 public:
     RpcDispatcher();
 
-    void add(QString endpoint, std::unique_ptr<RpcController> controller);
+    void add(QString endpoint, std::shared_ptr<RpcController> controller);
 protected:
     virtual Response processImpl(const Request& request) override;
 private:

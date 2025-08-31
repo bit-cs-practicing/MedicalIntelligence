@@ -1,7 +1,8 @@
 #include "rpcserver.h"
 
-RpcServer::RpcServer(QObject* parent) : QTcpServer(parent) {
-
+RpcServer::RpcServer(std::unique_ptr<RpcController> rpcController, QObject* parent)
+    : QTcpServer(parent), rpcController(std::move(rpcController))
+{
 }
 
 void RpcServer::incomingConnection(qintptr socketDescriptor) {

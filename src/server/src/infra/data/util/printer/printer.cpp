@@ -62,11 +62,19 @@ void Printer::printAppointment(const std::optional<Appointment>& obj) {
              << p.getStatus().getValue();
 }
 
-void Printer::printLeaveRecord(const std::optional<LeaveRecord>& obj) {
+void Printer::printCase(const std::optional<Case>& obj) {
     if (!obj.has_value()) {
         qDebug() << "Appointment aren't existed";
         return;
     }
+    static const QString format("hh:mm:ss");
+    Case p = obj.value();
+    qDebug() << p.getCaseId().getId() << '|' << p.getAppointmentId().getId() << '|'
+             << p.getDiagnosis().getValue() << '|' << p.getPrescription().getValue() << '|'
+             << p.getAdvice().getValue() << '|' << p.getVisitDate().toString(Qt::ISODate);
+}
+
+void Printer::printLeaveRecord(const std::optional<LeaveRecord>& obj) {
     LeaveRecord p = obj.value();
     qDebug() << p.getLeaveId().getId() << '|' << p.getDoctorId().getId() << '|'
              << p.getLeavePeriod().getStartTime().toString(Qt::ISODate) << '|'

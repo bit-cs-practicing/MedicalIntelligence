@@ -13,6 +13,8 @@ public:
     virtual QJsonObject login(const QJsonObject& data) = 0;
     virtual QJsonObject updateInfo(const Credential& credential, const QJsonObject& data) = 0;
     virtual QJsonObject fetchInfo(const QJsonObject& data) const = 0;
+    virtual QJsonObject fetchInfoByName(const QJsonObject& data) const = 0;
+    virtual QJsonObject fetchInfoByIdCard(const QJsonObject& data) const = 0;
     virtual QJsonObject updatePassword(const Credential& credential, const QJsonObject& data) = 0;
 };
 
