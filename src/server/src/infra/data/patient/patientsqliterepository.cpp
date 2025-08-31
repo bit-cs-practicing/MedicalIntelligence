@@ -9,7 +9,9 @@ PatientSQLiteRepository::PatientSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Patient", path);
 }
 
-PatientSQLiteRepository::~PatientSQLiteRepository() {db.close();}
+PatientSQLiteRepository::~PatientSQLiteRepository() {
+    db.close();
+}
 
 void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);

@@ -100,8 +100,6 @@ CREATE TABLE appointment(
     startTime DATETIME NOT NULL,
     endTime DATETIME NOT NULL,
     status TEXT NOT NULL,
-    FOREIGN KEY (doctorId) REFERENCES doctor(id),
-    FOREIGN KEY (patientId) REFERENCES patient(id)
 );
 ```
 
@@ -120,7 +118,6 @@ CREATE TABLE attendance(
     attendanceId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
     attendanceTime DATETIME NOT NULL,
-    FOREIGN KEY (doctorId) REFERENCES doctor(id)
 );
 ```
 
@@ -145,7 +142,6 @@ CREATE TABLE cases(
     prescription TEXT NOT NULL,
     advice TEXT NOT NULL,
     visitDate DATE NOT NULL,
-    FOREIGN KEY (appointmentId) REFERENCES appointment(appointmentId)
 );
 ```
 
@@ -170,7 +166,6 @@ CREATE TABLE leaveRecord(
     startTime DATETIME NOT NULL,
     endTime DATETIME NOT NULL,
     status TEXT NOT NULL,
-    FOREIGN KEY (doctorId) REFERENCES doctor(id)
 );
 ```
 
@@ -195,7 +190,6 @@ CREATE TABLE message(
     senderName TEXT NOT NULL,
     content TEXT NOT NULL,
     sendTime DATETIME NOT NULL,
-    FOREIGN KEY (topicId) REFERENCES topic(topicId)
 );
 ```
 
