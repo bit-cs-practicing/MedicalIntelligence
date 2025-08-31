@@ -86,7 +86,8 @@ CREATE TABLE doctor(
 - `doctorId`: 医生ID，外键关联医生表，非空。
 - `patientId`: 患者ID，外键关联患者表，非空。
 - `date`: 预约日期，非空。
-- `timeSlot`: 预约时间段，非空。
+- `startTime`: 预约起始时间，非空。
+- `endTime`: 预约结束时间，非空。
 - `status`: 预约状态（SCHEDULED/COMPLETED/CANCELLED），非空。
 
 建表：
@@ -96,7 +97,8 @@ CREATE TABLE appointment(
     doctorId TEXT NOT NULL,
     patientId TEXT NOT NULL,
     date DATE NOT NULL,
-    timeSlot DATETIME NOT NULL,
+    startTime DATETIME NOT NULL,
+    endTime DATETIME NOT NULL,
     status TEXT NOT NULL,
     FOREIGN KEY (doctorId) REFERENCES doctor(id),
     FOREIGN KEY (patientId) REFERENCES patient(id)
@@ -129,9 +131,9 @@ CREATE TABLE attendance(
 键：
 - `caseId`: 病例ID，主键，非空。
 - `appointmentId`: 预约ID，外键关联预约表，非空。
-- `diagnosis`: 诊断信息
-- `prescription`: 处方信息
-- `advice`: 医嘱信息
+- `diagnosis`: 诊断信息，非空。
+- `prescription`: 处方信息，非空。
+- `advice`: 医嘱信息，非空
 - `visitDate`: 就诊日期，非空。
 
 建表：
@@ -202,13 +204,35 @@ CREATE TABLE message(
 表名：`topic`
 
 键：
+
 - `topicId`: 话题ID，主键，非空。
-- `participants`: 参与者ID列表（存储为JSON数组），非空。
+
+- `lastMessageTime`: 最后消息时间，非空。
 
 建表：
+
 ```sqlite
 CREATE TABLE topic(
     topicId TEXT PRIMARY KEY,
-    participants TEXT NOT NULL
+    lastMessageTime DATETIME NOT NULL
 );
 ```
+
+## 参与者话题表
+
+表名：`participant-topic`
+
+键：
+- `topicId`: 话题ID，非空。
+- `participantId`: 参与者ID，非空。
+- `topicId` 与 `participantId` 构成联合主键。
+
+建表：
+```sqlite
+CREATE TABLE participant-topic(
+    topicId TEXT NOT NULL,
+    participantId TEXT NOT NULL,
+    PRIMARY KRY (topicId, participantId)
+);
+```
+

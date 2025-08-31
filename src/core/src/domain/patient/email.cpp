@@ -1,6 +1,7 @@
 #include "email.h"
 
 #include <stdexcept>
+
 #include <QRegularExpression>
 
 Email::Email(QString email) : email(email) {

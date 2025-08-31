@@ -1,9 +1,11 @@
 #ifndef MESSAGEREPOSITORY_H
 #define MESSAGEREPOSITORY_H
 
-#include "message.h"
 #include <optional>
+
 #include <QList>
+
+#include "message.h"
 
 class MessageRepository {
 public:

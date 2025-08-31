@@ -3,13 +3,14 @@
 
 #include <memory>
 
-#include "../doctor/doctor.h"
+#include "domain/doctor/doctor.h"
+
 #include "leaverecord.h"
 #include "leaverecordrepository.h"
 
-class LeaveFactory {
+class LeaveRecordFactory {
 public:
-    LeaveFactory(std::shared_ptr<LeaveRecordRepository> leaveRecordRepository);
+    LeaveRecordFactory(std::shared_ptr<LeaveRecordRepository> leaveRecordRepository);
 
     LeaveRecord createLeaveRecord(const Doctor& doctor, QDateTime start, QDateTime end) const;
 private:

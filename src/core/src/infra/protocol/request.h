@@ -2,8 +2,9 @@
 #define REQUEST_H
 
 #include <optional>
-#include <QString>
+
 #include <QJsonObject>
+#include <QString>
 
 #include "../security/credential.h"
 

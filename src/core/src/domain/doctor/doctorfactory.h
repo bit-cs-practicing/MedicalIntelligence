@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "doctorrepository.h"
 #include "doctor.h"
+#include "doctorrepository.h"
 
 class DoctorFactory {
 public:

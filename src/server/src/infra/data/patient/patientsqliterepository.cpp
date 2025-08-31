@@ -1,53 +1,19 @@
 #include "patientsqliterepository.h"
+#include "infra/data/util/databaseoperator/databaseoperator.h"
 
-#include <QUuid>
-#include <QVariant>
 #include <exception>
-#include <QtSql/QSqlQuery>
+
 #include <QDebug>
+#include <QtSql/QSqlQuery>
+#include <QVariant>
 
 PatientSQLiteRepository::PatientSQLiteRepository(const QString& path) {
-    db = QSqlDatabase::addDatabase("QSQLITE", "Patient" + QUuid::createUuid().toString());
-    db.setDatabaseName(path);
-//    qDebug() << "set over";
-    if (!db.open()) {
-        QString msg = QString("Fail to open the database from %1").arg(path);
-        throw std::runtime_error(msg.toStdString());
-    }
-//    qDebug() << "over";
+    DatabaseOperator::createConnection(&db, "Patient", path);
 }
 
-Patient getPatientFromQuery(const QSqlQuery& query) {
-//    qDebug() << "1";
-    Name name(query.value(1).toString());
-//    qDebug() << "2";
-    IdCard idCard(query.value(2).toString());
-//    qDebug() << "3";
-    Password password(query.value(3).toString());
-//    qDebug() << "4";
-    Gender gender(query.value(4).toString());
-//    qDebug() << "5";
-    Phone phone(query.value(5).toString());
-//    qDebug() << "6";
-    Patient patient(name, idCard, gender, phone, password);
-//    qDebug() << "7";
-
-    QVariant birthday = query.value(6);
-//    qDebug() << "8";
-    if (!birthday.isNull() && birthday.toString() != "") patient.setBirthday(Birthday(birthday.toDate()));
-//    qDebug() << "9";
-    QVariant email = query.value(7);
-//    qDebug() << "10";
-    if (!email.isNull() && email.toString() != "") patient.setEmail(Email(email.toString()));
-//    qDebug() << "11";
-    QVariant emergencyContact = query.value(8);
-//    qDebug() << "12";
-    if (!emergencyContact.isNull() && emergencyContact.toString() != "") patient.setEmergencyContact(Phone(emergencyContact.toString()));
-//    qDebug() << "13";
-    return patient;
+PatientSQLiteRepository::~PatientSQLiteRepository() {
+    db.close();
 }
-
-//void print(const std::optional<Patient>&);
 
 void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);
@@ -57,11 +23,7 @@ void PatientSQLiteRepository::save(const Patient &patient) {
         "VALUES (:id,:name,:idCard,:password,"
         ":gender,:phone,:birthday,:email,:emergencyContact);"
     );
-
-    query.bindValue(":id", patient.getId().getId());
-    query.bindValue(":name", patient.getName().getValue());
-    query.bindValue(":idCard", patient.getIdCard().getValue());
-    query.bindValue(":password", patient.getPassword().getValue());
+    DatabaseOperator::addUserInfo(&query, patient);
     query.bindValue(":gender", patient.getGender().getValue());
     query.bindValue(":phone", patient.getPhone().getValue());
     if (patient.getBirthday().has_value())
@@ -89,7 +51,7 @@ std::optional<Patient> PatientSQLiteRepository::getById(const Id &id) const {
 //    else qDebug() << "fail";
 //    qDebug() << "!";
     if (!query.next()) return std::nullopt;
-    return getPatientFromQuery(query);
+    return DatabaseOperator::getPatientFromQuery(query);
 }
 
 std::optional<Patient> PatientSQLiteRepository::getByIdCard(const IdCard &idCard) const {
@@ -98,9 +60,14 @@ std::optional<Patient> PatientSQLiteRepository::getByIdCard(const IdCard &idCard
     query.bindValue(":idCard", idCard.getValue());
     query.exec();
     if (!query.next()) return std::nullopt;
-    return getPatientFromQuery(query);
+    return DatabaseOperator::getPatientFromQuery(query);
 }
 
-PatientSQLiteRepository::~PatientSQLiteRepository() {
-    db.close();
+std::optional<Patient> PatientSQLiteRepository::getFirstByName(const Name &name) const {
+    QSqlQuery query(db);
+    query.prepare("SELECT * FROM patient WHERE name = :name;");
+    query.bindValue(":name", name.getValue());
+    query.exec();
+    if (!query.next()) return std::nullopt;
+    return DatabaseOperator::getPatientFromQuery(query);
 }

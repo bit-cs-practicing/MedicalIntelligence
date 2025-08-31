@@ -1,21 +1,20 @@
 #ifndef PATIENTSQLITEREPOSITORY_H
 #define PATIENTSQLITEREPOSITORY_H
 
-#include <QtSql/QSqlDatabase>
-#include <QString>
-#include <memory>
 #include <optional>
+#include <QString>
+#include <QtSql/QSqlDatabase>
 
-#include "core/src/domain/patient/patientrepository.h"
+#include "domain/patient/patientrepository.h"
 
-class PatientSQLiteRepository : public PatientRepository
-{
+class PatientSQLiteRepository : public PatientRepository {
 public:
     PatientSQLiteRepository(const QString& path);
     ~PatientSQLiteRepository();
     void save(const Patient& patient) override;
     std::optional<Patient> getById(const Id &id) const override;
     std::optional<Patient> getByIdCard(const IdCard &idCard) const override;
+    std::optional<Patient> getFirstByName(const Name &name) const override;
 private:
     QSqlDatabase db;
 };

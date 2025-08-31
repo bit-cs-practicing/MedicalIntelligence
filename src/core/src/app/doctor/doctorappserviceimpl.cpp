@@ -1,6 +1,7 @@
 #include "doctorappserviceimpl.h"
 
 #include <optional>
+
 #include <QJsonArray>
 
 DoctorAppServiceImpl::DoctorAppServiceImpl(

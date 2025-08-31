@@ -1,7 +1,8 @@
 #ifndef LEAVERECORDSERVICE_H
 #define LEAVERECORDSERVICE_H
 
-#include "../doctor/doctor.h"
+#include "domain/doctor/doctor.h"
+
 #include "leaverecord.h"
 
 class LeaveRecordService {

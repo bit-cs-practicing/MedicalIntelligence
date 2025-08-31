@@ -1,8 +1,9 @@
 #ifndef LEAVERECORDREPOSITORY_H
 #define LEAVERECORDREPOSITORY_H
 
-#include "leaverecord.h"
 #include <optional>
+
+#include "leaverecord.h"
 
 class LeaveRecordRepository {
 public:

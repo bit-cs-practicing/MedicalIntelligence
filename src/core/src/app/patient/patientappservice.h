@@ -3,7 +3,7 @@
 
 #include <QJsonObject>
 
-#include "../../infra/security/credential.h"
+#include "infra/security/credential.h"
 
 class PatientAppService {
 public:

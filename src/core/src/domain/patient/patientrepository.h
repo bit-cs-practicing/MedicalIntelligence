@@ -1,8 +1,9 @@
 #ifndef PATIENTREPOSITORY_H
 #define PATIENTREPOSITORY_H
 
-#include "patient.h"
 #include <optional>
+
+#include "patient.h"
 
 class PatientRepository {
 public:
@@ -12,6 +13,7 @@ public:
 
     virtual std::optional<Patient> getById(const Id& id) const = 0;
     virtual std::optional<Patient> getByIdCard(const IdCard& idCard) const = 0;
+    virtual std::optional<Patient> getFirstByName(const Name &name) const = 0;
 };
 
 #endif // PATIENTREPOSITORY_H
