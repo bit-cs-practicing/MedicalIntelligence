@@ -99,5 +99,7 @@ std::optional<Topic> TopicSQLiteRepository::getById(const Id& topicId) const {
     if (!query.next()) return std::nullopt;
     QDateTime lastMessageTime(query.value(0).toDateTime());
     QList<Id> participants(getAllParticipantByTopicId(topicId));
-    return Topic(lastMessageTime, participants);
+    Topic topic(topicId, participants);
+    topic.setLastMessageTime(lastMessageTime);
+    return topic;
 }
