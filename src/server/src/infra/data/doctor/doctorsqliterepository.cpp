@@ -45,9 +45,8 @@ void DoctorSQLiteRepository::save(const Doctor& doctor) {
     else query.bindValue(":photo", "");
 
     if (doctor.getWorkSchedule().has_value()) {
-        static const QString format("hh:mm:ss");
-        query.bindValue(":startTime", doctor.getWorkSchedule()->getStartTime().toString(format));
-        query.bindValue(":endTime", doctor.getWorkSchedule()->getEndTime().toString(format));
+        query.bindValue(":startTime", doctor.getWorkSchedule()->getStartTime().toString(Qt::ISODate));
+        query.bindValue(":endTime", doctor.getWorkSchedule()->getEndTime().toString(Qt::ISODate));
     }
     else {
         query.bindValue(":startTime", "");

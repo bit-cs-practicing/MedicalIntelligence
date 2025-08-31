@@ -10,8 +10,7 @@
 #include "domain/case/case.h"
 #include "domain/leave/leaverecord.h"
 #include "domain/message/message.h"
-#include "infra/data/topic/topicparticipant.h"
-#include "infra/data/topic/topictime.h"
+#include "domain/topic/topic.h"
 
 class Printer {
 public:
@@ -22,8 +21,7 @@ public:
     static void printCase(const std::optional<Case>& obj);
     static void printLeaveRecord(const std::optional<LeaveRecord>& obj);
     static void printMessage(const std::optional<Message>& obj);
-    static void printTopicParticipate(const std::optional<TopicParticipant>& obj);
-    static void printTopicTime(const std::optional<TopicTime>& obj);
+    static void printTopic(const std::optional<Topic>& obj);
 };
 
 #endif // PRINTER_H

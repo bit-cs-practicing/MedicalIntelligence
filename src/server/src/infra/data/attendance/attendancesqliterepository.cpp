@@ -28,7 +28,6 @@ void AttendanceSQLiteRepository::save(const Attendance &attendance) {
     );
     query.bindValue(":attendanceId", attendance.getAttendanceId().getId());
     query.bindValue(":doctorId", attendance.getDoctorId().getId());
-    static const QString format("hh:mm:ss");
     query.bindValue(":attendanceTime", attendance.getAttendanceTime().toString(Qt::ISODate));
 
     result = query.exec();

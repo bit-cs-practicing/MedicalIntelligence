@@ -31,9 +31,8 @@ void AppointmentSQLiteRepository::save(const Appointment &appointment) {
     query.bindValue(":doctorId", appointment.getDoctorId().getId());
     query.bindValue(":patientId", appointment.getPatientId().getId());
     query.bindValue(":date", appointment.getDate().toString(Qt::ISODate));
-    static const QString format("hh:mm:ss");
-    query.bindValue(":startTime", appointment.getTimeSlot().getStartTime().toString(format));
-    query.bindValue(":endTime", appointment.getTimeSlot().getEndTime().toString(format));
+    query.bindValue(":startTime", appointment.getTimeSlot().getStartTime().toString(Qt::ISODate));
+    query.bindValue(":endTime", appointment.getTimeSlot().getEndTime().toString(Qt::ISODate));
     query.bindValue(":status", appointment.getStatus().getValue());
     result = query.exec();
     qDebug() << query.lastQuery();
