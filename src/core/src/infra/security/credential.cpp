@@ -9,7 +9,7 @@ Credential::Credential(Id userId, QString token): userId(userId), token(token) {
 }
 
 Credential Credential::fromUserId(Id userId) {
-    QString token = QUuid().toString();
+    QString token = QUuid::createUuid().toString();
     return Credential(userId, token);
 }
 
