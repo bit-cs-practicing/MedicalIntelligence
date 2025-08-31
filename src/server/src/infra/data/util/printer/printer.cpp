@@ -98,10 +98,10 @@ void Printer::printMessage(const std::optional<Message>& obj) {
 }
 
 void Printer::printTopicParticipate(const std::optional<TopicParticipant>& obj) {
-
+    // TODO
 }
 
 void Printer::printTopicTime(const std::optional<TopicTime>& obj) {
-
+    // TODO
 }
 
