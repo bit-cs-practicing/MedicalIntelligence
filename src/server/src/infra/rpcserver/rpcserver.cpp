@@ -15,21 +15,19 @@ void RpcServer::incomingConnection(qintptr socketDescriptor) {
 Carrier::Carrier(qintptr socketDescriptor, RpcController* rpcController)
     : socketDescriptor(socketDescriptor), rpcController(rpcController)
 {
-    setAutoDelete(false);
 }
 
 void Carrier::run() {
-    auto task = new TaskSocket(socketDescriptor, rpcController);
+    auto task = std::make_unique<TaskSocket>(socketDescriptor, rpcController);
     qDebug() << QString("%1:%2").arg(task->peerAddress().toString()).arg(task->peerPort());
-    int cnt = 0;
-    while (task->isOpen() && cnt < 500) {
-        qDebug() << "waiting..." << ++cnt;
-        if (task->waitForReadyRead(2000)) {
-            qDebug() << "ready for read";
+    int retry = 10;
+    while (task->isOpen() && retry > 0) {
+        retry -= 1;
+        if (task->waitForReadyRead(2000) && task->isOpen()) {
             task->onReadyRead();
         }
     }
-//    connect(task, &QAbstractSocket::disconnected, this, &QObject::deleteLater);
+
 }
 
 TaskSocket::TaskSocket(qintptr socketDescriptor, RpcController* rpcController):
@@ -63,8 +61,10 @@ void TaskSocket::onReadyRead() {
         qDebug() << "+++++++++++++response+++++++++++++++++++";
 
         auto bytes = response.toStream();
-        write(bytes);
-        close();
+        qDebug() << bytes;
+        qDebug() << write(bytes);
+        flush();
+        disconnectFromHost();
     } catch (std::exception& e) {
         try {
             auto response = Response::error("网络错误");
