@@ -27,8 +27,8 @@ void DoctorInfoDetails::setInformations(QJsonObject info) {
     ui->profile->setText(info["profile"].toString());
     ui->photo->setText(info["photo"].toString());
     ui->schedule->setText(info["workSchedule"].toString());
-    ui->regFee->setText(info["registrationFee"].toString());
-    ui->limit->setText(info["dailyPatientLimit"].toString());
+    ui->regFee->setText(QString::number(info["registrationFee"].toDouble()));
+    ui->limit->setText(QString::number(info["dailyPatientLimit"].toInt()));
     ui->name->setText(info["name"].toString());
 }
 

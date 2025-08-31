@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QCloseEvent>
+#include "infra/rpcclient/rpcclient.h"
+#include "infra/security/credentialmanager.h"
+#include <QJsonArray>
 namespace Ui {
 class TopicDataDetails;
 }
@@ -12,7 +15,7 @@ class TopicDataDetails : public QWidget
     Q_OBJECT
 
 public:
-    explicit TopicDataDetails(QWidget *parent = nullptr, QString S = "", QString T = "");
+    explicit TopicDataDetails(QWidget *parent = nullptr, QString S = "", QString T = "", RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~TopicDataDetails();
 
 private:
@@ -21,7 +24,9 @@ private:
     void loadMessageInfo();
     void showMessage();
     void sendMessage();
-    QList<QJsonObject> messageInformations;
+    QJsonArray messageInformations;
+    CredentialManager *patientCredential;
+    RpcClient *requestSender;
 
 protected:
     void closeEvent(QCloseEvent *event) override;

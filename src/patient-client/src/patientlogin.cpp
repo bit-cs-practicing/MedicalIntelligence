@@ -5,9 +5,9 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <memory>
-PatientLogin::PatientLogin(QWidget *parent) :
+PatientLogin::PatientLogin(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
-    ui(new Ui::PatientLogin)
+    ui(new Ui::PatientLogin), patientCredential(pC), requestSender(rSender)
 {
     registerBoard = nullptr;
     patientWindow = nullptr;
@@ -52,13 +52,15 @@ void PatientLogin::on_loginBtn_clicked()
     QJsonObject loginData;
     loginData["idCard"] = ui->username->text();
     loginData["password"] = ui->password->text();
-    bool flag = true;
-    if(!flag) {
+    Response result = requestSender->rpc(Request("patient.login", patientCredential->get(), loginData));
+    qDebug() << result.data << "\n";
+    if(!result.success) {
         QMessageBox::warning(this, "警告！", "用户不存在或密码错误！");
     }
     else{
+        patientCredential->set(Credential::parse(result.data["credential"].toString()));
         QMessageBox::information(this, "Congratulations!", "登录成功！");
-        if(!patientWindow) patientWindow = std::make_unique<MainWindow>();
+        if(!patientWindow) patientWindow = std::make_unique<MainWindow>(nullptr, requestSender, patientCredential);
         patientWindow->loadInformation();
         patientWindow->show();
         this->hide();
@@ -67,7 +69,7 @@ void PatientLogin::on_loginBtn_clicked()
 
 void PatientLogin::on_registerBtn_clicked()
 {
-    if(!registerBoard) registerBoard = std::make_unique<PatientRegister>();
+    if(!registerBoard) registerBoard = std::make_unique<PatientRegister>(nullptr, requestSender, patientCredential);
     registerBoard -> show();
     registerBoard -> setLoginBoard(this);
     this -> hide();

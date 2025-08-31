@@ -3,6 +3,8 @@
 
 #include <QWidget>
 //#include "patientlogin.h"
+#include "infra/rpcclient/rpcclient.h"
+#include "infra/security/credentialmanager.h"
 namespace Ui {
 class PatientRegister;
 }
@@ -12,7 +14,7 @@ class PatientRegister : public QWidget
     Q_OBJECT
 
 public:
-    explicit PatientRegister(QWidget *parent = nullptr);
+    explicit PatientRegister(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     void setLoginBoard(PatientLogin *tmp) {loginBoard = tmp;}
     ~PatientRegister();
 
@@ -27,6 +29,8 @@ private:
     bool checkName();
     bool checkEmail();
     PatientLogin *loginBoard;
+    CredentialManager *patientCredential;
+    RpcClient *requestSender;
 };
 
 #endif // PATIENTREGISTER_H

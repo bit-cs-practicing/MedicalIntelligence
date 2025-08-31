@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "patientregister.h"
 #include "mainwindow.h"
+#include "infra/rpcclient/rpcclient.h"
+#include "infra/security/credentialmanager.h"
 namespace Ui {
 class PatientLogin;
 }
@@ -13,7 +15,7 @@ class PatientLogin : public QWidget
     Q_OBJECT
 
 public:
-    explicit PatientLogin(QWidget *parent = nullptr);
+    explicit PatientLogin(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~PatientLogin();
 
 private slots:
@@ -27,6 +29,9 @@ private:
     bool checkPassword();
     std::unique_ptr<PatientRegister> registerBoard;
     std::unique_ptr<MainWindow> patientWindow;
+    CredentialManager *patientCredential;
+    RpcClient *requestSender;
+
 //    PatientRegister *registerBoard;
 };
 

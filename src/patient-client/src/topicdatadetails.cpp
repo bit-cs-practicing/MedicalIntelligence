@@ -8,10 +8,11 @@
 #include <QTimer>
 #include <QJsonObject>
 #include <QList>
-TopicDataDetails::TopicDataDetails(QWidget *parent, QString S, QString Id) :
+#include <QMessageBox>
+TopicDataDetails::TopicDataDetails(QWidget *parent, QString S, QString Id, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
     ui(new Ui::TopicDataDetails),
-    topicId(S), patientUserId(Id)
+    topicId(S), patientUserId(Id), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
     loadMessageInfo();
@@ -39,34 +40,13 @@ void TopicDataDetails::loadMessageInfo() {
         {"topicId", topicId}, {"start", QString("0")}, {"limit", QString("100")}
     };
 
-    bool flag = true;
-    if(!flag) return;
+    Response result = requestSender->rpc(Request("chat.fetchMessages", patientCredential->get(), fetchMessage));
+    qDebug() << result.data << "\n";
+    if(!result.success) return;
 
-    messageInformations.clear();
-    QJsonObject messageData;
-    messageData = QJsonObject{
-        {"messageId", QString("M987654")}, {"senderId", QString("P0001")}, {"senderName", QString("Me")},
-        {"content", QString("这是一条短消息")}, {"time", QString("2025-09-01T10:10:00")}
-    };
-    messageInformations.append(messageData);
-
-    messageData = QJsonObject{
-        {"messageId", QString("M987655")}, {"senderId", QString("D0001")}, {"senderName", QString("Wang")},
-        {"content", QString("这是一条长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长消息")}, {"time", QString("2025-09-01T10:10:01")}
-    };
-    messageInformations.append(messageData);
-
-    messageData = QJsonObject{
-        {"messageId", QString("M987656")}, {"senderId", QString("P0001")}, {"senderName", QString("Me")},
-        {"content", QString("这是一条长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长消息")}, {"time", QString("2025-09-01T10:10:02")}
-    };
-    messageInformations.append(messageData);
-
-    messageData = QJsonObject{
-        {"messageId", QString("M987657")}, {"senderId", QString("D0002")}, {"senderName", QString("Li")},
-        {"content", QString("这是一条短消息")}, {"time", QString("2025-09-01T10:10:03")}
-    };
-    messageInformations.append(messageData);
+//    messageInformations.clear();
+//    while(!messageInformations.empty()) messageInformations.removeAt(0);
+    messageInformations = result.data["messages"].toArray();
 
     showMessage();
 }
@@ -75,7 +55,7 @@ void TopicDataDetails::showMessage() {
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
     scrollContent->setLayout(scrollLayout);
-    for(QJsonObject i : messageInformations) {
+    for(QJsonValue i : messageInformations) {
         if(i["senderId"].toString() == patientUserId){
             PatientMessage *p = new PatientMessage(scrollContent, this);
             p->setPatientMessage(i["senderName"].toString(), i["content"].toString());

@@ -11,12 +11,11 @@
 #include <QJsonDocument>
 #include <QDebug>
 #include <regex>
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
-    doctorInformations.clear();
     ui->Tabs->setCurrentIndex(0);
     ui->appTimeComboBox->setCurrentText("All times");
     ui->caseComboBox->setCurrentText("所有时间");
@@ -42,7 +41,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setAppListComboBox() {
     QStringList S = {"All Doctors"}, S2 = {"All times", "Specific time"};
-    for(QJsonObject i : appointmentInformations) {
+    for(QJsonValue i : appointmentInformations) {
         if(!S.contains(i["doctorId"].toString())) S.append(i["doctorId"].toString());
     }
     ui->appListComboBox->clear();
@@ -50,22 +49,15 @@ void MainWindow::setAppListComboBox() {
 }
 
 void MainWindow::loadCaseInfo() {
-    caseInformations.clear();
-    QJsonObject caseData;
-    caseData["caseId"] = QString("C10001"), caseData["visitDate"] = QString("2025-08-31");
-    caseData["diagnosis"] = QString("感冒"), caseData["prescription"] = QString("每天喝一吨热水。");
-    caseData["advice"] = QString("多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~");
-    caseInformations.append(caseData);
-
-    caseData["caseId"] = QString("C10002"), caseData["visitDate"] = QString("2025-08-31");
-    caseData["diagnosis"] = QString("感冒"), caseData["prescription"] = QString("每天喝一吨热水。");
-    caseData["advice"] = QString("多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~");
-    caseInformations.append(caseData);
-
-    caseData["caseId"] = QString("C10003"), caseData["visitDate"] = QString("2025-08-30");
-    caseData["diagnosis"] = QString("感冒"), caseData["prescription"] = QString("每天喝一吨热水。");
-    caseData["advice"] = QString("多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~多喝热水~");
-    caseInformations.append(caseData);
+//    caseInformations.clear();
+    Response result = requestSender->rpc(Request("case.listByPatient", patientCredential->get(), QJsonObject{}));
+    qDebug() << result.data << "\n";
+    if(!result.success) {
+        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        return;
+    }
+//    while(!caseInformations.empty()) caseInformations.removeAt(0);
+    caseInformations = result.data["cases"].toArray();
 
     showCaseInfo("所有时间");
 }
@@ -83,46 +75,53 @@ void MainWindow::sortTopicByTime() {
 }
 
 void MainWindow::loadTopicInfo() {
+    Response result = requestSender->rpc(Request("chat.listTopicsByUser", patientCredential->get(), QJsonObject{}));
+    qDebug() << result.data << "\n";
+    if(!result.success) {
+        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        return;
+    }
+
     topicInformations.clear();
-    QJsonObject topicData;
-    topicData["topicId"] = "T1000000", topicData["lastMessageTime"] = "2025-01-03T10:00:00";
-    topicInformations.append(topicData);
-    topicData["topicId"] = "T1000001", topicData["lastMessageTime"] = "2025-01-03T08:00:00";
-    topicInformations.append(topicData);
-    topicData["topicId"] = "T1000002", topicData["lastMessageTime"] = "2025-01-03T09:00:00";
-    topicInformations.append(topicData);
+    QJsonArray topicInform = result.data["topics"].toArray();
+
+    for(QJsonValue i : topicInform) topicInformations.append(i.toObject());
 
     showTopicInfo("");
 }
 
 void MainWindow::loadAppointmentInfo() {
-    appointmentInformations.clear();
-    QJsonObject appointmentData;
-    appointmentData["appointmentId"] = QString("A10000"), appointmentData["doctorId"] = QString("D0001");
-    appointmentData["date"] = QString("2025-09-01"), appointmentData["timeSlot"] = QString("09:00-09:29");
-    appointmentData["status"] = "scheduled";
-    appointmentInformations.append(appointmentData);
+//    appointmentInformations.clear();
+    Response result = requestSender->rpc(Request("appointment.listByPatient", patientCredential->get(), QJsonObject{}));
+    qDebug() << result.data << "\n";
+    if(!result.success) {
+        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        return;
+    }
 
-    appointmentData["appointmentId"] = QString("A10001"), appointmentData["doctorId"] = QString("D0001");
-    appointmentData["date"] = QString("2025-09-01"), appointmentData["timeSlot"] = QString("10:00-10:29");
-    appointmentData["status"] = "cancelled";
-    appointmentInformations.append(appointmentData);
-
-    appointmentData["appointmentId"] = QString("A10003"), appointmentData["doctorId"] = QString("D0002");
-    appointmentData["date"] = QString("2025-08-31"), appointmentData["timeSlot"] = QString("09:00-09:29");
-    appointmentData["status"] = "completed";
-    appointmentInformations.append(appointmentData);
+    appointmentInformations = result.data["appointments"].toArray();
+//    while(!appointmentInformations.empty()) appointmentInformations.removeAt(0);
 
     setAppListComboBox();
     showAppointmentInfo("All Doctors", "All times");
 }
 
 void MainWindow::loadInformation(){
-    QJsonObject registerData;
-    registerData["name"] = QString("wxy"), registerData["idCard"] = QString("123456789012345678");
-    registerData["gender"] = QString("male"), registerData["email"] = QString("12345@126.com");
-    registerData["phone"] = QString("12345678901"), registerData["emergencyContact"] = QString("12345678901");
-    registerData["birthday"] = QString("2005-01-19"), registerData["patientId"] = QString("P0001");
+    patientId = patientCredential->get()->getUserId();
+    qDebug() << "patientId: " + patientId + "\n";
+
+    QJsonObject sendRequest = QJsonObject{
+        {"patientId", patientId}
+    };
+
+    Response result = requestSender->rpc(Request("patient.fetchInfo", patientCredential->get(), sendRequest));
+    qDebug() << result.data << "\n";
+    if(!result.success) {
+        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        return;
+    }
+
+    QJsonObject registerData = result.data;
     ui->name->setText(registerData["name"].toString());
     ui->idCard->setText(registerData["idCard"].toString());
     ui->gender->setCurrentText(registerData["gender"].toString());
@@ -141,9 +140,9 @@ void MainWindow::showDoctorInfo(QString depart) {
     QWidget *scrollContent = new QWidget(this); // 滚动区域的内容容器
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent); // 容器的布局
     scrollContent->setLayout(scrollLayout);
-    for(QJsonObject i : doctorInformations) {
+    for(QJsonValue i : doctorInformations) {
         if(i["department"].toString() == depart || depart == "All") {
-            DoctorInfoBrief *p = new DoctorInfoBrief(scrollContent);
+            DoctorInfoBrief *p = new DoctorInfoBrief(scrollContent, requestSender, patientCredential);
             p->setDoctorBriefInfo(i["employeeId"].toString(), i["name"].toString(), i["department"].toString());
             p->setFatherMainWindow(this);
             scrollLayout->addWidget(p);
@@ -157,9 +156,9 @@ void MainWindow::showAppointmentInfo(QString doctorId, QString dateTime) {
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
     scrollContent->setLayout(scrollLayout);
-    for(QJsonObject i : appointmentInformations) {
+    for(QJsonValue i : appointmentInformations) {
         if((i["doctorId"].toString() == doctorId || doctorId == "All Doctors") && (i["date"].toString() == dateTime || dateTime == "All times")) {
-            AppointmentData *p = new AppointmentData(scrollContent);
+            AppointmentData *p = new AppointmentData(scrollContent, requestSender, patientCredential);
             p->setAppointmentData(i["appointmentId"].toString(), i["doctorId"].toString(), i["date"].toString(), i["timeSlot"].toString(), i["status"].toString());
             scrollLayout->addWidget(p);
         }
@@ -172,7 +171,7 @@ void MainWindow::showCaseInfo(QString date) {
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
     scrollContent->setLayout(scrollLayout);
-    for(QJsonObject i : caseInformations) {
+    for(QJsonValue i : caseInformations) {
         if(i["visitDate"].toString() == date || date == "所有时间") {
             CaseDataBrief *p = new CaseDataBrief(scrollContent);
             p->setCaseInfo(i["caseId"].toString(), i["visitDate"].toString());
@@ -192,7 +191,7 @@ void MainWindow::showTopicInfo(QString S) {
     scrollContent->setLayout(scrollLayout);
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
-            TopicDataBrief *p = new TopicDataBrief(scrollContent, patientId);
+            TopicDataBrief *p = new TopicDataBrief(scrollContent, patientId, requestSender, patientCredential);
             p->setTopicInfo(i["topicId"].toString(), i["lastMessageTime"].toString());
             p->setParent(this);
             scrollLayout->addWidget(p);
@@ -205,7 +204,7 @@ void MainWindow::showTopicInfo(QString S) {
 
 void MainWindow::setDoctorInfoComboBox() {
     QStringList S = {"All"};
-    for(QJsonObject i : doctorInformations) {
+    for(QJsonValue i : doctorInformations) {
         QString tmp = i["department"].toString();
         if(!S.contains(tmp)) S.append(tmp);
     }
@@ -216,40 +215,29 @@ void MainWindow::setDoctorInfoComboBox() {
 }
 
 void MainWindow::loadDoctorInfo() {
-    doctorInformations.clear();
-    QJsonObject Doctor;
-    Doctor["employeeId"] = QString("D00001"), Doctor["department"] = QString("Office1");
-    Doctor["profile"] = QString("I am Docotr1"), Doctor["photo"] = QString("Photo1");
-    Doctor["workSchedule"] = QString("all days"), Doctor["registrationFee"] = QString("50");
-    Doctor["dailyPatientLimit"] = QString("30"), Doctor["name"] = QString("Doctor1");
-    doctorInformations.append(Doctor);
-
-    Doctor["employeeId"] = QString("D00002"), Doctor["department"] = QString("Office1");
-    Doctor["profile"] = QString("I am Docotr2"), Doctor["photo"] = QString("Photo1");
-    Doctor["workSchedule"] = QString("all days"), Doctor["registrationFee"] = QString("50");
-    Doctor["dailyPatientLimit"] = QString("30"), Doctor["name"] = QString("Doctor2");
-    doctorInformations.append(Doctor);
-
-    Doctor["employeeId"] = QString("D00003"), Doctor["department"] = QString("Office2");
-    Doctor["profile"] = QString("I am Docotr3"), Doctor["photo"] = QString("Photo1");
-    Doctor["workSchedule"] = QString("all days"), Doctor["registrationFee"] = QString("50");
-    Doctor["dailyPatientLimit"] = QString("30"), Doctor["name"] = QString("Doctor3");
-    doctorInformations.append(Doctor);
+    Response result = requestSender->rpc(Request("doctor.fetchAllInfo", patientCredential->get(), QJsonObject{}));
+    if(!result.success){
+        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新重试");
+        return;
+    }
+//    while(!doctorInformations.empty()) doctorInformations.removeAt(0);
+    qDebug() << result.data << "\n";
+    doctorInformations = result.data["doctors"].toArray();
 
     setDoctorInfoComboBox();
     showDoctorInfo("All");
 }
 
 QJsonObject MainWindow::queryByDoctorId(QString Id) {
-    for(QJsonObject i : doctorInformations) {
-        if(i["employeeId"].toString() == Id) return i;
+    for(QJsonValue i : doctorInformations) {
+        if(i["employeeId"].toString() == Id) return i.toObject();
     }
     exit(-1);
 }
 
 QJsonObject MainWindow::queryByCaseId(QString Id) {
-    for(QJsonObject i : caseInformations) {
-        if(i["caseId"].toString() == Id) return i;
+    for(QJsonValue i : caseInformations) {
+        if(i["caseId"].toString() == Id) return i.toObject();
     }
     exit(-1);
 }
@@ -314,8 +302,11 @@ void MainWindow::on_changeinfoBtn_clicked()
     registerData["birthday"] = ui->birthday->date().toString("yyyy-MM-dd");
     registerData["email"] = ui->email->text();
     registerData["emergencyContact"] = ui->emgcy->text();
-    bool flag = true;
-    if(flag) QMessageBox::information(this, "Congratulations!", "个人信息更新成功！");
+
+    Response result = requestSender->rpc(Request("patient.updateInfo", patientCredential->get(), registerData));
+    qDebug() << result.data << "\n";
+
+    if(result.success) QMessageBox::information(this, "Congratulations!", "个人信息更新成功！");
     else QMessageBox::warning(this, "警告！", "请重新提交表单！");
 }
 
@@ -332,8 +323,11 @@ void MainWindow::on_updPassBtn_clicked()
     QJsonObject changePassData;
     changePassData["oldPassword"] = ui->oldpass->text();
     changePassData["newPassword"] = ui->newpass->text();
-    bool flag = true;
-    if(flag) QMessageBox::information(this, "Congratulations!", "更改密码成功！");
+
+    Response result = requestSender->rpc(Request("patient.updatePassword", patientCredential->get(), changePassData));
+    qDebug() << result.data << "\n";
+
+    if(result.success) QMessageBox::information(this, "Congratulations!", "更改密码成功！");
     else QMessageBox::warning(this, "警告！", "旧密码错误！");
 }
 

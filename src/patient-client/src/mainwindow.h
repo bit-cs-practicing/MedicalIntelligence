@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
-
+#include <QJsonArray>
+#include "infra/rpcclient/rpcclient.h"
+#include "infra/security/credentialmanager.h"
 namespace Ui {
 class MainWindow;
 }
@@ -12,7 +14,7 @@ class MainWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~MainWindow();
     void loadInformation();
     void loadDoctorInfo();
@@ -27,6 +29,7 @@ public:
     void showTopicInfo(QString);
     void sortTopicById();
     void sortTopicByTime();
+    void setPatientId(QString S){patientId = S;}
     QJsonObject queryByDoctorId(QString Id);
     QJsonObject queryByCaseId(QString Id);
 
@@ -52,10 +55,12 @@ private:
     bool checkEmail();
     bool checkPassword(QString);
     QString patientId;
-    QList<QJsonObject> doctorInformations;
-    QList<QJsonObject> appointmentInformations;
-    QList<QJsonObject> caseInformations;
+    QJsonArray doctorInformations;
+    QJsonArray appointmentInformations;
+    QJsonArray caseInformations;
     QList<QJsonObject> topicInformations;
+    CredentialManager *patientCredential;
+    RpcClient *requestSender;
 };
 
 #endif // MAINWINDOW_H

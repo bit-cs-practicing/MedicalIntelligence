@@ -8,9 +8,9 @@
 #include <QDebug>
 #include "patientlogin.h"
 #include <QThread>
-PatientRegister::PatientRegister(QWidget *parent) :
+PatientRegister::PatientRegister(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
-    ui(new Ui::PatientRegister)
+    ui(new Ui::PatientRegister), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
 }
@@ -93,15 +93,16 @@ void PatientRegister::on_register_2_clicked()
     registerData["name"] = ui->name->text();
     registerData["password"] = ui->password->text();
     registerData["gender"] = ui->gender->currentText();
-    qDebug() << registerData["gender"] << "\n";
+//    qDebug() << registerData["gender"] << "\n";
     registerData["idCard"] = ui->idCard->text();
     registerData["phone"] = ui->phone->text();
     registerData["birthday"] = ui->birthday->date().toString("yyyy-MM-dd");
-    qDebug() << registerData["birthday"] << "\n";
+//    qDebug() << registerData["birthday"] << "\n";
     registerData["email"] = ui->email->text();
     registerData["emergencyContact"] = ui->emgcy->text();
-    bool flag = true;
-    if(!flag) {
+    Response result = requestSender->rpc(Request("patient.register", patientCredential->get(), registerData));
+    qDebug() << result.data << "\n";
+    if(!result.success) {
         QMessageBox::warning(this, "警告！", "您已注册过账号！");
         return;
     }

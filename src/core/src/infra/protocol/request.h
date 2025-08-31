@@ -10,7 +10,6 @@
 
 class Request {
 public:
-    Request(QString endpoint, std::optional<Credential> credential, QJsonObject data):
         endpoint(endpoint), credential(credential), data(data) {}
 
     const QString& getEndpoint() const;
