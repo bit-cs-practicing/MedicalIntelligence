@@ -53,7 +53,7 @@ void PatientLogin::on_loginBtn_clicked()
     loginData["idCard"] = ui->username->text();
     loginData["password"] = ui->password->text();
     Response result = requestSender->rpc(Request("patient.login", patientCredential->get(), loginData));
-    qDebug() << result.data << "\n";
+    qDebug() << result.toStream() << "\n";
     if(!result.success) {
         QMessageBox::warning(this, "警告！", "用户不存在或密码错误！");
     }
