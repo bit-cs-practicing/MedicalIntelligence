@@ -15,6 +15,13 @@ DoctorSQLiteRepository::~DoctorSQLiteRepository() {
 
 void DoctorSQLiteRepository::save(const Doctor& doctor) {
     QSqlQuery query(db);
+    query.prepare("DELETE FROM doctor WHERE id = :id;");
+    query.bindValue(":id", doctor.getId().getId());
+    bool result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
+
     query.prepare(
         "INSERT INTO doctor(id,name,idCard,password,employeeId,"
         "department,profile,photo,startTime,endTime,"
@@ -54,7 +61,7 @@ void DoctorSQLiteRepository::save(const Doctor& doctor) {
         query.bindValue(":dailyPatientLimit", doctor.getDailyPatientLimit()->getValue());
     else query.bindValue(":dailyPatientLimit", "");
 
-    bool result = query.exec();
+    result = query.exec();
     qDebug() << query.lastQuery();
     if (result) qDebug() << "success";
     else qDebug() << "fail";

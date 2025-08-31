@@ -13,6 +13,13 @@ PatientSQLiteRepository::~PatientSQLiteRepository() {db.close();}
 
 void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);
+    query.prepare("DELETE FROM patient WHERE id = :id;");
+    query.bindValue(":id", patient.getId().getId());
+    bool result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
+
     query.prepare(
         "INSERT INTO patient(id,name,idCard,password,"
         "gender,phone,birthday,email,emergencyContact) "
@@ -31,7 +38,7 @@ void PatientSQLiteRepository::save(const Patient &patient) {
     if (patient.getEmergencyContact().has_value())
         query.bindValue(":emergencyContact", patient.getEmergencyContact()->getValue());
     else query.bindValue(":emergencyContact", "");
-    bool result = query.exec();
+    result = query.exec();
     qDebug() << query.lastQuery();
     if (result) qDebug() << "success";
     else qDebug() << "fail";

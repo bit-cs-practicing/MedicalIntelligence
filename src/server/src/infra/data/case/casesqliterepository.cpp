@@ -14,11 +14,17 @@ CaseSQLiteRepository::~CaseSQLiteRepository() {
 
 void CaseSQLiteRepository::save(const Case &caseEntity) {
     QSqlQuery query(db);
+    query.prepare("DELETE FROM cases WHERE caseId = :caseId;");
+    query.bindValue(":caseId", caseEntity.getCaseId().getId());
+    bool result = query.exec();
+    qDebug() << query.lastQuery();
+    if (result) qDebug() << "success";
+    else qDebug() << "fail";
+
     query.prepare(
         "INSERT INTO cases(caseId,appointmentId,diagnosis,prescription,advice,visitDate) "
         "VALUES (:caseId,:appointmentId,:diagnosis,:prescription,:advice,:visitDate);"
     );
-
     query.bindValue(":caseId", caseEntity.getCaseId().getId());
     query.bindValue(":appointmentId", caseEntity.getAppointmentId().getId());
     query.bindValue(":diagnosis", caseEntity.getDiagnosis().getValue());
@@ -26,7 +32,7 @@ void CaseSQLiteRepository::save(const Case &caseEntity) {
     query.bindValue(":advice", caseEntity.getAdvice().getValue());
     query.bindValue(":visitDate", caseEntity.getVisitDate().toString(Qt::ISODate));
 
-    bool result = query.exec();
+    result = query.exec();
     qDebug() << query.lastQuery();
     if (result) qDebug() << "success";
     else qDebug() << "fail";

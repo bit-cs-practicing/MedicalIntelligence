@@ -153,7 +153,7 @@ CREATE TABLE cases(
 
 ## 请假记录表
 
-表名：`leave_record`
+表名：`leaveRecord`
 
 键：
 - `leaveId`: 请假ID，主键，非空。
@@ -164,7 +164,7 @@ CREATE TABLE cases(
 
 建表：
 ```sqlite
-CREATE TABLE leave_record(
+CREATE TABLE leaveRecord(
     leaveId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
     startTime DATETIME NOT NULL,
