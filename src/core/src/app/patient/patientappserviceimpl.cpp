@@ -124,6 +124,43 @@ QJsonObject PatientAppServiceImpl::fetchInfo(const QJsonObject &data) const {
     };
 }
 
+QJsonObject PatientAppServiceImpl::fetchInfoByName(const QJsonObject& data) const {
+    auto name = Name(data["name"].toString());
+    auto patientOpt = patientRepository->getFirstByName(name);
+    if (!patientOpt.has_value()) {
+        throw std::logic_error("患者姓名不存在");
+    }
+    auto patient = patientOpt.value();
+
+    return QJsonObject {
+        { "name", patient.getName().getValue() },
+        { "gender", patient.getGender().getValue() },
+        { "idCard", patient.getIdCard().getValue() },
+        { "phone", patient.getPhone().getValue() },
+        { "birthday", (patient.getBirthday().has_value() ? patient.getBirthday()->toString() : QJsonValue()) },
+        { "email", (patient.getEmail().has_value() ? patient.getEmail()->getValue() : QJsonValue()) },
+        { "emergencyContact", (patient.getEmergencyContact().has_value() ? patient.getEmergencyContact()->getValue() : QJsonValue()) }
+    };
+}
+QJsonObject PatientAppServiceImpl::fetchInfoByIdCard(const QJsonObject& data) const {
+    auto idCard = IdCard(data["idCard"].toString());
+    auto patientOpt = patientRepository->getByIdCard(idCard);
+    if (!patientOpt.has_value()) {
+        throw std::logic_error("患者身份证号不存在");
+    }
+    auto patient = patientOpt.value();
+
+    return QJsonObject {
+        { "name", patient.getName().getValue() },
+        { "gender", patient.getGender().getValue() },
+        { "idCard", patient.getIdCard().getValue() },
+        { "phone", patient.getPhone().getValue() },
+        { "birthday", (patient.getBirthday().has_value() ? patient.getBirthday()->toString() : QJsonValue()) },
+        { "email", (patient.getEmail().has_value() ? patient.getEmail()->getValue() : QJsonValue()) },
+        { "emergencyContact", (patient.getEmergencyContact().has_value() ? patient.getEmergencyContact()->getValue() : QJsonValue()) }
+    };
+}
+
 QJsonObject PatientAppServiceImpl::updatePassword(const Credential &credential, const QJsonObject &data) {
     credentialRegistry->check(credential);
 

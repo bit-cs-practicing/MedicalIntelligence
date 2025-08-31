@@ -126,7 +126,7 @@ CREATE TABLE attendance(
 
 ## 病例表
 
-表名：`case`
+表名：`cases`
 
 键：
 - `caseId`: 病例ID，主键，非空。
@@ -138,7 +138,7 @@ CREATE TABLE attendance(
 
 建表：
 ```sqlite
-CREATE TABLE case(
+CREATE TABLE cases(
     caseId TEXT PRIMARY KEY,
     appointmentId TEXT NOT NULL,
     diagnosis TEXT NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE case(
 
 ## 请假记录表
 
-表名：`leave_record`
+表名：`leaveRecord`
 
 键：
 - `leaveId`: 请假ID，主键，非空。
@@ -164,7 +164,7 @@ CREATE TABLE case(
 
 建表：
 ```sqlite
-CREATE TABLE leave_record(
+CREATE TABLE leaveRecord(
     leaveId TEXT PRIMARY KEY,
     doctorId TEXT NOT NULL,
     startTime DATETIME NOT NULL,
