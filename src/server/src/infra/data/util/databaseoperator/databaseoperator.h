@@ -1,10 +1,10 @@
 #ifndef DATABASEOPERATOR_H
 #define DATABASEOPERATOR_H
 
-#include "core/src/domain/patient/patient.h"
-#include "core/src/domain/doctor/doctor.h"
-#include "core/src/domain/appointment/appointment.h"
-#include "core/src/domain/attendance/attendance.h"
+#include "domain/patient/patient.h"
+#include "domain/doctor/doctor.h"
+#include "domain/appointment/appointment.h"
+#include "domain/attendance/attendance.h"
 
 #include <QString>
 #include <QtSql>

@@ -235,3 +235,4 @@ CREATE TABLE participant-topic(
     PRIMARY KRY (topicId, participantId)
 );
 ```
+

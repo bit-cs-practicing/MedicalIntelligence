@@ -1,8 +1,9 @@
 #include "appointmentsqliterepository.h"
-#include "../util/databaseoperator/databaseoperator.h"
 
 #include <QtSql/QSqlQuery>
 #include <QDebug>
+
+#include "infra/data/util/databaseoperator/databaseoperator.h"
 
 AppointmentSQLiteRepository::AppointmentSQLiteRepository(const QString& path) {
     DatabaseOperator::createConnection(&db, "Appointment", path);
@@ -21,7 +22,7 @@ void AppointmentSQLiteRepository::save(const Appointment &appointment) {
     query.bindValue(":appointmentId", appointment.getAppointmentId().getId());
     query.bindValue(":doctorId", appointment.getDoctorId().getId());
     query.bindValue(":patientId", appointment.getPatientId().getId());
-    query.bindValue(":date", appointment.getDate().toString());
+    query.bindValue(":date", appointment.getDate().toString(Qt::ISODate));
     static const QString format("hh:mm:ss");
     query.bindValue(":startTime", appointment.getTimeSlot().getStartTime().toString(format));
     query.bindValue(":endTime", appointment.getTimeSlot().getEndTime().toString(format));
@@ -87,7 +88,7 @@ QList<Appointment> AppointmentSQLiteRepository::getAllByDoctorIdAndDate(const Id
     QSqlQuery query(db);
     query.prepare("SELECT * FROM appointment WHERE doctorId = :doctorId AND date = :date;");
     query.bindValue(":doctorId", doctorId.getId());
-    query.bindValue(":date", date.toString("hh:mm:ss"));
+    query.bindValue(":date", date.toString(Qt::ISODate));
     bool result = query.exec();
     if (result) qDebug() << "success";
     else qDebug() << "fail";
