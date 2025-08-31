@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    RpcClient Sender(QHostAddress("127.0.0.1"), 9999);
+    RpcClient Sender(QHostAddress("127.0.0.1"), 8080);
     CredentialManager patientCredential;
     PatientLogin w(nullptr, &Sender, &patientCredential);
     w.show();

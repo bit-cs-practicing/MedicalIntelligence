@@ -13,25 +13,15 @@
 class RpcClient: public QObject {
     Q_OBJECT
 public:
-    RpcClient(QHostAddress serverIp, int serverPort);
+    RpcClient(QHostAddress serverIp, int serverPort):
+        serverIp(serverIp), serverPort(serverPort) {}
     void connectServer(QHostAddress serverIp, int serverPort);
     Response rpc(Request request);
 
 private:
-    QTcpServer *server = new QTcpServer(this);
-    QTcpSocket *client = new QTcpSocket(this);
-    bool isConnected = false;
-    bool isReady = false;
-    Response response = Response::error("timeout");
-    ResponseParser parser;
-    QTimer timeoutTimer;
-    QEventLoop loop;
-private slots:
-    void slotConnected();
-    void slotDisconnected();
-    void slotReadyRead();
-    void slotError(QAbstractSocket::SocketError error);
-    void slotTimeout();
+    QHostAddress serverIp;
+    int serverPort;
+    std::optional<Response> onReadyRead(QTcpSocket *socket, ResponseParser *parser);
 };
 
 #endif // RPCCLIENT_H

@@ -50,7 +50,7 @@ void TaskSocket::onReadyRead() {
         auto request = parser.getNextRequest();
         qDebug() << "-------------request------------------";
         qDebug() << request.getEndpoint();
-        qDebug() << request.getCredential()->toString();
+        qDebug() << (request.getCredential().has_value() ? request.getCredential()->toString() : "");
         qDebug() << request.getData();
         qDebug() << "+++++++++++++request+++++++++++++++++++";
         auto response = rpcController->process(request);
