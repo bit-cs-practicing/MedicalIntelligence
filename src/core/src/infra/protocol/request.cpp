@@ -16,9 +16,13 @@ QJsonObject Request::getData() {
 }
 
 QByteArray Request::toStream() {
+    auto credentialVal = "";
+    if (this->credential.has_value()) {
+        credentialVal = this->credential.value().toString().toUtf8().data();
+    }
     QJsonObject request{
         {"endpoint", this->endpoint.toUtf8().data()},
-        {"credential", this->credential.value().toString().toUtf8().data()},
+        {"credential", credentialVal},
         {"data", this->data}
     };
     QJsonDocument document(request);
