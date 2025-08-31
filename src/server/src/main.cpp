@@ -183,7 +183,9 @@ int main(int argc, char *argv[]) {
 
     // Bootstrap
     auto rpcServer = RpcServer(std::move(dispatcher));
-    rpcServer.listen(QHostAddress::Any, 8080);
+    if (rpcServer.listen(QHostAddress::Any, 8080)) {
+        qDebug() << "listening...";
+    }
 
     return a.exec();
 }
