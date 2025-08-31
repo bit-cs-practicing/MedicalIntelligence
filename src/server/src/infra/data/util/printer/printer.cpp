@@ -5,7 +5,7 @@
 
 void Printer::printPatient(const std::optional<Patient>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Patient isn't existed";
+        qDebug() << "Patient aren't existed";
         return;
     }
     Patient p = obj.value();
@@ -16,7 +16,7 @@ void Printer::printPatient(const std::optional<Patient>& obj) {
 
 void Printer::printDoctor(const std::optional<Doctor>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Doctor isn't existed";
+        qDebug() << "Doctor aren't existed";
         return;
     }
     Doctor p = obj.value();
@@ -40,7 +40,7 @@ void Printer::printDoctor(const std::optional<Doctor>& obj) {
 
 void Printer::printAttendance(const std::optional<Attendance>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Attendance isn't existed";
+        qDebug() << "Attendance aren't existed";
         return;
     }
     Attendance p = obj.value();
@@ -50,7 +50,7 @@ void Printer::printAttendance(const std::optional<Attendance>& obj) {
 
 void Printer::printAppointment(const std::optional<Appointment>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Appointment isn't existed";
+        qDebug() << "Appointment aren't existed";
         return;
     }
     static const QString format("hh:mm:ss");
@@ -64,7 +64,7 @@ void Printer::printAppointment(const std::optional<Appointment>& obj) {
 
 void Printer::printCase(const std::optional<Case>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Case isn't existed";
+        qDebug() << "Case aren't existed";
         return;
     }
     static const QString format("hh:mm:ss");
@@ -76,7 +76,7 @@ void Printer::printCase(const std::optional<Case>& obj) {
 
 void Printer::printLeaveRecord(const std::optional<LeaveRecord>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "LeaveRecord isn't existed";
+        qDebug() << "LeaveRecord aren't existed";
         return;
     }
     LeaveRecord p = obj.value();
@@ -85,23 +85,3 @@ void Printer::printLeaveRecord(const std::optional<LeaveRecord>& obj) {
              << p.getLeavePeriod().getEndTime().toString(Qt::ISODate) << '|'
              << p.getLeaveStatus().getValue();
 }
-
-void Printer::printMessage(const std::optional<Message>& obj) {
-    if (!obj.has_value()) {
-        qDebug() << "Message isn't existed";
-        return;
-    }
-    Message p = obj.value();
-    qDebug() << p.getMessageId().getId() << '|' << p.getTopicId().getId() << '|'
-             << p.getSenderId().getId() << '|' << p.getSenderName().getValue() << '|'
-             << p.getContent().getContent() << '|' << p.getTime().toString(Qt::ISODate);
-}
-
-void Printer::printTopicParticipate(const std::optional<TopicParticipant>& obj) {
-    // TODO
-}
-
-void Printer::printTopicTime(const std::optional<TopicTime>& obj) {
-    // TODO
-}
-
