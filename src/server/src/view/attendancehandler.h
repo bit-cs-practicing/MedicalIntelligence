@@ -1,5 +1,5 @@
-#ifndef ATTENDANCE_H
-#define ATTENDANCE_H
+#ifndef ATTENDANCEHANDLER_H
+#define ATTENDANCEHANDLER_H
 
 #include <memory>
 
@@ -50,4 +50,4 @@ private:
     std::shared_ptr<AttendanceAppService> service;
 };
 
-#endif // ATTENDANCE_H
+#endif // ATTENDANCEHANDLER_H
