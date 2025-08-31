@@ -42,7 +42,9 @@
 // Infrastructure Layer
 #include "infra/data/appointment/appointmentsqliterepository.h"
 #include "infra/data/attendance/attendancesqliterepository.h"
+#include "infra/data/case/casesqliterepository.h"
 #include "infra/data/doctor/doctorsqliterepository.h"
+#include "infra/data/leave/leaverecordsqliterepository.h"
 #include "infra/data/patient/patientsqliterepository.h"
 #include "infra/rpcserver/rpcdispatcher.h"
 #include "infra/rpcserver/rpcserver.h"
@@ -65,9 +67,9 @@ int main(int argc, char *argv[]) {
     // Repositories
     auto appointmentRepository = std::make_shared<AppointmentSQLiteRepository>(path);
     auto attendanceRepository = std::make_shared<AttendanceSQLiteRepository>(path);
-    auto caseRepository = nullptr;
+    auto caseRepository = std::make_shared<CaseSQLiteRepository>(path);
     auto doctorRepository = std::make_shared<DoctorSQLiteRepository>(path);
-    auto leaveRecordRepository = nullptr;
+    auto leaveRecordRepository = std::make_shared<LeaveRecordSQLiteRepository>(path);
     auto messageRepository = nullptr;
     auto patientRepository = std::make_shared<PatientSQLiteRepository>(path);
     auto topicRepository = nullptr;
