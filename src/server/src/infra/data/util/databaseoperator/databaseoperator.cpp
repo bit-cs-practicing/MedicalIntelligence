@@ -79,6 +79,22 @@ Doctor DatabaseOperator::getDoctorFromQuery(const QSqlQuery& query) {
     return doctor;
 }
 
+Appointment DatabaseOperator::getAppointmentFromQuery(const QSqlQuery& query) {
+    Id appointmentId(query.value(0).toString());
+    Id doctorId(query.value(1).toString());
+    Id patientId(query.value(2).toString());
+    QDate date(query.value(3).toDate());
+    QTime startTime(query.value(4).toTime());
+    QTime endTime(query.value(5).toTime());
+    AppointmentStatus status(query.value(6).toString());
+    Appointment appointment(appointmentId,doctorId,patientId,date,AppointmentTimeSlot(startTime,endTime));
+    if (status.getValue() == AppointmentStatus::COMPLETED)
+        appointment.markAsCompleted();
+    if (status.getValue() == AppointmentStatus::CANCELLED)
+        appointment.markAsCancelled();
+    return appointment;
+}
+
 Attendance DatabaseOperator::getAttendanceFromQuery(const QSqlQuery& query) {
     Id attendanceId(query.value(0).toString());
     Id doctorId(query.value(1).toString());

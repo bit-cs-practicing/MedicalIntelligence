@@ -5,7 +5,7 @@
 
 void Printer::printPatient(const std::optional<Patient>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "User aren't existed";
+        qDebug() << "Patient aren't existed";
         return;
     }
     Patient p = obj.value();
@@ -16,7 +16,7 @@ void Printer::printPatient(const std::optional<Patient>& obj) {
 
 void Printer::printDoctor(const std::optional<Doctor>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "User aren't existed";
+        qDebug() << "Doctor aren't existed";
         return;
     }
     Doctor p = obj.value();
@@ -40,10 +40,24 @@ void Printer::printDoctor(const std::optional<Doctor>& obj) {
 
 void Printer::printAttendance(const std::optional<Attendance>& obj) {
     if (!obj.has_value()) {
-        qDebug() << "Record aren't existed";
+        qDebug() << "Attendance aren't existed";
         return;
     }
     Attendance p = obj.value();
     qDebug() << p.getAttendanceId().getId() << '|' << p.getDoctorId().getId() << '|'
              << p.getAttendanceTime().toString(Qt::ISODate);
+}
+
+void Printer::printAppointment(const std::optional<Appointment>& obj) {
+    if (!obj.has_value()) {
+        qDebug() << "Appointment aren't existed";
+        return;
+    }
+    static const QString format("hh:mm:ss");
+    Appointment p = obj.value();
+    qDebug() << p.getAppointmentId().getId() << '|' << p.getDoctorId().getId() << '|'
+             << p.getPatientId().getId() << '|' << p.getDate().toString(Qt::ISODate) << '|'
+             << p.getTimeSlot().getStartTime().toString(format) << '|'
+             << p.getTimeSlot().getEndTime().toString(format) << '|'
+             << p.getStatus().getValue();
 }

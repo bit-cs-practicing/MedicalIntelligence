@@ -14,6 +14,7 @@ public:
     void save(const Patient& patient) override;
     std::optional<Patient> getById(const Id &id) const override;
     std::optional<Patient> getByIdCard(const IdCard &idCard) const override;
+    std::optional<Patient> getFirstByName(const Name &name) const override;
 private:
     QSqlDatabase db;
 };
