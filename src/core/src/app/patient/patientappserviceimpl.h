@@ -25,6 +25,8 @@ public:
     virtual QJsonObject login(const QJsonObject& data) override;
     virtual QJsonObject updateInfo(const Credential& credential, const QJsonObject& data) override;
     virtual QJsonObject fetchInfo(const QJsonObject& data) const override;
+    virtual QJsonObject fetchInfoByName(const QJsonObject& data) const override;
+    virtual QJsonObject fetchInfoByIdCard(const QJsonObject& data) const override;
     virtual QJsonObject updatePassword(const Credential& credential, const QJsonObject& data) override;
 private:
     std::shared_ptr<PatientRepository> patientRepository;

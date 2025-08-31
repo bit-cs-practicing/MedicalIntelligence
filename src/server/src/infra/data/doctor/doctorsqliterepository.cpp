@@ -1,7 +1,6 @@
 #include "doctorsqliterepository.h"
 
 #include <QDebug>
-#include <QtSql/QSqlQuery>
 #include <QVariant>
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"

@@ -11,6 +11,8 @@
   - [doctor.login](#doctorlogin)
   - [doctor.updateInfo](#doctorupdateinfo)
   - [doctor.fetchInfo](#doctorfetchinfo)
+  - [doctor.fetchInfoByName](#doctorfetchinfobyname)
+  - [doctor.fetchInfoByIdCard](#doctorfetchinfobyidcard)
   - [doctor.fetchAllInfo](#doctorfetchallinfo)
   - [doctor.updatePassword](#doctorupdatepassword)
 - [预约管理模块](#预约管理模块)
@@ -216,6 +218,120 @@
 #### 请求字段
 
 - `patientId (string)` 患者 ID
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "patientId": "P001",
+    "name": "张三",
+    "gender": "male",
+    "idCard": "123456789012345678",
+    "phone": "13900139000",
+    "birthday": "1991-01-01",
+    "email": "example@example.com",
+    "emergencyContact": "13900139001"
+  }
+}
+```
+
+#### 响应字段
+
+- `patientId (string)` 患者 ID
+- `name (string)` 姓名
+- `gender (string)` 性别，格式 `male | female`
+- `idCard (string)` 身份证号
+- `phone (string)` 手机号
+- `birthday (string, optional)` 出生日期，格式 `yyyy-MM-dd`
+- `email (string, optional)` 邮箱
+- `emergencyContact (string, optional)` 紧急联系人电话
+
+---
+
+### `patient.fetchInfoByName`
+
+#### 功能描述
+
+通过姓名查找第一个符合条件的患者，获取该患者的基本信息。
+
+- 返回患者的姓名、性别、手机号、生日、邮箱和紧急联系人等信息。
+- 对于可选字段，若未设置，则相关字段的值未 `null`。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "patient.fetchInfoByName",
+  "credential": "",
+  "data": {
+    "name": "张三"
+  }
+}
+```
+
+#### 请求字段
+
+- `name (string)` 姓名
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "patientId": "P001",
+    "name": "张三",
+    "gender": "male",
+    "idCard": "123456789012345678",
+    "phone": "13900139000",
+    "birthday": "1991-01-01",
+    "email": "example@example.com",
+    "emergencyContact": "13900139001"
+  }
+}
+```
+
+#### 响应字段
+
+- `patientId (string)` 患者 ID
+- `name (string)` 姓名
+- `gender (string)` 性别，格式 `male | female`
+- `idCard (string)` 身份证号
+- `phone (string)` 手机号
+- `birthday (string, optional)` 出生日期，格式 `yyyy-MM-dd`
+- `email (string, optional)` 邮箱
+- `emergencyContact (string, optional)` 紧急联系人电话
+
+---
+
+### `patient.fetchInfoByIdCard`
+
+#### 功能描述
+
+通过身份证号查找对应患者，获取该患者的基本信息。
+
+- 返回患者的姓名、性别、手机号、生日、邮箱和紧急联系人等信息。
+- 对于可选字段，若未设置，则相关字段的值未 `null`。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "patient.fetchInfoByIdCard",
+  "credential": "",
+  "data": {
+    "idCard": "123456789012345678"
+  }
+}
+```
+
+#### 请求字段
+
+- `idCard (string)` 身份证号
 
 #### 响应格式
 
