@@ -18,7 +18,7 @@ public:
 protected:
     virtual Response processImpl(const Request& request) override;
 private:
-    QMap<QString, std::unique_ptr<RpcController>> controllers;
+    QMap<QString, std::shared_ptr<RpcController>> controllers;
 
 };
 
