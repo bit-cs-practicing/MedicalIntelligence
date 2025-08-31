@@ -97,13 +97,11 @@ void Printer::printMessage(const std::optional<Message>& obj) {
              << p.getContent().getContent() << '|' << p.getTime().toString(Qt::ISODate);
 }
 
-//void Printer::printTopic(const std::optional<Topic>& obj) {
-//    if (!obj.has_value()) {
-//        qDebug() << "Topic isn't existed";
-//        return;
-//    }
-//    Topic p = obj.value();
-//    qDebug() << p.getMessageId().getId() << '|' << p.getTopicId().getId() << '|'
-//             << p.getSenderId().getId() << '|' << p.getSenderName().getValue() << '|'
-//             << p.getContent().getContent() << '|' << p.getTime().toString(Qt::ISODate);
-//}
+void Printer::printTopicParticipate(const std::optional<TopicParticipant>& obj) {
+
+}
+
+void Printer::printTopicTime(const std::optional<TopicTime>& obj) {
+
+}
+
