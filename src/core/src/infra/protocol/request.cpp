@@ -3,15 +3,15 @@
 #include <QJsonDocument>
 #include <QtEndian>
 
-QString Request::getEndpoint() {
+const QString& Request::getEndpoint() const {
     return this->endpoint;
 }
 
-std::optional<Credential> Request::getCredential() {
+std::optional<Credential> Request::getCredential() const {
     return this->credential;
 }
 
-QJsonObject Request::getData() {
+const QJsonObject& Request::getData() const {
     return this->data;
 }
 

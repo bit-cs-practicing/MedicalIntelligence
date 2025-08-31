@@ -1,10 +1,14 @@
 #include "rpchandler.h"
 
 Response RpcHandler::processImpl(const Request& request) {
-    return handle(request.data);
+    return handle(request.getData());
 }
 
 Response RpcAuthHandler::processImpl(const Request& request) {
-    auto credential = Credential::parse(request.credential);
-    return handle(credential, request.data);
+    auto credentialOpt = request.getCredential();
+    if (credentialOpt.has_value()) {
+        return handle(credentialOpt.value(), request.getData());
+    } else {
+        throw std::invalid_argument("未认证");
+    }
 }
