@@ -1,9 +1,9 @@
 #ifndef CASESQLITEREPOSITORY_H
 #define CASESQLITEREPOSITORY_H
 
-#include <QtSql/QSqlDatabase>
-
 #include "domain/case/caserepository.h"
+
+#include <QtSql>
 
 class CaseSQLiteRepository : public CaseRepository
 {

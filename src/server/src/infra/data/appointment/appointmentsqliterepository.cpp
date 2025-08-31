@@ -1,6 +1,5 @@
 #include "appointmentsqliterepository.h"
 
-#include <QtSql/QSqlQuery>
 #include <QDebug>
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"

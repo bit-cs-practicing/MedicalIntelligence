@@ -1,12 +1,9 @@
 #ifndef ATTENDANCESQLITEREPOSITORY_H
 #define ATTENDANCESQLITEREPOSITORY_H
 
-#include <optional>
-
-#include <QString>
-#include <QtSql/QSqlDatabase>
-
 #include "domain/attendance/attendancerepository.h"
+
+#include <QtSql>
 
 class AttendanceSQLiteRepository : public AttendanceRepository {
 public:

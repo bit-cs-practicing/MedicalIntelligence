@@ -5,10 +5,8 @@
 #include "domain/doctor/doctor.h"
 #include "domain/appointment/appointment.h"
 #include "domain/attendance/attendance.h"
-
 #include "domain/case/case.h"
 
-#include <QString>
 #include <QtSql>
 
 class DatabaseOperator {
@@ -19,7 +17,6 @@ public:
     static Doctor getDoctorFromQuery(const QSqlQuery& query);
     static Appointment getAppointmentFromQuery(const QSqlQuery& query);
     static Attendance getAttendanceFromQuery(const QSqlQuery& query);
-
     static Case getCaseFromQuery(const QSqlQuery& query);
 };
 

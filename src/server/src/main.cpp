@@ -1,15 +1,10 @@
 #include <QCoreApplication>
-#include <QDebug>
-#include <QDateTime>
-#include <QDate>
-#include <QTime>
-#include <iostream>
-#include <optional>
 
 #include "infra/data/patient/patientsqliterepository.h"
 #include "infra/data/doctor/doctorsqliterepository.h"
 #include "infra/data/appointment/appointmentsqliterepository.h"
 #include "infra/data/attendance/attendancesqliterepository.h"
+#include "infra/data/case/casesqliterepository.h"
 
 #include "infra/data/util/printer/printer.h"
 
@@ -20,6 +15,7 @@ int main(int argc, char *argv[]) {
     DoctorSQLiteRepository doctorRepository(path);
     AttendanceSQLiteRepository attendanceRepository(path);
     AppointmentSQLiteRepository appointmentRepository(path);
+    CaseSQLiteRepository caseRepository(path);
 
     Patient patient1(Name("吴三"),IdCard("111111111111152111"),Gender("male"),Phone("11234567890"),Password("adeadsdaf"));
     Patient patient2(Name("刘五"),IdCard("111141211232111111"),Gender("female"),Phone("11234567890"),Password("adeadsdaf"));
@@ -96,6 +92,15 @@ int main(int argc, char *argv[]) {
     QList<Appointment> Appointnment4 = appointmentRepository.getAllByDoctorIdAndDate(doctor1.getId(),QDate(2025,9,1));
     qDebug() << "List:";
     for (auto appointment: Appointnment4) Printer::printAppointment(appointment);
+
+    Case case1(Id("case1"),appointment1.getAppointmentId(),CaseDiagnosis("测试1"),CasePrescription("测试2"),CaseAdvice("测试3"),QDate(2025,9,3));
+    Case case2(Id("case2"),appointment2.getAppointmentId(),CaseDiagnosis("测试4"),CasePrescription("测试5"),CaseAdvice("测试6"),QDate(2025,9,4));
+    caseRepository.save(case1);
+    caseRepository.save(case2);
+    std::optional<Case> case3 = caseRepository.getById(Id("case2"));
+    Printer::printCase(case3);
+    std::optional<Case> case4 = caseRepository.getByAppointmentId(appointment1.getAppointmentId());
+    Printer::printCase(case4);
 
     return a.exec();
 }

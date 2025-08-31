@@ -1,7 +1,6 @@
 #include "casesqliterepository.h"
 
 #include <QDebug>
-#include <QtSql/QSqlQuery>
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
@@ -16,7 +15,7 @@ CaseSQLiteRepository::~CaseSQLiteRepository() {
 void CaseSQLiteRepository::save(const Case &caseEntity) {
     QSqlQuery query(db);
     query.prepare(
-        "INSERT INTO case(caseId,appointmentId,diagnosis,prescription,advice,visitDate) "
+        "INSERT INTO cases(caseId,appointmentId,diagnosis,prescription,advice,visitDate) "
         "VALUES (:caseId,:appointmentId,:diagnosis,:prescription,:advice,:visitDate);"
     );
 
@@ -35,7 +34,7 @@ void CaseSQLiteRepository::save(const Case &caseEntity) {
 
 std::optional<Case> CaseSQLiteRepository::getById(const Id& caseId) const {
     QSqlQuery query(db);
-    query.prepare("SELECT * FROM case WHERE caseId = :caseId;");
+    query.prepare("SELECT * FROM cases WHERE caseId = :caseId;");
     query.bindValue(":caseId", caseId.getId());
     bool result = query.exec();
     if (result) qDebug() << "success";
@@ -46,7 +45,7 @@ std::optional<Case> CaseSQLiteRepository::getById(const Id& caseId) const {
 
 std::optional<Case> CaseSQLiteRepository::getByAppointmentId(const Id& appointmentId) const {
     QSqlQuery query(db);
-    query.prepare("SELECT * FROM case WHERE appointmentId = :appointmentId;");
+    query.prepare("SELECT * FROM cases WHERE appointmentId = :appointmentId;");
     query.bindValue(":appointmentId", appointmentId.getId());
     bool result = query.exec();
     if (result) qDebug() << "success";
