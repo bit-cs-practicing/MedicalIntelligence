@@ -61,3 +61,15 @@ void Printer::printAppointment(const std::optional<Appointment>& obj) {
              << p.getTimeSlot().getEndTime().toString(format) << '|'
              << p.getStatus().getValue();
 }
+
+void Printer::printLeaveRecord(const std::optional<LeaveRecord>& obj) {
+    if (!obj.has_value()) {
+        qDebug() << "Appointment aren't existed";
+        return;
+    }
+    LeaveRecord p = obj.value();
+    qDebug() << p.getLeaveId().getId() << '|' << p.getDoctorId().getId() << '|'
+             << p.getLeavePeriod().getStartTime().toString(Qt::ISODate) << '|'
+             << p.getLeavePeriod().getEndTime().toString(Qt::ISODate) << '|'
+             << p.getLeaveStatus().getValue();
+}

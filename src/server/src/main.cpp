@@ -11,6 +11,8 @@
 #include "infra/data/appointment/appointmentsqliterepository.h"
 #include "infra/data/attendance/attendancesqliterepository.h"
 
+#include "infra/data/leave/leaverecordsqliterepository.h"
+
 #include "infra/data/util/printer/printer.h"
 
 int main(int argc, char *argv[]) {
@@ -20,6 +22,8 @@ int main(int argc, char *argv[]) {
     DoctorSQLiteRepository doctorRepository(path);
     AttendanceSQLiteRepository attendanceRepository(path);
     AppointmentSQLiteRepository appointmentRepository(path);
+
+    LeaveRecordSQLiteRepository leaveRecordRepository(path);
 
     Patient patient1(Name("吴三"),IdCard("111111111111152111"),Gender("male"),Phone("11234567890"),Password("adeadsdaf"));
     Patient patient2(Name("刘五"),IdCard("111141211232111111"),Gender("female"),Phone("11234567890"),Password("adeadsdaf"));
@@ -96,6 +100,20 @@ int main(int argc, char *argv[]) {
     QList<Appointment> Appointnment4 = appointmentRepository.getAllByDoctorIdAndDate(doctor1.getId(),QDate(2025,9,1));
     qDebug() << "List:";
     for (auto appointment: Appointnment4) Printer::printAppointment(appointment);
+
+    LeaveRecord record1(Id("record1"),doctor1.getId(),
+                        LeavePeriod(QDateTime(QDate(2025,9,1),QTime(12,30,29)),
+                                    QDateTime(QDate(2025,9,3),QTime(12,30,29))));
+    record1.cancelLeave();
+    LeaveRecord record2(Id("record2"),doctor1.getId(),
+                        LeavePeriod(QDateTime(QDate(2025,9,2),QTime(12,30,29)),
+                                    QDateTime(QDate(2025,9,4),QTime(12,30,29))));
+    leaveRecordRepository.save(record1);
+    leaveRecordRepository.save(record2);
+    std::optional<LeaveRecord> record3 = leaveRecordRepository.getById(Id("record1"));
+    Printer::printLeaveRecord(record3);
+    std::optional<LeaveRecord> record4 = leaveRecordRepository.getLastByDoctorId(doctor1.getId());
+    Printer::printLeaveRecord(record4);
 
     return a.exec();
 }

@@ -101,3 +101,17 @@ Attendance DatabaseOperator::getAttendanceFromQuery(const QSqlQuery& query) {
     QDateTime attendanceTime(query.value(2).toDateTime());
     return Attendance(attendanceId, doctorId, attendanceTime);
 }
+
+
+
+LeaveRecord DatabaseOperator::getLeaveRecordFromQuery(const QSqlQuery& query) {
+    Id leaveId(query.value(0).toString());
+    Id doctorId(query.value(1).toString());
+    QDateTime startTime(query.value(2).toDateTime());
+    QDateTime endTime(query.value(3).toDateTime());
+    LeaveRecord leaveRecord(leaveId,doctorId,LeavePeriod(startTime,endTime));
+    QString status(query.value(4).toString());
+    if (status == LeaveStatus::CANCELED)
+        leaveRecord.cancelLeave();
+    return leaveRecord;
+}
