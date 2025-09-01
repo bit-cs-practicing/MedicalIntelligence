@@ -16,7 +16,7 @@ class PatientAppointment : public QWidget
 
 public:
     explicit PatientAppointment(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
-    void setDoctorInformation(QString, QString);
+    void setDoctorInformation(QString, QString, QString);
     ~PatientAppointment();
 
 private slots:
@@ -28,6 +28,7 @@ private:
     Ui::PatientAppointment *ui;
     CredentialManager *patientCredential;
     RpcClient *requestSender;
+    QString sendDoctorId;
 
 protected:
     void closeEvent(QCloseEvent *event) override {

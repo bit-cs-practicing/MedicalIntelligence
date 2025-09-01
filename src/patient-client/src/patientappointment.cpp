@@ -31,9 +31,10 @@ PatientAppointment::~PatientAppointment()
     delete ui;
 }
 
-void PatientAppointment::setDoctorInformation(QString name, QString id){
+void PatientAppointment::setDoctorInformation(QString name, QString id, QString sId){
     ui->doctorName->setText(name);
     ui->doctorId->setText(id);
+    sendDoctorId = sId;
 }
 
 void PatientAppointment::on_closeWindow_clicked()
@@ -44,7 +45,7 @@ void PatientAppointment::on_closeWindow_clicked()
 void PatientAppointment::on_submit_clicked()
 {
     QJsonObject submitAppointment;
-    submitAppointment["doctorId"] = ui->doctorId->text();
+    submitAppointment["doctorId"] = sendDoctorId;
     submitAppointment["date"] = ui->date->date().toString("yyyy-MM-dd");
     submitAppointment["timeSlot"] = ui->startTime->time().toString("HH:mm") + "-" + ui->endTime->time().toString("HH:mm");
 //    qDebug() << submitAppointment["date"] << "\n" << submitAppointment["timeSlot"] << "\n";

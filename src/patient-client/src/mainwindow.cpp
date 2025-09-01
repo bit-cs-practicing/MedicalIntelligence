@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
         if(S == "所有时间") ui->caseDateTime->setEnabled(false);
         else ui->caseDateTime->setEnabled(true);
     });
+    loadDoctorInfo();
 }
 
 MainWindow::~MainWindow()
@@ -42,7 +43,8 @@ MainWindow::~MainWindow()
 void MainWindow::setAppListComboBox() {
     QStringList S = {"All Doctors"}, S2 = {"All times", "Specific time"};
     for(QJsonValue i : appointmentInformations) {
-        if(!S.contains(i["doctorId"].toString())) S.append(i["doctorId"].toString());
+        QString tmp = doctorIdtoEmployeeId[i["doctorId"].toString()];
+        if(!S.contains(tmp)) S.append(tmp);
     }
     ui->appListComboBox->clear();
     ui->appListComboBox->addItems(S);
@@ -140,10 +142,13 @@ void MainWindow::showDoctorInfo(QString depart) {
     QWidget *scrollContent = new QWidget(this); // 滚动区域的内容容器
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent); // 容器的布局
     scrollContent->setLayout(scrollLayout);
+    doctorIdtoEmployeeId.clear();
     for(QJsonValue i : doctorInformations) {
+        doctorIdtoEmployeeId[i["doctorId"].toString()] = i["employeeId"].toString();
+        doctorIdtoDoctorName[i["doctorId"].toString()] = i["name"].toString();
         if(i["department"].toString() == depart || depart == "All") {
             DoctorInfoBrief *p = new DoctorInfoBrief(scrollContent, requestSender, patientCredential);
-            p->setDoctorBriefInfo(i["employeeId"].toString(), i["name"].toString(), i["department"].toString());
+            p->setDoctorBriefInfo(i["employeeId"].toString(), i["name"].toString(), i["department"].toString(), i["doctorId"].toString());
             p->setFatherMainWindow(this);
             scrollLayout->addWidget(p);
         }
@@ -157,9 +162,9 @@ void MainWindow::showAppointmentInfo(QString doctorId, QString dateTime) {
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
     scrollContent->setLayout(scrollLayout);
     for(QJsonValue i : appointmentInformations) {
-        if((i["doctorId"].toString() == doctorId || doctorId == "All Doctors") && (i["date"].toString() == dateTime || dateTime == "All times")) {
+        if((doctorIdtoEmployeeId[i["doctorId"].toString()] == doctorId || doctorId == "All Doctors") && (i["date"].toString() == dateTime || dateTime == "All times")) {
             AppointmentData *p = new AppointmentData(scrollContent, requestSender, patientCredential);
-            p->setAppointmentData(i["appointmentId"].toString(), i["doctorId"].toString(), i["date"].toString(), i["timeSlot"].toString(), i["status"].toString());
+            p->setAppointmentData(doctorIdtoDoctorName[i["doctorId"].toString()], doctorIdtoEmployeeId[i["doctorId"].toString()], i["date"].toString(), i["timeSlot"].toString(), i["status"].toString(), i["appointmentId"].toString());
             scrollLayout->addWidget(p);
         }
     }

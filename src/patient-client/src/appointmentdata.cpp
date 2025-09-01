@@ -19,11 +19,12 @@ AppointmentData::~AppointmentData() {
     delete ui;
 }
 
-void AppointmentData::setAppointmentData(QString appId, QString doctorId, QString date, QString time, QString status) {
-    ui->appId->setText(appId);
+void AppointmentData::setAppointmentData(QString doctorName, QString doctorId, QString date, QString time, QString status, QString appId) {
+    ui->appId->setText(doctorName);
     ui->doctorId->setText(doctorId);
     ui->dateTime->setText(date + " " + time);
     ui->status->setCurrentText(status);
+    appointmentId = appId;
     if(status == "scheduled") ui->cancelBtn->setEnabled(true);
     else ui->cancelBtn->setEnabled(false);
 }
@@ -37,7 +38,7 @@ void AppointmentData::on_cancelBtn_clicked() {
     );
     if(reply == QMessageBox::No) return;
     QJsonObject cancelApplication;
-    cancelApplication["appointmentId"] = ui->appId->text();
+    cancelApplication["appointmentId"] = appointmentId;
 
     Response result = requestSender->rpc(Request("appointment.cancel", patientCredential->get(), cancelApplication));
     qDebug() << result.data << "\n";

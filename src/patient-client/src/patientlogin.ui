@@ -28,17 +28,10 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="label">
+   <item row="1" column="2">
+    <widget class="QLineEdit" name="password">
      <property name="text">
-      <string>身份证</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLineEdit" name="username">
-     <property name="text">
-      <string>123456789012345678</string>
+      <string>12345678</string>
      </property>
     </widget>
    </item>
@@ -49,10 +42,17 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QLineEdit" name="password">
+   <item row="0" column="2">
+    <widget class="QLineEdit" name="username">
      <property name="text">
-      <string>12345678</string>
+      <string>123456789012345678</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>身份证</string>
      </property>
     </widget>
    </item>
