@@ -120,6 +120,7 @@ QJsonObject ChatAppServiceImpl::fetchMessages(const Credential& credential, cons
             { "content", message.getContent().getContent() },
             { "time", message.getTime().toString("yyyy-MM-ddTHH:mm:ss") }
         };
+        messagesJson.push_back(messageJson);
     }
     return QJsonObject {
         { "messages", messagesJson }

@@ -37,7 +37,7 @@ void TopicDataDetails::closeEvent(QCloseEvent *event){
 void TopicDataDetails::loadMessageInfo() {
     qDebug() << "loading message\n";
     QJsonObject fetchMessage = QJsonObject{
-        {"topicId", topicId}, {"start", QString("0")}, {"limit", QString("100")}
+        {"topicId", topicId}, {"start", 0}, {"limit", 100}
     };
 
     Response result = requestSender->rpc(Request("chat.fetchMessages", patientCredential->get(), fetchMessage));
