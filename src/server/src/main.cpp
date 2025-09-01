@@ -56,6 +56,7 @@
 #include "view/attendancehandler.h"
 #include "view/casehandler.h"
 #include "view/chathandler.h"
+#include "view/consultationhandler.h"
 #include "view/doctorhandler.h"
 #include "view/patienthandler.h"
 
@@ -78,7 +79,7 @@ int main(int argc, char *argv[]) {
     settings.endGroup();
     QString path = settings.value("database/path").toString();
 
-    // Infrastructure
+    // Authentication
     auto credentialRegistry = std::make_shared<CredentialRegistry>();
 
     // Repositories
@@ -90,6 +91,10 @@ int main(int argc, char *argv[]) {
     auto messageRepository = std::make_shared<MessageSQLiteRepository>(path);
     auto patientRepository = std::make_shared<PatientSQLiteRepository>(path);
     auto topicRepository = std::make_shared<TopicSQLiteRepository>(path);
+
+    // External Providers
+    auto doctorAssistantProvider = nullptr;
+    auto patientAssistantProvider = nullptr;
 
     // Domain Services
     auto appointmentFactory = std::make_shared<AppointmentFactory>(appointmentRepository, doctorRepository, leaveRecordRepository);
@@ -186,6 +191,9 @@ int main(int argc, char *argv[]) {
     dispatcher->add("chat.listTopicsByUser", std::make_shared<ChatListTopicsByUserHandler>(chatAppService));
     dispatcher->add("chat.sendMessage", std::make_shared<ChatSendMessageHandler>(chatAppService));
     dispatcher->add("chat.fetchMessages", std::make_shared<ChatFetchMessagesHandler>(chatAppService));
+
+    dispatcher->add("consultation.answerForDoctor", std::make_shared<ConsultationAnswerForDoctorHandler>(doctorAssistantProvider));
+    dispatcher->add("consultation.answerForPatient", std::make_shared<ConsultationAnswerForPatientHandler>(patientAssistantProvider));
 
     dispatcher->add("doctor.signup", std::make_shared<DoctorSignupHandler>(doctorAppService));
     dispatcher->add("doctor.login", std::make_shared<DoctorLoginHandler>(doctorAppService));
