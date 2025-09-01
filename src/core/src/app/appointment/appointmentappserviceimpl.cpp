@@ -30,7 +30,7 @@ QJsonObject AppointmentAppServiceImpl::create(const Credential &credential, cons
     auto patient = patientOpt.value();
 
     auto doctorId = Id(data["doctorId"].toString());
-    auto doctorOpt = doctorRepository->getById(patientId);
+    auto doctorOpt = doctorRepository->getById(doctorId);
     if (!doctorOpt.has_value()) {
         throw std::logic_error("不存在此医生 ID");
     }
@@ -137,6 +137,7 @@ QJsonObject AppointmentAppServiceImpl::appointmentToJson(const Appointment& appo
     return QJsonObject {
         { "appointmentId", appointment.getAppointmentId().getId() },
         { "patientId", appointment.getPatientId().getId() },
+        { "doctorId", appointment.getDoctorId().getId() },
         { "date", appointment.getDate().toString("yyyy-MM-dd") },
         { "timeSlot", appointment.getTimeSlot().toString() },
         { "status", appointment.getStatus().getValue() }
