@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
         settings.setValue("port", 8080);
     }
     settings.endGroup();
-    QString path = settings.value("database/path").toString();
+    QUrl path = settings.value("database/path").toUrl();
 
     // Infrastructure
     auto credentialRegistry = std::make_shared<CredentialRegistry>();

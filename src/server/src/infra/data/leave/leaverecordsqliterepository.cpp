@@ -2,7 +2,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-LeaveRecordSQLiteRepository::LeaveRecordSQLiteRepository(const QString& path) {
+LeaveRecordSQLiteRepository::LeaveRecordSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "LeaveRecord", path);
 }
 

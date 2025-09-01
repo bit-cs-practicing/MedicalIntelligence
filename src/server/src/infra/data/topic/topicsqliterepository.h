@@ -8,7 +8,7 @@
 class TopicSQLiteRepository : public TopicRepository
 {
 public:
-    TopicSQLiteRepository(const QString& path);
+    TopicSQLiteRepository(const QUrl& path);
     ~TopicSQLiteRepository();
     void save(const Topic& topic) override;
     std::optional<Topic> getById(const Id& topicId) const override;

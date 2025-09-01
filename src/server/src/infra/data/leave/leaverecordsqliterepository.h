@@ -8,7 +8,7 @@
 class LeaveRecordSQLiteRepository : public LeaveRecordRepository
 {
 public:
-    LeaveRecordSQLiteRepository(const QString& path);
+    LeaveRecordSQLiteRepository(const QUrl& path);
     ~LeaveRecordSQLiteRepository();
     void save(const LeaveRecord& leaveRecord) override;
     std::optional<LeaveRecord> getById(const Id& leaveId) const override;

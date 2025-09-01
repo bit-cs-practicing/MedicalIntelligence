@@ -8,7 +8,7 @@
 class MessageSQLiteRepository : public MessageRepository
 {
 public:
-    MessageSQLiteRepository(const QString& path);
+    MessageSQLiteRepository(const QUrl& path);
     ~MessageSQLiteRepository();
     void save(const Message& message) override;
     QList<Message> getAllByTopicIdOrderedByTime(const Id& topicId, int start, int limit) const override;

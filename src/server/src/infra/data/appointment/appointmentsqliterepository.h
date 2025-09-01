@@ -8,7 +8,7 @@
 class AppointmentSQLiteRepository : public AppointmentRepository
 {
 public:
-    AppointmentSQLiteRepository(const QString& path);
+    AppointmentSQLiteRepository(const QUrl& path);
     ~AppointmentSQLiteRepository();
     void save(const Appointment &appointment) override;
     std::optional<Appointment> getById(const Id& appointmentId) const override;

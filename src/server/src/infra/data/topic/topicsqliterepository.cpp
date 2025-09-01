@@ -2,7 +2,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-TopicSQLiteRepository::TopicSQLiteRepository(const QString& path) {
+TopicSQLiteRepository::TopicSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "Topic", path);
 }
 

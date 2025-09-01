@@ -2,7 +2,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-MessageSQLiteRepository::MessageSQLiteRepository(const QString& path) {
+MessageSQLiteRepository::MessageSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "Message", path);
 }
 

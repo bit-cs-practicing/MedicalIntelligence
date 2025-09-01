@@ -4,7 +4,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-AppointmentSQLiteRepository::AppointmentSQLiteRepository(const QString& path) {
+AppointmentSQLiteRepository::AppointmentSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "Appointment", path);
 }
 

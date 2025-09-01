@@ -5,7 +5,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-DoctorSQLiteRepository::DoctorSQLiteRepository(const QString& path) {
+DoctorSQLiteRepository::DoctorSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "Doctor", path);
 }
 

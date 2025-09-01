@@ -4,7 +4,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-CaseSQLiteRepository::CaseSQLiteRepository(const QString& path) {
+CaseSQLiteRepository::CaseSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "Case", path);
 }
 

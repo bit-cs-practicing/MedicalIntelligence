@@ -5,7 +5,7 @@
 
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
-AttendanceSQLiteRepository::AttendanceSQLiteRepository(const QString& path) {
+AttendanceSQLiteRepository::AttendanceSQLiteRepository(const QUrl& path) {
     DatabaseOperator::createConnection(&db, "Attendance", path);
 }
 

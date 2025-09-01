@@ -7,7 +7,7 @@
 
 class DoctorSQLiteRepository : public DoctorRepository {
 public:
-    DoctorSQLiteRepository(const QString& path);
+    DoctorSQLiteRepository(const QUrl& path);
     ~DoctorSQLiteRepository();
     void save(const Doctor& doctor) override;
     std::optional<Doctor> getById(const Id &id) const override;

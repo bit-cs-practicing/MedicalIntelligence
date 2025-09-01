@@ -8,7 +8,7 @@
 class CaseSQLiteRepository : public CaseRepository
 {
 public:
-    CaseSQLiteRepository(const QString& path);
+    CaseSQLiteRepository(const QUrl& path);
     ~CaseSQLiteRepository();
     void save(const Case& caseEntity) override;
     std::optional<Case> getById(const Id& caseId) const override;

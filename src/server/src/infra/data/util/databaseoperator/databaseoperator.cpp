@@ -5,11 +5,13 @@
 #include <QUrl>
 #include <QUuid>
 
-void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identifier, const QString& path) {
+void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identifier, const QUrl& path) {
     *db = QSqlDatabase::addDatabase("QSQLITE", identifier + QUuid::createUuid().toString());
-    db->setDatabaseName(path);
+    db->setDatabaseName(path.toString());
     if (!db->open()) {
-        QString msg = QString("Fail to open the database from %1").arg(path);
+        QString msg = QString("Fail to open the database from %1").arg(path.toString());
+        qDebug() << db->lastError().text();
+        qDebug() << msg;
         throw std::runtime_error(msg.toStdString());
     }
 }
