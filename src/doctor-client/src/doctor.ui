@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>6</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="widget_2">
       <attribute name="title">
@@ -356,7 +356,7 @@
      </widget>
      <widget class="QWidget" name="LeaveManaging">
       <attribute name="title">
-       <string>请假管理</string>
+       <string>考勤管理</string>
       </attribute>
       <widget class="QLabel" name="label_28">
        <property name="geometry">
@@ -427,7 +427,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>查询最后一次请假记录</string>
+        <string>打卡</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_27">
