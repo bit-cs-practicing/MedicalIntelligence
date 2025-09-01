@@ -1,5 +1,7 @@
 #include "topicsqliterepository.h"
 
+#include <QDebug>
+
 #include "infra/data/util/databaseoperator/databaseoperator.h"
 
 TopicSQLiteRepository::TopicSQLiteRepository(const QString& path) {
@@ -81,7 +83,6 @@ std::optional<Topic> TopicSQLiteRepository::getById(const Id& topicId) const {
     if (!query.next()) return std::nullopt;
     QDateTime lastMessageTime(query.value(0).toDateTime());
     QList<Id> participants(getAllParticipantByTopicId(topicId));
-    Topic topic(topicId, participants);
-    topic.setLastMessageTime(lastMessageTime);
+    Topic topic(topicId, participants, lastMessageTime);
     return topic;
 }

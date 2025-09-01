@@ -29,5 +29,5 @@ Topic TopicFactory::createTopic(const Doctor&, QList<Id> participants) const {
     if (patientNum + doctorNum != participants.length()) {
         throw std::logic_error("存在无效用户 ID");
     }
-    return Topic(Id::fromUuid(), participants);
+    return Topic(Id::fromUuid(), participants, QDateTime::currentDateTime());
 }

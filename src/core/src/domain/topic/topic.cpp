@@ -1,7 +1,7 @@
 #include "topic.h"
 
-Topic::Topic(Id topicId, QList<Id> participants)
-    : topicId(topicId), participants(participants) {}
+Topic::Topic(Id topicId, QList<Id> participants, QDateTime lastMessageTime)
+    : topicId(topicId), participants(participants), lastMessageTime(lastMessageTime) {}
 
 const Id& Topic::getTopicId() const {
     return topicId;
