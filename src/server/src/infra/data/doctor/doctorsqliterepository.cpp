@@ -17,10 +17,7 @@ void DoctorSQLiteRepository::save(const Doctor& doctor) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM doctor WHERE id = :id;");
     query.bindValue(":id", doctor.getId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     query.prepare(
         "INSERT INTO doctor(id,name,idCard,password,employeeId,"
@@ -31,49 +28,54 @@ void DoctorSQLiteRepository::save(const Doctor& doctor) {
         ":registrationFee,:dailyPatientLimit);"
     );
     DatabaseOperator::addUserInfo(&query, doctor);
-    if (doctor.getEmployeeId().has_value())
+    if (doctor.getEmployeeId().has_value()) {
         query.bindValue(":employeeId", doctor.getEmployeeId()->getValue());
-    else query.bindValue(":employeeId", "");
-    if (doctor.getDepartment().has_value())
+    } else {
+        query.bindValue(":employeeId", "");
+    }
+    if (doctor.getDepartment().has_value()) {
         query.bindValue(":department", doctor.getDepartment()->getValue());
-    else query.bindValue(":department", "");
-    if (doctor.getProfile().has_value())
+    } else {
+        query.bindValue(":department", "");
+    }
+    if (doctor.getProfile().has_value()) {
         query.bindValue(":profile", doctor.getProfile()->getValue());
-    else query.bindValue(":profile", "");
-    if (doctor.getPhoto().has_value())
+    } else {
+        query.bindValue(":profile", "");
+    }
+    if (doctor.getPhoto().has_value()) {
         query.bindValue(":photo", doctor.getPhoto()->toString());
-    else query.bindValue(":photo", "");
-
+    } else {
+        query.bindValue(":photo", "");
+    }
     if (doctor.getWorkSchedule().has_value()) {
         query.bindValue(":startTime", doctor.getWorkSchedule()->getStartTime().toString(Qt::ISODate));
         query.bindValue(":endTime", doctor.getWorkSchedule()->getEndTime().toString(Qt::ISODate));
-    }
-    else {
+    } else {
         query.bindValue(":startTime", "");
         query.bindValue(":endTime", "");
     }
-
-    if (doctor.getRegistrationFee().has_value())
+    if (doctor.getRegistrationFee().has_value()) {
         query.bindValue(":registrationFee", doctor.getRegistrationFee()->getValue());
-    else query.bindValue(":registrationFee", "");
-    if (doctor.getRegistrationFee().has_value())
+    } else {
+        query.bindValue(":registrationFee", "");
+    }
+    if (doctor.getRegistrationFee().has_value()) {
         query.bindValue(":dailyPatientLimit", doctor.getDailyPatientLimit()->getValue());
-    else query.bindValue(":dailyPatientLimit", "");
-
-    result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    } else {
+        query.bindValue(":dailyPatientLimit", "");
+    }
+    DatabaseOperator::execOperation(&query);
 }
 
 std::optional<Doctor> DoctorSQLiteRepository::getById(const Id &id) const {
     QSqlQuery query(db);
     query.prepare("SELECT * FROM doctor WHERE id = :id;");
     query.bindValue(":id", id.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
-    if (!query.next()) return std::nullopt;
+    DatabaseOperator::execOperation(&query);
+    if (!query.next()) {
+        return std::nullopt;
+    }
     return DatabaseOperator::getDoctorFromQuery(query);
 }
 
@@ -81,14 +83,17 @@ std::optional<Doctor> DoctorSQLiteRepository::getByIdCard(const IdCard &idCard) 
     QSqlQuery query(db);
     query.prepare("SELECT * FROM doctor WHERE idCard = :idCard;");
     query.bindValue(":idCard", idCard.getValue());
-    query.exec();
-    if (!query.next()) return std::nullopt;
+    DatabaseOperator::execOperation(&query);
+    if (!query.next()) {
+        return std::nullopt;
+    }
     return DatabaseOperator::getDoctorFromQuery(query);
 }
 
 QList<Doctor> DoctorSQLiteRepository::getAll() const {
     QSqlQuery query(db);
-    query.exec("SELECT * FROM doctor;");
+    query.prepare("SELECT * FROM doctor;");
+    DatabaseOperator::execOperation(&query);
     QList<Doctor> que;
     while(query.next())
         que.push_back(DatabaseOperator::getDoctorFromQuery(query));

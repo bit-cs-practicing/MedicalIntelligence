@@ -17,10 +17,7 @@ void PatientSQLiteRepository::save(const Patient &patient) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM patient WHERE id = :id;");
     query.bindValue(":id", patient.getId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     query.prepare(
         "INSERT INTO patient(id,name,idCard,password,"
@@ -31,28 +28,29 @@ void PatientSQLiteRepository::save(const Patient &patient) {
     DatabaseOperator::addUserInfo(&query, patient);
     query.bindValue(":gender", patient.getGender().getValue());
     query.bindValue(":phone", patient.getPhone().getValue());
-    if (patient.getBirthday().has_value())
+    if (patient.getBirthday().has_value()) {
         query.bindValue(":birthday", patient.getBirthday()->getValue().toString(Qt::ISODate));
-    else query.bindValue(":birthday", "");
-    if (patient.getEmail().has_value())
+    } else {
+        query.bindValue(":birthday", "");
+    }
+    if (patient.getEmail().has_value()) {
         query.bindValue(":email", patient.getEmail()->getValue());
-    else query.bindValue(":email", "");
-    if (patient.getEmergencyContact().has_value())
+    } else {
+        query.bindValue(":email", "");
+    }
+    if (patient.getEmergencyContact().has_value()) {
         query.bindValue(":emergencyContact", patient.getEmergencyContact()->getValue());
-    else query.bindValue(":emergencyContact", "");
-    result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    } else {
+        query.bindValue(":emergencyContact", "");
+    }
+    DatabaseOperator::execOperation(&query);
 }
 
 std::optional<Patient> PatientSQLiteRepository::getById(const Id &id) const {
     QSqlQuery query(db);
     query.prepare("SELECT * FROM patient WHERE id = :id;");
     query.bindValue(":id", id.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     if (!query.next()) return std::nullopt;
     return DatabaseOperator::getPatientFromQuery(query);
 }
@@ -61,7 +59,7 @@ std::optional<Patient> PatientSQLiteRepository::getByIdCard(const IdCard &idCard
     QSqlQuery query(db);
     query.prepare("SELECT * FROM patient WHERE idCard = :idCard;");
     query.bindValue(":idCard", idCard.getValue());
-    query.exec();
+    DatabaseOperator::execOperation(&query);
     if (!query.next()) return std::nullopt;
     return DatabaseOperator::getPatientFromQuery(query);
 }
@@ -70,7 +68,7 @@ std::optional<Patient> PatientSQLiteRepository::getFirstByName(const Name &name)
     QSqlQuery query(db);
     query.prepare("SELECT * FROM patient WHERE name = :name;");
     query.bindValue(":name", name.getValue());
-    query.exec();
+    DatabaseOperator::execOperation(&query);
     if (!query.next()) return std::nullopt;
     return DatabaseOperator::getPatientFromQuery(query);
 }

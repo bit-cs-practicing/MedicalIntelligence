@@ -8,7 +8,6 @@
 void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identifier, const QString& path) {
     *db = QSqlDatabase::addDatabase("QSQLITE", identifier + QUuid::createUuid().toString());
     db->setDatabaseName(path);
-    qDebug() << path;
     if (!db->open()) {
         QString msg = QString("Fail to open the database from %1").arg(path);
         qDebug() << msg;
@@ -37,15 +36,17 @@ Patient DatabaseOperator::getPatientFromQuery(const QSqlQuery& query) {
     Patient patient(name, idCard, gender, phone, password);
 
     QVariant birthday = query.value(6);
-    if (!isEmpty(birthday))
+    if (!isEmpty(birthday)) {
         patient.setBirthday(Birthday(birthday.toDate()));
-
+    }
     QVariant email = query.value(7);
-    if (!isEmpty(email))
+    if (!isEmpty(email)) {
         patient.setEmail(Email(email.toString()));
+    }
     QVariant emergencyContact = query.value(8);
-    if (!isEmpty(emergencyContact))
+    if (!isEmpty(emergencyContact)) {
         patient.setEmergencyContact(Phone(emergencyContact.toString()));
+    }
     return patient;
 }
 
@@ -56,29 +57,34 @@ Doctor DatabaseOperator::getDoctorFromQuery(const QSqlQuery& query) {
     Doctor doctor(name, idCard, password);
 
     QVariant employeeId = query.value(4);
-    if (!isEmpty(employeeId))
+    if (!isEmpty(employeeId)) {
         doctor.setEmployeeId(EmployeeId(employeeId.toString()));
+    }
     QVariant department = query.value(5);
-    if (!isEmpty(department))
+    if (!isEmpty(department)) {
         doctor.setDepartment(Department(department.toString()));
+    }
     QVariant profile = query.value(6);
-    if (!isEmpty(profile))
+    if (!isEmpty(profile)) {
         doctor.setProfile(Profile(profile.toString()));
+    }
     QVariant photo = query.value(7);
-    if (!isEmpty(photo))
+    if (!isEmpty(photo)) {
         doctor.setPhoto(QUrl(photo.toString()));
-
+    }
     QVariant startTime = query.value(8);
     QVariant endTime = query.value(9);
-    if (!isEmpty(startTime) && !isEmpty(endTime))
+    if (!isEmpty(startTime) && !isEmpty(endTime)) {
         doctor.setWorkSchedule(WorkSchedule(startTime.toTime(), endTime.toTime()));
-
+    }
     QVariant registrationFee = query.value(10);
-    if (!isEmpty(registrationFee))
+    if (!isEmpty(registrationFee)) {
         doctor.setRegistrationFee(RegistrationFee(registrationFee.toReal()));
+    }
     QVariant dailyPatientLimit = query.value(11);
-    if (!isEmpty(dailyPatientLimit))
+    if (!isEmpty(dailyPatientLimit)) {
         doctor.setDailyPatientLimit(DailyPatientLimit(dailyPatientLimit.toInt()));
+    }
     return doctor;
 }
 
@@ -91,10 +97,12 @@ Appointment DatabaseOperator::getAppointmentFromQuery(const QSqlQuery& query) {
     QTime endTime(query.value(5).toTime());
     AppointmentStatus status(query.value(6).toString());
     Appointment appointment(appointmentId,doctorId,patientId,date,AppointmentTimeSlot(startTime,endTime));
-    if (status.getValue() == AppointmentStatus::COMPLETED)
+    if (status.getValue() == AppointmentStatus::COMPLETED) {
         appointment.markAsCompleted();
-    if (status.getValue() == AppointmentStatus::CANCELLED)
+    }
+    if (status.getValue() == AppointmentStatus::CANCELLED) {
         appointment.markAsCancelled();
+    }
     return appointment;
 }
 
@@ -122,8 +130,9 @@ LeaveRecord DatabaseOperator::getLeaveRecordFromQuery(const QSqlQuery& query) {
     QDateTime endTime(query.value(3).toDateTime());
     LeaveRecord leaveRecord(leaveId,doctorId,LeavePeriod(startTime,endTime));
     QString status(query.value(4).toString());
-    if (status == LeaveStatus::CANCELED)
+    if (status == LeaveStatus::CANCELED) {
         leaveRecord.cancelLeave();
+    }
     return leaveRecord;
 }
 
@@ -135,4 +144,14 @@ Message DatabaseOperator::getMessageFromQuery(const QSqlQuery& query) {
     MessageContent content(query.value(4).toString());
     QDateTime sendTime(query.value(5).toDateTime());
     return Message(messageId,topicId,senderId,senderName,content,sendTime);
+}
+
+void DatabaseOperator::execOperation(QSqlQuery* query) {
+    bool result = query->exec();
+    qDebug() << "lastQuery:" << query->lastQuery();
+    if (result) {
+        qDebug() << "success";
+    } else {
+        qDebug() << "fail";
+    }
 }

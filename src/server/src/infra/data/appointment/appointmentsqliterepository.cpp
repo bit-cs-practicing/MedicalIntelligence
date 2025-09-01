@@ -16,10 +16,7 @@ void AppointmentSQLiteRepository::save(const Appointment &appointment) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM appointment WHERE appointmentId = :appointmentId;");
     query.bindValue(":appointmentId", appointment.getAppointmentId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     query.prepare(
         "INSERT INTO appointment(appointmentId,doctorId,patientId,"
@@ -34,20 +31,17 @@ void AppointmentSQLiteRepository::save(const Appointment &appointment) {
     query.bindValue(":startTime", appointment.getTimeSlot().getStartTime().toString(Qt::ISODate));
     query.bindValue(":endTime", appointment.getTimeSlot().getEndTime().toString(Qt::ISODate));
     query.bindValue(":status", appointment.getStatus().getValue());
-    result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 }
 
 std::optional<Appointment> AppointmentSQLiteRepository::getById(const Id &appointmentId) const {
     QSqlQuery query(db);
     query.prepare("SELECT * FROM appointment WHERE appointmentId = :appointmentId;");
     query.bindValue(":appointmentId", appointmentId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
-    if (!query.next()) return std::nullopt;
+    DatabaseOperator::execOperation(&query);
+    if (!query.next()) {
+        return std::nullopt;
+    }
     return DatabaseOperator::getAppointmentFromQuery(query);
 }
 
@@ -55,9 +49,7 @@ QList<Appointment> AppointmentSQLiteRepository::getAllByPatientId(const Id& pati
     QSqlQuery query(db);
     query.prepare("SELECT * FROM appointment WHERE patientId = :patientId;");
     query.bindValue(":patientId", patientId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Appointment> que;
     while(query.next())
         que.push_back(DatabaseOperator::getAppointmentFromQuery(query));
@@ -68,9 +60,7 @@ QList<Appointment> AppointmentSQLiteRepository::getAllByDoctorId(const Id& docto
     QSqlQuery query(db);
     query.prepare("SELECT * FROM appointment WHERE doctorId = :doctorId;");
     query.bindValue(":doctorId", doctorId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Appointment> que;
     while(query.next())
         que.push_back(DatabaseOperator::getAppointmentFromQuery(query));
@@ -82,9 +72,7 @@ QList<Appointment> AppointmentSQLiteRepository::getAllByDoctorIdAndPatientId(con
     query.prepare("SELECT * FROM appointment WHERE doctorId = :doctorId AND patientId = :patientId;");
     query.bindValue(":doctorId", doctorId.getId());
     query.bindValue(":patientId", patientId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Appointment> que;
     while(query.next())
         que.push_back(DatabaseOperator::getAppointmentFromQuery(query));
@@ -96,9 +84,7 @@ QList<Appointment> AppointmentSQLiteRepository::getAllByDoctorIdAndDate(const Id
     query.prepare("SELECT * FROM appointment WHERE doctorId = :doctorId AND date = :date;");
     query.bindValue(":doctorId", doctorId.getId());
     query.bindValue(":date", date.toString(Qt::ISODate));
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Appointment> que;
     while(query.next())
         que.push_back(DatabaseOperator::getAppointmentFromQuery(query));

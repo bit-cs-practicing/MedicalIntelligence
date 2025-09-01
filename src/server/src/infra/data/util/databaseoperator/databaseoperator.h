@@ -22,6 +22,7 @@ public:
     static Case getCaseFromQuery(const QSqlQuery& query);
     static LeaveRecord getLeaveRecordFromQuery(const QSqlQuery& query);
     static Message getMessageFromQuery(const QSqlQuery& query);
+    static void execOperation(QSqlQuery* query);
 };
 
 #endif // DATABASEOPERATOR_H

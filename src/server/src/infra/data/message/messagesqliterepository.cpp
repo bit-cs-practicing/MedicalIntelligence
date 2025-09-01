@@ -14,10 +14,7 @@ void MessageSQLiteRepository::save(const Message& message) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM message WHERE messageId = :messageId;");
     query.bindValue(":messageId", message.getMessageId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     query.prepare(
         "INSERT INTO message(messageId,topicId,senderId,senderName,content,sendTime) "
@@ -29,18 +26,13 @@ void MessageSQLiteRepository::save(const Message& message) {
     query.bindValue(":senderName", message.getSenderName().getValue());
     query.bindValue(":content", message.getContent().getContent());
     query.bindValue(":sendTime", message.getTime().toString(Qt::ISODate));
-    result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 }
 QList<Message> MessageSQLiteRepository::getAllByTopicIdOrderedByTime(const Id& topicId, int start, int limit) const {
     QSqlQuery query(db);
     query.prepare("SELECT * FROM message WHERE topicId = :topicId ORDER BY sendTime ASC;");
     query.bindValue(":topicId", topicId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Message> que;
     while(query.next()) {
         que.push_back(DatabaseOperator::getMessageFromQuery(query));
