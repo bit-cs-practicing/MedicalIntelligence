@@ -135,7 +135,7 @@ void MainWindow::loadInformation(){
     ui->idCard->setEnabled(false);
     ui->gender->setEnabled(false);
     ui->birthday->setEnabled(false);
-    patientId = registerData["patientId"].toString();
+//    patientId = registerData["patientId"].toString();
 }
 
 void MainWindow::showDoctorInfo(QString depart) {
