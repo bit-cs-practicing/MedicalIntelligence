@@ -212,7 +212,9 @@ int main(int argc, char *argv[]) {
 
     // Bootstrap
     auto rpcServer = RpcServer(std::move(dispatcher));
-    if (rpcServer.listen(QHostAddress::Any, 8080)) {
+    QString address = settings.value("ip").toString();
+    int port = settings.value("port").toInt();
+    if (rpcServer.listen(QHostAddress(address), port)) {
         qDebug() << "listening...";
     }
 
