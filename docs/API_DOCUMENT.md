@@ -36,6 +36,9 @@
   - [chat.listTopicsByUser](#chatlisttopicsbyuser)
   - [chat.sendMessage](#chatsendmessage)
   - [chat.fetchMessages](#chatfetchmessages)
+- [智能咨询模块](#智能咨询模块)
+  - [consultation.answerForPatient](#consultationanswerforpatient)
+  - [consultation.answerForDoctor](#consultationanswerfordoctor)
 
 ## 患者用户管理模块
 
