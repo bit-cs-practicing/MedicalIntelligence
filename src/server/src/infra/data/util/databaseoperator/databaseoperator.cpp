@@ -153,5 +153,6 @@ void DatabaseOperator::execOperation(QSqlQuery* query) {
         qDebug() << "success";
     } else {
         qDebug() << "fail";
+        throw std::runtime_error("Failed to execute database operation.");
     }
 }
