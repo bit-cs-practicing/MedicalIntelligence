@@ -65,7 +65,14 @@ int main(int argc, char *argv[]) {
     // Settings
     QString srcPath = QCoreApplication::applicationDirPath() + "/setting.ini";
     QSettings settings(srcPath, QSettings::IniFormat);
-//    settings.setValue("database/path", "main.db");
+    if (!settings.contains("database/path"))
+        settings.setValue("database/path", "main.db");
+    settings.beginGroup("server");
+    if (!settings.contains("ip"))
+        settings.setValue("ip", "0.0.0.0");
+    if (!settings.contains("port"))
+        settings.setValue("port", 8080);
+    settings.endGroup();
     QString path = settings.value("database/path").toString();
 
     // Infrastructure
