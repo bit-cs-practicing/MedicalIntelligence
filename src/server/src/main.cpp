@@ -51,6 +51,7 @@
 #include "infra/data/topic/topicsqliterepository.h"
 #include "infra/rpcserver/rpcdispatcher.h"
 #include "infra/rpcserver/rpcserver.h"
+#include "infra/provider/consultationdeepseekprovider.h"
 // View Layer
 #include "view/appointmenthandler.h"
 #include "view/attendancehandler.h"
@@ -91,6 +92,13 @@ int main(int argc, char *argv[]) {
     auto messageRepository = std::make_shared<MessageSQLiteRepository>(path);
     auto patientRepository = std::make_shared<PatientSQLiteRepository>(path);
     auto topicRepository = std::make_shared<TopicSQLiteRepository>(path);
+
+    // Provider
+    settings.beginGroup("provider");
+    QString appid(settings.value("appid").toString());
+    QString apikey(settings.value("apikey").toString());
+    settings.endGroup();
+    auto consultationProvider = std::make_shared<ConsultationDeepSeekProvider>(appid, apikey);
 
     // External Providers
     auto doctorAssistantProvider = nullptr;
