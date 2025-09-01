@@ -82,16 +82,12 @@ int main(int argc, char *argv[]) {
     auto patientRepository = std::make_shared<PatientSQLiteRepository>(path);
     auto topicRepository = std::make_shared<TopicSQLiteRepository>(path);
 
-    // Provider
-    settings.beginGroup("provider");
-    QString appid(settings.value("appid").toString());
-    QString apikey(settings.value("apikey").toString());
-    settings.endGroup();
-    auto consultationProvider = std::make_shared<ConsultationDeepSeekProvider>(appid, apikey);
-
     // External Providers
-    auto doctorAssistantProvider = nullptr;
-    auto patientAssistantProvider = nullptr;
+    auto apikey = config.loadAgentApiKey();
+    auto patientAppid = config.loadAgentPatientAssistantAppKey();
+    auto doctorAppid = config.loadAgentDoctorAssistantAppKey();
+    auto doctorAssistantProvider = std::make_shared<ConsultationDeepSeekProvider>(doctorAppid, apikey);
+    auto patientAssistantProvider = std::make_shared<ConsultationDeepSeekProvider>(patientAppid, apikey);
 
     // Domain Services
     auto appointmentFactory = std::make_shared<AppointmentFactory>(appointmentRepository, doctorRepository, leaveRecordRepository);
