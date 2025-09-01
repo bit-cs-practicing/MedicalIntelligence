@@ -195,7 +195,7 @@ int main(int argc, char *argv[]) {
     dispatcher->add("consultation.answerForDoctor", std::make_shared<ConsultationAnswerForDoctorHandler>(doctorAssistantProvider));
     dispatcher->add("consultation.answerForPatient", std::make_shared<ConsultationAnswerForPatientHandler>(patientAssistantProvider));
 
-    dispatcher->add("doctor.signup", std::make_shared<DoctorSignupHandler>(doctorAppService));
+    dispatcher->add("doctor.register", std::make_shared<DoctorRegisterHandler>(doctorAppService));
     dispatcher->add("doctor.login", std::make_shared<DoctorLoginHandler>(doctorAppService));
     dispatcher->add("doctor.updateInfo", std::make_shared<DoctorUpdateInfoHandler>(doctorAppService));
     dispatcher->add("doctor.fetchInfo", std::make_shared<DoctorFetchInfoHandler>(doctorAppService));
