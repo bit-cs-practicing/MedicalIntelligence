@@ -16,10 +16,7 @@ void CaseSQLiteRepository::save(const Case &caseEntity) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM cases WHERE caseId = :caseId;");
     query.bindValue(":caseId", caseEntity.getCaseId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     query.prepare(
         "INSERT INTO cases(caseId,appointmentId,diagnosis,prescription,advice,visitDate) "
@@ -31,21 +28,17 @@ void CaseSQLiteRepository::save(const Case &caseEntity) {
     query.bindValue(":prescription", caseEntity.getPrescription().getValue());
     query.bindValue(":advice", caseEntity.getAdvice().getValue());
     query.bindValue(":visitDate", caseEntity.getVisitDate().toString(Qt::ISODate));
-
-    result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 }
 
 std::optional<Case> CaseSQLiteRepository::getById(const Id& caseId) const {
     QSqlQuery query(db);
     query.prepare("SELECT * FROM cases WHERE caseId = :caseId;");
     query.bindValue(":caseId", caseId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
-    if (!query.next()) return std::nullopt;
+    DatabaseOperator::execOperation(&query);
+    if (!query.next()) {
+        return std::nullopt;
+    }
     return DatabaseOperator::getCaseFromQuery(query);
 }
 
@@ -53,9 +46,9 @@ std::optional<Case> CaseSQLiteRepository::getByAppointmentId(const Id& appointme
     QSqlQuery query(db);
     query.prepare("SELECT * FROM cases WHERE appointmentId = :appointmentId;");
     query.bindValue(":appointmentId", appointmentId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
-    if (!query.next()) return std::nullopt;
+    DatabaseOperator::execOperation(&query);
+    if (!query.next()) {
+        return std::nullopt;
+    }
     return DatabaseOperator::getCaseFromQuery(query);
 }

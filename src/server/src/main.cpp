@@ -41,6 +41,7 @@
 #include "domain/topic/topicfactory.h"
 #include "domain/topic/topicrepository.h"
 // Infrastructure Layer
+#include "infra/config/serverconfiguration.h"
 #include "infra/data/appointment/appointmentsqliterepository.h"
 #include "infra/data/attendance/attendancesqliterepository.h"
 #include "infra/data/case/casesqliterepository.h"
@@ -56,29 +57,18 @@
 #include "view/attendancehandler.h"
 #include "view/casehandler.h"
 #include "view/chathandler.h"
+#include "view/consultationhandler.h"
 #include "view/doctorhandler.h"
 #include "view/patienthandler.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-    // Settings
-    QString srcPath = QCoreApplication::applicationDirPath() + "/setting.ini";
-    QSettings settings(srcPath, QSettings::IniFormat);
-    if (!settings.contains("database/path")) {
-        settings.setValue("database/path", "main.db");
-    }
-    settings.beginGroup("server");
-    if (!settings.contains("ip")) {
-        settings.setValue("ip", "0.0.0.0");
-    }
-    if (!settings.contains("port")) {
-        settings.setValue("port", 8080);
-    }
-    settings.endGroup();
-    QString path = settings.value("database/path").toString();
+    // Configurations
+    auto config = ServerConfiguration("setting.ini");
+    auto path = config.loadDatabaseName();
 
-    // Infrastructure
+    // Authentication
     auto credentialRegistry = std::make_shared<CredentialRegistry>();
 
     // Repositories
@@ -90,6 +80,10 @@ int main(int argc, char *argv[]) {
     auto messageRepository = std::make_shared<MessageSQLiteRepository>(path);
     auto patientRepository = std::make_shared<PatientSQLiteRepository>(path);
     auto topicRepository = std::make_shared<TopicSQLiteRepository>(path);
+
+    // External Providers
+    auto doctorAssistantProvider = nullptr;
+    auto patientAssistantProvider = nullptr;
 
     // Domain Services
     auto appointmentFactory = std::make_shared<AppointmentFactory>(appointmentRepository, doctorRepository, leaveRecordRepository);
@@ -187,7 +181,10 @@ int main(int argc, char *argv[]) {
     dispatcher->add("chat.sendMessage", std::make_shared<ChatSendMessageHandler>(chatAppService));
     dispatcher->add("chat.fetchMessages", std::make_shared<ChatFetchMessagesHandler>(chatAppService));
 
-    dispatcher->add("doctor.signup", std::make_shared<DoctorSignupHandler>(doctorAppService));
+    dispatcher->add("consultation.answerForDoctor", std::make_shared<ConsultationAnswerForDoctorHandler>(doctorAssistantProvider));
+    dispatcher->add("consultation.answerForPatient", std::make_shared<ConsultationAnswerForPatientHandler>(patientAssistantProvider));
+
+    dispatcher->add("doctor.register", std::make_shared<DoctorRegisterHandler>(doctorAppService));
     dispatcher->add("doctor.login", std::make_shared<DoctorLoginHandler>(doctorAppService));
     dispatcher->add("doctor.updateInfo", std::make_shared<DoctorUpdateInfoHandler>(doctorAppService));
     dispatcher->add("doctor.fetchInfo", std::make_shared<DoctorFetchInfoHandler>(doctorAppService));
@@ -204,7 +201,7 @@ int main(int argc, char *argv[]) {
 
     // Bootstrap
     auto rpcServer = RpcServer(std::move(dispatcher));
-    if (rpcServer.listen(QHostAddress::Any, 8080)) {
+    if (rpcServer.listen(QHostAddress(config.loadServerIp()), config.loadServerPort())) {
         qDebug() << "listening...";
     }
 

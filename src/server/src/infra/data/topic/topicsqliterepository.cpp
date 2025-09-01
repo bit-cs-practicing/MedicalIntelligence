@@ -14,10 +14,7 @@ void TopicSQLiteRepository::saveTopicParticipant(const Topic& topic) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM topicParticipant WHERE topicId = :topicId;");
     query.bindValue(":topicId", topic.getTopicId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     for (Id participantId: topic.getParticipants()) {
         query.prepare(
@@ -26,10 +23,7 @@ void TopicSQLiteRepository::saveTopicParticipant(const Topic& topic) {
         );
         query.bindValue(":topicId", topic.getTopicId().getId());
         query.bindValue(":participantId", participantId.getId());
-        result = query.exec();
-        qDebug() << query.lastQuery();
-        if (result) qDebug() << "success";
-        else qDebug() << "fail";
+        DatabaseOperator::execOperation(&query);;
     }
 }
 
@@ -37,10 +31,7 @@ void TopicSQLiteRepository::saveTopicTime(const Topic& topic) {
     QSqlQuery query(db);
     query.prepare("DELETE FROM topic WHERE topicId = :topicId;");
     query.bindValue(":topicId", topic.getTopicId().getId());
-    bool result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     query.prepare(
         "INSERT INTO topic(topicId,lastMessageTime) "
@@ -48,10 +39,7 @@ void TopicSQLiteRepository::saveTopicTime(const Topic& topic) {
     );
     query.bindValue(":topicId", topic.getTopicId().getId());
     query.bindValue(":lastMessageTime", topic.getLastMessageTime().toString(Qt::ISODate));
-    result = query.exec();
-    qDebug() << query.lastQuery();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 }
 
 void TopicSQLiteRepository::save(const Topic& topic) {
@@ -63,9 +51,7 @@ QList<Topic> TopicSQLiteRepository::getAllByContainingParticipantId(const Id& pa
     QSqlQuery query(db);
     query.prepare("SELECT topicId FROM topicParticipant WHERE participantId = :participantId;");
     query.bindValue(":participantId", participantId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Id> topicIds;
     while(query.next())
         topicIds.push_back(Id(query.value(0).toString()));
@@ -79,9 +65,7 @@ QList<Id> TopicSQLiteRepository::getAllParticipantByTopicId(const Id& topicId) c
     QSqlQuery query(db);
     query.prepare("SELECT participantId FROM topicParticipant WHERE topicId = :topicId;");
     query.bindValue(":topicId", topicId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
     QList<Id> que;
     while(query.next())
         que.push_back(Id(query.value(0).toString()));
@@ -92,9 +76,7 @@ std::optional<Topic> TopicSQLiteRepository::getById(const Id& topicId) const {
     QSqlQuery query(db);
     query.prepare("SELECT lastMessageTime FROM topic WHERE topicId = :topicId;");
     query.bindValue(":topicId", topicId.getId());
-    bool result = query.exec();
-    if (result) qDebug() << "success";
-    else qDebug() << "fail";
+    DatabaseOperator::execOperation(&query);
 
     if (!query.next()) return std::nullopt;
     QDateTime lastMessageTime(query.value(0).toDateTime());

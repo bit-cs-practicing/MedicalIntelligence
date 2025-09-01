@@ -6,9 +6,9 @@
 #include "app/doctor/doctorappservice.h"
 #include "infra/rpcserver/rpchandler.h"
 
-class DoctorSignupHandler : public RpcHandler {
+class DoctorRegisterHandler : public RpcHandler {
 public:
-    DoctorSignupHandler(std::shared_ptr<DoctorAppService> service): service(service) {}
+    DoctorRegisterHandler(std::shared_ptr<DoctorAppService> service): service(service) {}
 protected:
     virtual Response handle(const QJsonObject &data) override {
         return Response::ok(service->signup(data));
