@@ -76,13 +76,19 @@ void TopicDataDetails::sendMessage() {
     QJsonObject sendOutMessage = QJsonObject{
         {"topicId", topicId}, {"content", ui->message->toPlainText()}
     };
-    QJsonObject tempAddMessage = QJsonObject{
-        {"messageId", QString("null")}, {"senderId", patientUserId}, {"senderName", QString("Sending")},
-        {"content", ui->message->toPlainText()}, {"time", QString("2025-09-01T10:10:03")}
-    };
+//    QJsonObject tempAddMessage = QJsonObject{
+//        {"messageId", QString("null")}, {"senderId", patientUserId}, {"senderName", QString("Sending")},
+//        {"content", ui->message->toPlainText()}, {"time", QString("2025-09-01T10:10:03")}
+//    };
+    Response result = requestSender->rpc(Request("chat.sendMessage", patientCredential->get(), sendOutMessage));
+    if(!result.success) {
+        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        return;
+    }
     ui->message->setText("");
-    messageInformations.append(tempAddMessage);
-    showMessage();
+//    messageInformations.append(tempAddMessage);
+//    showMessage();
+    loadMessageInfo();
 }
 
 TopicDataDetails::~TopicDataDetails()
