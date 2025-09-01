@@ -20,7 +20,7 @@ public:
 
 private slots:
     void on_register_2_clicked();
-
+    void on_returnBtn_clicked();
 private:
     Ui::PatientRegister *ui;
     bool checkIdCard();
