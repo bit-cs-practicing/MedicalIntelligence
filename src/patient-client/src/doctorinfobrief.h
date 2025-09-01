@@ -18,7 +18,7 @@ class DoctorInfoBrief : public QWidget
 public:
     explicit DoctorInfoBrief(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~DoctorInfoBrief();
-    void setDoctorBriefInfo(QString, QString, QString);
+    void setDoctorBriefInfo(QString, QString, QString, QString);
     void setFatherMainWindow(MainWindow *p) {fatherMainWindow = p;}
 
 private slots:
@@ -31,6 +31,7 @@ private:
     MainWindow *fatherMainWindow;
     CredentialManager *patientCredential;
     RpcClient *requestSender;
+    QString sendDoctorId;
 };
 
 #endif // DOCTORINFOBRIEF_H

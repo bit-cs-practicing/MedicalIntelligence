@@ -21,10 +21,11 @@ DoctorInfoBrief::~DoctorInfoBrief()
     delete ui;
 }
 
-void DoctorInfoBrief::setDoctorBriefInfo(QString ID, QString name, QString depart) {
+void DoctorInfoBrief::setDoctorBriefInfo(QString ID, QString name, QString depart, QString dcId) {
     ui->name->setText(name);
     ui->doctorID->setText(ID);
     ui->office->setText(depart);
+    sendDoctorId = dcId;
 }
 
 void DoctorInfoBrief::on_details_clicked()
@@ -40,6 +41,6 @@ void DoctorInfoBrief::on_details_clicked()
 void DoctorInfoBrief::on_pushButton_clicked()
 {
     PatientAppointment *newAppointment = new PatientAppointment(nullptr, requestSender, patientCredential);
-    newAppointment->setDoctorInformation(ui->name->text(), ui->doctorID->text());
+    newAppointment->setDoctorInformation(ui->name->text(), ui->doctorID->text(), sendDoctorId);
     newAppointment->show();
 }

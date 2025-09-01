@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QJsonArray>
+#include <map>
 #include "infra/rpcclient/rpcclient.h"
 #include "infra/security/credentialmanager.h"
 namespace Ui {
@@ -61,6 +62,8 @@ private:
     QList<QJsonObject> topicInformations;
     CredentialManager *patientCredential;
     RpcClient *requestSender;
+    std::map<QString, QString> doctorIdtoEmployeeId;
+    std::map<QString, QString> doctorIdtoDoctorName;
 };
 
 #endif // MAINWINDOW_H
