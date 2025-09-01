@@ -41,6 +41,7 @@
 #include "domain/topic/topicfactory.h"
 #include "domain/topic/topicrepository.h"
 // Infrastructure Layer
+#include "infra/config/serverconfiguration.h"
 #include "infra/data/appointment/appointmentsqliterepository.h"
 #include "infra/data/attendance/attendancesqliterepository.h"
 #include "infra/data/case/casesqliterepository.h"
@@ -64,21 +65,9 @@
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-    // Settings
-    QString srcPath = QCoreApplication::applicationDirPath() + "/setting.ini";
-    QSettings settings(srcPath, QSettings::IniFormat);
-    if (!settings.contains("database/path")) {
-        settings.setValue("database/path", "main.db");
-    }
-    settings.beginGroup("server");
-    if (!settings.contains("ip")) {
-        settings.setValue("ip", "0.0.0.0");
-    }
-    if (!settings.contains("port")) {
-        settings.setValue("port", 8080);
-    }
-    settings.endGroup();
-    QString path = settings.value("database/path").toString();
+    // Configurations
+    auto config = ServerConfiguration("setting.ini");
+    auto path = config.loadDatabaseName();
 
     // Authentication
     auto credentialRegistry = std::make_shared<CredentialRegistry>();
@@ -220,11 +209,7 @@ int main(int argc, char *argv[]) {
 
     // Bootstrap
     auto rpcServer = RpcServer(std::move(dispatcher));
-    settings.beginGroup("server");
-    QString address = settings.value("ip").toString();
-    int port = settings.value("port").toInt();
-    settings.endGroup();
-    if (rpcServer.listen(QHostAddress(address), port)) {
+    if (rpcServer.listen(QHostAddress(config.loadServerIp()), config.loadServerPort())) {
         qDebug() << "listening...";
     }
 

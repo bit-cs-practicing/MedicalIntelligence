@@ -71,6 +71,9 @@ void AppointmentFactory::checkAppointmentNotOverlapped(
 ) const {
     auto s1 = timeSlot.getStartTime(), e1 = timeSlot.getEndTime();
     for (auto& appointment : appointments) {
+        if (appointment.getStatus().getValue() == AppointmentStatus::CANCELLED) {
+            continue;
+        }
         auto s2 = appointment.getTimeSlot().getStartTime();
         auto e2 = appointment.getTimeSlot().getEndTime();
         if (!(e1 <= s2 || s1 >= e2)) {
