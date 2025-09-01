@@ -59,7 +59,7 @@ QJsonObject ChatAppServiceImpl::listTopicsByUser(const Credential& credential, c
     for (const auto& topic : topics) {
         auto topicJson = QJsonObject {
             { "topicId", topic.getTopicId().getId() },
-            { "lassMessageTime", topic.getLastMessageTime().toString("yyyy-MM-ddTHH:mm:ss"), }
+            { "lastMessageTime", topic.getLastMessageTime().toString("yyyy-MM-ddTHH:mm:ss"), }
         };
         topicsJson.push_back(topicJson);
     }
