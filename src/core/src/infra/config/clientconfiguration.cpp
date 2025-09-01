@@ -6,7 +6,7 @@ ClientConfiguration::ClientConfiguration(const QString& iniFileName)
 }
 
 auto ClientConfiguration::loadServerIp() const -> QString {
-    return getStringValue("server/ip").value_or("0.0.0.0");
+    return getStringValue("server/ip").value_or("127.0.0.1");
 }
 
 auto ClientConfiguration::loadServerPort() const -> int {
