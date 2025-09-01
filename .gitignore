@@ -1,4 +1,5 @@
 .vscode
+*.db
 
 # C++ objects and libs
 *.slo
