@@ -64,6 +64,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
     // Settings
+
     QString srcPath = QCoreApplication::applicationDirPath() + "/setting.ini";
     QSettings settings(srcPath, QSettings::IniFormat);
     if (!settings.contains("database/path")) {
