@@ -42,11 +42,14 @@ QList<Message> MessageSQLiteRepository::getAllByTopicIdOrderedByTime(const Id& t
     if (result) qDebug() << "success";
     else qDebug() << "fail";
     QList<Message> que;
-    while(query.next())
+    while(query.next()) {
         que.push_back(DatabaseOperator::getMessageFromQuery(query));
-    for (int i = 1; i <= start && !que.empty(); i ++)
+    }
+    for (int i = 1; i <= start && !que.empty(); i ++) {
         que.pop_back();
-    while(!que.empty() && que.size() > limit)
+    }
+    while(!que.empty() && que.size() > limit) {
         que.pop_front();
+    }
     return que;
 }
