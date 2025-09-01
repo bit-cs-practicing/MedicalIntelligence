@@ -8,7 +8,7 @@
 
 class Topic {
 public:
-    explicit Topic(Id topicId, QList<Id> participants);
+    explicit Topic(Id topicId, QList<Id> participants, QDateTime lastMessageTime);
 
     const Id& getTopicId() const;
     const QList<Id>& getParticipants() const;
