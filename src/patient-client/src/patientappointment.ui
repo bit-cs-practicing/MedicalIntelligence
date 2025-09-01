@@ -17,7 +17,7 @@
    <item row="3" column="3">
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>End</string>
+      <string>结束时间</string>
      </property>
     </widget>
    </item>
@@ -27,7 +27,7 @@
    <item row="3" column="0">
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Start</string>
+      <string>开始时间</string>
      </property>
     </widget>
    </item>
@@ -37,14 +37,14 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>DoctorName</string>
+      <string>医生姓名</string>
      </property>
     </widget>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>DoctorId</string>
+      <string>医生编号</string>
      </property>
     </widget>
    </item>
@@ -64,7 +64,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
-      <string>Date</string>
+      <string>挂号日期</string>
      </property>
     </widget>
    </item>
@@ -74,14 +74,14 @@
    <item row="5" column="0" colspan="3">
     <widget class="QPushButton" name="closeWindow">
      <property name="text">
-      <string>Close Window</string>
+      <string>关闭窗口</string>
      </property>
     </widget>
    </item>
    <item row="5" column="3" colspan="3">
     <widget class="QPushButton" name="submit">
      <property name="text">
-      <string>Submit</string>
+      <string>提交预约</string>
      </property>
     </widget>
    </item>

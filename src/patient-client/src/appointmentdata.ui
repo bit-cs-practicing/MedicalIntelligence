@@ -45,7 +45,7 @@
    <item row="0" column="4">
     <widget class="QPushButton" name="cancelBtn">
      <property name="text">
-      <string>Cancel</string>
+      <string>取消预约</string>
      </property>
     </widget>
    </item>

@@ -8,8 +8,11 @@
 void DatabaseOperator::createConnection(QSqlDatabase *db, const QString& identifier, const QString& path) {
     *db = QSqlDatabase::addDatabase("QSQLITE", identifier + QUuid::createUuid().toString());
     db->setDatabaseName(path);
+    qDebug() << path;
     if (!db->open()) {
         QString msg = QString("Fail to open the database from %1").arg(path);
+        qDebug() << msg;
+        qDebug() << db->lastError().text();
         throw std::runtime_error(msg.toStdString());
     }
 }
