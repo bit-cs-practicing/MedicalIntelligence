@@ -10,10 +10,12 @@ int main(int argc, char *argv[])
     QString srcPath = QApplication::applicationDirPath() + "/setting.ini";
     QSettings settings(srcPath, QSettings::IniFormat);
     settings.beginGroup("patient");
-    if (!settings.contains("ip"))
+    if (!settings.contains("ip")) {
         settings.setValue("ip", "127.0.0.1");
-    if (!settings.contains("port"))
+    }
+    if (!settings.contains("port")) {
         settings.setValue("port", 8080);
+    }
     QString address = settings.value("ip").toString();
     int port = settings.value("port").toInt();
     settings.endGroup();
