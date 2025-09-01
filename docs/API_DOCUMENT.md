@@ -13,7 +13,6 @@
   - [doctor.login](#doctorlogin)
   - [doctor.updateInfo](#doctorupdateinfo)
   - [doctor.fetchInfo](#doctorfetchinfo)
-
   - [doctor.fetchAllInfo](#doctorfetchallinfo)
   - [doctor.updatePassword](#doctorupdatepassword)
 - [预约管理模块](#预约管理模块)
@@ -1578,3 +1577,89 @@
   - `senderName (string)` 发送者名字
   - `content (string)` 消息内容
   - `time (string)` 消息时间，格式 `yyyy-MM-ddTHH:mm:ss`
+
+## 智能咨询模块
+
+### `consultation.answerForPatient`
+
+#### 功能描述
+
+患者向AI提出健康相关问题，获取AI的回答。
+
+- 如果问题为空或未提供，则返回参数错误。
+- 如果问题超出系统能处理的范围，返回无法回答的错误。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "consultation.answerForPatient",
+  "credential": "patient-auth-token",
+  "data": {
+    "question": "我感到头痛应该怎么办？"
+  }
+}
+```
+
+#### 请求字段
+
+- `question (string)` 患者提出的健康问题。
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "回答成功",
+  "data": {
+    "answer": "您可能需要休息，喝些温水。如果症状持续，请及时就医。"
+  }
+}
+```
+
+#### 响应字段
+
+- `answer (string)` AI给出的回答。
+
+---
+
+### `consultation.answerForDoctor`
+
+#### 功能描述
+
+医生向AI咨询相关医学问题，获取AI的建议或答案。
+
+- 如果问题为空或未提供，则返回参数错误。
+- 如果问题超出系统能处理的范围，返回无法回答的错误。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "consultation.answerForDoctor",
+  "credential": "doctor-auth-token",
+  "data": {
+    "question": "如何诊断高血压的早期症状？"
+  }
+}
+```
+
+#### 请求字段
+
+- `question (string)` 医生提出的医学问题。
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "回答成功",
+  "data": {
+    "answer": "高血压的早期症状可能包括头痛、眩晕、视力模糊等。建议通过血压测量进行确认。"
+  }
+}
+```
+
+#### 响应字段
+
+- `answer (string)` AI给出的医学建议或答案，不能为空。
