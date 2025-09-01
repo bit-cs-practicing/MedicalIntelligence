@@ -2,6 +2,7 @@
 
 #include <QCoreApplication>
 #include <QDebug>
+#include <QSettings>
 
 // Application Layer
 #include "app/appointment/appointmentappservice.h"
@@ -61,7 +62,11 @@
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-    auto path = "";
+    // Settings
+    QString srcPath = QCoreApplication::applicationDirPath() + "/setting.ini";
+    QSettings settings(srcPath, QSettings::IniFormat);
+//    settings.setValue("database/path", "main.db");
+    QString path = settings.value("database/path").toString();
 
     // Infrastructure
     auto credentialRegistry = std::make_shared<CredentialRegistry>();
