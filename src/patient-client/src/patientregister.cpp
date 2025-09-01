@@ -113,3 +113,9 @@ void PatientRegister::on_register_2_clicked()
         this -> hide();
     }
 }
+
+void PatientRegister::on_returnBtn_clicked()
+{
+    loginBoard -> show();
+    this -> hide();
+}
