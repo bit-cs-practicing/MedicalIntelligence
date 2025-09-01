@@ -23,16 +23,14 @@ ConsultationAnswer ConsultationDeepSeekProvider::getAnswer(const ConsultationQue
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     request.setRawHeader("Authorization", ("Bearer " + apikey).toUtf8());
 
-    QJsonObject inputObject;
+    QJsonObject inputObject, emptyObject;
     inputObject["prompt"] = question.getValue();
     QJsonObject mainObject;
     mainObject["input"] = inputObject;
-    mainObject["parameters"] = "";
-    mainObject["debug"] = "";
-
+    mainObject["parameters"] = emptyObject;
+    mainObject["debug"] = emptyObject;
     QByteArray postData = QJsonDocument(mainObject).toJson();
     QNetworkReply* reply = manager.post(request, postData);
-    reply->deleteLater();
 
     QEventLoop eventLoop;
     QTimer timer;
@@ -41,6 +39,7 @@ ConsultationAnswer ConsultationDeepSeekProvider::getAnswer(const ConsultationQue
     QObject::connect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
     QObject::connect(&timer, &QTimer::timeout, &eventLoop, &QEventLoop::quit);
     eventLoop.exec();
+    reply->deleteLater();
 
     bool isTimeOut = true;
     if (timer.isActive()) {
