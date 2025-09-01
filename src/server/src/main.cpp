@@ -13,6 +13,8 @@
 #include "app/case/caseappserviceimpl.h"
 #include "app/chat/chatappservice.h"
 #include "app/chat/chatappserviceimpl.h"
+#include "app/consultation/consultationappservice.h"
+#include "app/consultation/consultationappserviceimpl.h"
 #include "app/doctor/doctorappservice.h"
 #include "app/doctor/doctorappserviceimpl.h"
 #include "app/patient/patientappservice.h"
@@ -50,6 +52,7 @@
 #include "infra/data/message/messagesqliterepository.h"
 #include "infra/data/patient/patientsqliterepository.h"
 #include "infra/data/topic/topicsqliterepository.h"
+#include "infra/provider/consultationdeepseekprovider.h"
 #include "infra/rpcserver/rpcdispatcher.h"
 #include "infra/rpcserver/rpcserver.h"
 // View Layer
@@ -82,8 +85,14 @@ int main(int argc, char *argv[]) {
     auto topicRepository = std::make_shared<TopicSQLiteRepository>(path);
 
     // External Providers
-    auto doctorAssistantProvider = nullptr;
-    auto patientAssistantProvider = nullptr;
+    auto doctorAssistantProvider = std::make_shared<ConsultationDeepSeekProvider>(
+        config.loadAgentDoctorAssistantAppKey(),
+        config.loadAgentApiKey()
+    );
+    auto patientAssistantProvider = std::make_shared<ConsultationDeepSeekProvider>(
+        config.loadAgentPatientAssistantAppKey(),
+        config.loadAgentApiKey()
+    );
 
     // Domain Services
     auto appointmentFactory = std::make_shared<AppointmentFactory>(appointmentRepository, doctorRepository, leaveRecordRepository);
@@ -134,6 +143,11 @@ int main(int argc, char *argv[]) {
         doctorRepository,
         credentialRegistry
     );
+    auto consultationAppService = std::make_shared<ConsultationAppServiceImpl>(
+        patientAssistantProvider,
+        doctorAssistantProvider,
+        credentialRegistry
+    );
     auto chatAppService = std::make_shared<ChatAppServiceImpl>(
         topicRepository,
         topicFactory,
@@ -181,8 +195,8 @@ int main(int argc, char *argv[]) {
     dispatcher->add("chat.sendMessage", std::make_shared<ChatSendMessageHandler>(chatAppService));
     dispatcher->add("chat.fetchMessages", std::make_shared<ChatFetchMessagesHandler>(chatAppService));
 
-    dispatcher->add("consultation.answerForDoctor", std::make_shared<ConsultationAnswerForDoctorHandler>(doctorAssistantProvider));
-    dispatcher->add("consultation.answerForPatient", std::make_shared<ConsultationAnswerForPatientHandler>(patientAssistantProvider));
+    dispatcher->add("consultation.answerForDoctor", std::make_shared<ConsultationAnswerForDoctorHandler>(consultationAppService));
+    dispatcher->add("consultation.answerForPatient", std::make_shared<ConsultationAnswerForPatientHandler>(consultationAppService));
 
     dispatcher->add("doctor.register", std::make_shared<DoctorRegisterHandler>(doctorAppService));
     dispatcher->add("doctor.login", std::make_shared<DoctorLoginHandler>(doctorAppService));
