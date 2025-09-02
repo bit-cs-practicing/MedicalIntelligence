@@ -14,7 +14,7 @@
    <string>MedicalIntelligence (Doctor Client)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="5,10,0,10,10,10">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="5,10,0,10,1,10,10">
     <item>
      <spacer name="verticalSpacer">
       <property name="orientation">
@@ -60,7 +60,7 @@
      </spacer>
     </item>
     <item>
-     <layout class="QGridLayout" name="gridLayout" columnstretch="7,3,10,7">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="5,2,10,7">
       <item row="0" column="2">
        <widget class="QLineEdit" name="username">
         <property name="text">
@@ -72,6 +72,9 @@
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>密码</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -105,6 +108,9 @@
        <widget class="QLabel" name="label">
         <property name="text">
          <string>用户名</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -147,7 +153,20 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,10,3,10,10">
+     <spacer name="verticalSpacer_4">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="18,15,3,15,18">
       <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
@@ -163,12 +182,6 @@
       </item>
       <item>
        <widget class="QPushButton" name="loginBtn">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
         <property name="text">
          <string>登录</string>
         </property>
@@ -189,12 +202,6 @@
       </item>
       <item>
        <widget class="QPushButton" name="registerBtn">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
         <property name="text">
          <string>注册</string>
         </property>
