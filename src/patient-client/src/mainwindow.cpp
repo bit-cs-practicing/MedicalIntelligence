@@ -39,6 +39,16 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     });
     connect(this, &MainWindow::aiResponseReceived, this, &MainWindow::onAiResponseReceived);
     loadDoctorInfo();
+
+    ui->docInfoCheck->setObjectName("okButton");
+    ui->appListCheck->setObjectName("okButton");
+    ui->caseCheckBtn->setObjectName("okButton");
+    ui->topicCheckBtn->setObjectName("okButton");
+    ui->aiSendBtn->setObjectName("okButton");
+    ui->changeinfoBtn->setObjectName("okButton");
+
+    ui->updPassBtn->setObjectName("criticalButton");
+    ui->aiClearBtn->setObjectName("criticalButton");
 }
 
 MainWindow::~MainWindow()
