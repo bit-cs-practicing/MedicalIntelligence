@@ -1,6 +1,6 @@
 #include "appotuple.h"
 #include "ui_appotuple.h"
-
+#include "casemanagedetails.h"
 appoTuple::appoTuple(QString pId, QString appoId, QString patientName, QString patientIdCard, QString date, QString timeSlot, QString status, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::appoTuple),
@@ -15,7 +15,7 @@ appoTuple::appoTuple(QString pId, QString appoId, QString patientName, QString p
     ui->date->setReadOnly(true);
     ui->timeSlot->setReadOnly(true);
     ui->status->setReadOnly(true);
-    if(status != "scheduled") ui->pushButton->setDisabled(true);
+//    if(status != "scheduled") ui->pushButton->setDisabled(true);
     ui->patientName->setText(patientName);
     ui->patientIdCard->setText(patientIdCard);
     ui->date->setText(date);
@@ -30,29 +30,9 @@ appoTuple::~appoTuple()
     delete ui;
 }
 
-void appoTuple::on_pushButton_clicked()
-{
-    emit pushBtn(m_appoId, m_currentStatus, patientId);
-}
-
-void appoTuple::updateStatus(const QString &status) {
-    m_currentStatus = status;
-
-    if (status.toLower() == "scheduled") {
-        ui->pushButton->setText("创建病历");
-        ui->pushButton->setEnabled(true);
-    }
-    else if (status.toLower() == "completed") {
-        ui->pushButton->setText("更新病历");
-        ui->pushButton->setEnabled(true);
-    }
-    else {
-        ui->pushButton->setText("无法创建病历");
-        ui->pushButton->setEnabled(false);
-    }
-}
 
 void appoTuple::on_pushButton_2_clicked()
 {
-    emit pushBtn2(patientId);
+    CaseManageDetails *p = new CaseManageDetails(nullptr, requestSender, doctorCredential, appointmentDetails);
+    p->show();
 }

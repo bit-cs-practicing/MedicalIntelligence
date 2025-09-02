@@ -28,7 +28,6 @@ public:
 private slots:
     void on_doneBtn_clicked();
     void on_doneBtn2_clicked();
-    void handle_Appo_Action(QString, QString, QString);
 
 
     void on_leaveReqBtn_clicked();
@@ -37,12 +36,8 @@ private slots:
 
     void on_fetcLastRequestBtn_clicked();
 
-    void on_OKBtn_clicked();
-
     void on_selectAppoBtn_clicked();
 
-
-    void on_selectBtn_2_clicked();
 
     void on_tabWidget_tabBarClicked(int index);
 

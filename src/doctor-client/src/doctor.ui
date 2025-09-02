@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>5</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="widget_2">
       <attribute name="title">
@@ -224,225 +224,62 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1002</width>
-            <height>628</height>
+            <width>994</width>
+            <height>583</height>
            </rect>
           </property>
          </widget>
         </widget>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="CaseManaging">
-      <attribute name="title">
-       <string>病历管理</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_30">
-         <property name="text">
-          <string>诊断</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_31">
-         <property name="text">
-          <string>处方</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="diagnosis"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_32">
-         <property name="text">
-          <string>医嘱</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="advice"/>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="prescription"/>
-       </item>
-       <item row="3" column="1">
-        <widget class="QPushButton" name="OKBtn">
-         <property name="text">
-          <string>确认修改</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="CaseSearching">
-      <attribute name="title">
-       <string>病历搜索</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_8">
-       <item row="0" column="0" colspan="5">
-        <widget class="QLineEdit" name="selectCase"/>
-       </item>
-       <item row="0" column="5">
-        <widget class="QPushButton" name="selectBtn_2">
-         <property name="text">
-          <string>查询</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_33">
-         <property name="text">
-          <string>病人姓名</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_34">
-         <property name="text">
-          <string>病人身份证号</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_35">
-         <property name="text">
-          <string>诊断</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="label_36">
-         <property name="text">
-          <string>处方</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QLabel" name="label_37">
-         <property name="text">
-          <string>医嘱</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="6">
-        <widget class="QScrollArea" name="CaseListScreen">
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>1002</width>
-            <height>628</height>
-           </rect>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-      <zorder>CaseListScreen</zorder>
-      <zorder>selectCase</zorder>
-      <zorder>selectBtn_2</zorder>
-      <zorder>label_33</zorder>
-      <zorder>label_34</zorder>
-      <zorder>label_35</zorder>
-      <zorder>label_36</zorder>
-      <zorder>label_37</zorder>
      </widget>
      <widget class="QWidget" name="LeaveManaging">
       <attribute name="title">
        <string>考勤管理</string>
       </attribute>
-      <widget class="QLabel" name="label_28">
-       <property name="geometry">
-        <rect>
-         <x>171</x>
-         <y>225</y>
-         <width>63</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>结束时间</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="leaveReqBtn">
-       <property name="geometry">
-        <rect>
-         <x>247</x>
-         <y>301</y>
-         <width>591</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>申请请假</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="endTime">
-       <property name="geometry">
-        <rect>
-         <x>247</x>
-         <y>225</y>
-         <width>591</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="startTime">
-       <property name="geometry">
-        <rect>
-         <x>247</x>
-         <y>149</y>
-         <width>591</width>
-         <height>31</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="leaveCancBtn">
-       <property name="geometry">
-        <rect>
-         <x>247</x>
-         <y>378</y>
-         <width>591</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>撤销请假</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="fetcLastRequestBtn">
-       <property name="geometry">
-        <rect>
-         <x>247</x>
-         <y>455</y>
-         <width>591</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>打卡</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_27">
-       <property name="geometry">
-        <rect>
-         <x>171</x>
-         <y>149</y>
-         <width>69</width>
-         <height>23</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>开始时间</string>
-       </property>
-      </widget>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_27">
+         <property name="text">
+          <string>开始时间</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="startTime"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_28">
+         <property name="text">
+          <string>结束时间</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="endTime"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="leaveReqBtn">
+         <property name="text">
+          <string>申请请假</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="leaveCancBtn">
+         <property name="text">
+          <string>撤销请假</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QPushButton" name="fetcLastRequestBtn">
+         <property name="text">
+          <string>打卡</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -504,8 +341,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>1002</width>
-            <height>628</height>
+            <width>994</width>
+            <height>583</height>
            </rect>
           </property>
          </widget>
