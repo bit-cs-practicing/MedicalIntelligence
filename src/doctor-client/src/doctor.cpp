@@ -398,6 +398,7 @@ void Doctor::showTopicInfo(QString S) {
     else sortTopicByTime();
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
+    scrollLayout->setSizeConstraint(QLayout::SetMinimumSize);
     scrollContent->setLayout(scrollLayout);
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
@@ -410,6 +411,7 @@ void Doctor::showTopicInfo(QString S) {
     }
     ui->topicScreen->setWidget(scrollContent);
     ui->topicScreen->setWidgetResizable(true);
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 void Doctor::on_tabWidget_tabBarClicked(int index)
