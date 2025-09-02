@@ -22,10 +22,23 @@ void PatientMessage::setPatientMessage(QString name, QString content) {
     adjustTextBrowserHeight();
 }
 void PatientMessage::adjustTextBrowserHeight() {
-    ui->content->document()->setTextWidth(fatherWindow->width() * 0.7);
+    // 先测真实内容宽度
+    QFontMetrics fm(ui->content->font());
+    int contentWidth = fm.horizontalAdvance(ui->content->toPlainText());
+    qreal maxWidth = fatherWindow->width() * 0.7;
+    qreal finalWidth = qMin(qreal(contentWidth + 30), maxWidth);
+
+    if(qreal(contentWidth) > maxWidth) {
+        ui->content->document()->setTextWidth(finalWidth);
+    }
+    else{
+        ui->content->document()->setTextWidth(-1);
+    }
+    ui->content->setFixedWidth(finalWidth);
     ui->content->setFixedHeight(ui->content->document()->size().height());
-    ui->content->setFixedWidth(ui->content->document()->size().width());
     this->resize(ui->content->size());
+
+    qDebug() << "finalWidth:" << finalWidth << " size:" << ui->content->size();
 }
 void PatientMessage::setTextEnabled(bool flag) {
     ui->content->setEnabled(flag);
