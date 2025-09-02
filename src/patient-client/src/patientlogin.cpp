@@ -64,6 +64,7 @@ void PatientLogin::on_loginBtn_clicked()
         QMessageBox::information(this, "恭喜!", "登录成功！");
         if(!patientWindow) patientWindow = std::make_unique<MainWindow>(nullptr, requestSender, patientCredential);
         patientWindow->loadInformation();
+        patientWindow->setMinimumSize(1600, 900);
         patientWindow->show();
         this->hide();
     }

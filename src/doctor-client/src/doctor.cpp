@@ -48,6 +48,12 @@ Doctor::Doctor(QWidget *parent, RpcClient *rClient, CredentialManager *cR) :
 //    ui->CaseListScreen->setWidget(m_caseScrollContent);
     m_patientId = "";
     connect(this, &Doctor::aiResponseReceived, this, &Doctor::onAiResponseReceived);
+    ui->aiSend->setObjectName("okBtn");
+    ui->topicCheckBtn->setObjectName("okBtn");
+    ui->selectAppoBtn->setObjectName("okBtn");
+    ui->doneBtn->setObjectName("okBtn");
+    ui->fetcLastRequestBtn->setObjectName("okBtn");
+    ui->doneBtn2->setObjectName("criticalBtn");
 }
 
 Doctor::~Doctor()

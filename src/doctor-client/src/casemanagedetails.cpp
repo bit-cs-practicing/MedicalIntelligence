@@ -23,6 +23,7 @@ CaseManageDetails::CaseManageDetails(QWidget *parent, RpcClient *rClient, Creden
         ui->date->setDate(QDate::fromString(result.data["visitDate"].toString(), "yyyy-MM-dd"));
         caseId = result.data["caseId"].toString();
     }
+    ui->submit->setObjectName("okBtn");
 }
 
 CaseManageDetails::~CaseManageDetails()

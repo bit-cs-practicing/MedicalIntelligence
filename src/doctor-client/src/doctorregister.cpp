@@ -13,6 +13,8 @@ DoctorRegister::DoctorRegister(QWidget *parent, RpcClient *rClient, CredentialMa
     ui(new Ui::DoctorRegister), doctorCredential(cR), requestSender(rClient)
 {
     ui->setupUi(this);
+    ui->registerBtn->setObjectName("okBtn");
+    ui->returnBtn->setObjectName("criticalBtn");
 }
 
 DoctorRegister::~DoctorRegister()

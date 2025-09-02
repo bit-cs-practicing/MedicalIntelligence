@@ -15,6 +15,8 @@ DoctorLogin::DoctorLogin(QWidget *parent, RpcClient *rClient, CredentialManager 
     registerBoard = nullptr;
     doctorBoard = nullptr;
     ui->setupUi(this);
+    ui->loginBtn->setObjectName("okBtn");
+    ui->label_3->setObjectName("titleLabel");
 }
 
 DoctorLogin::~DoctorLogin()
@@ -65,6 +67,7 @@ void DoctorLogin::on_loginBtn_clicked()
         doctorCredential->set(Credential::parse(result.data["credential"].toString()));
         if(!doctorBoard) doctorBoard = std::make_unique<Doctor>(nullptr, requestSender, doctorCredential);
         emit loginSucceed(ui->username->text());
+        doctorBoard->setMinimumSize(1600, 900);
         doctorBoard -> show();
         this -> hide();
     }
