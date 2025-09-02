@@ -4,6 +4,7 @@
 #include "appointmentdata.h"
 #include "topicdatabrief.h"
 #include "casedatabrief.h"
+#include "util.h"
 #include <algorithm>
 #include <QMessageBox>
 #include <QJsonObject>
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     ui->appListDate->setEnabled(false);
     ui->appListDate->setDate(QDate::currentDate());
     ui->caseDateTime->setDate(QDate::currentDate());
-    ui->topicComboBox->setCurrentText("按话题Id排序");
+    ui->topicComboBox->setCurrentText("按话题ID排序");
     connect(ui->appTimeComboBox, &QComboBox::currentTextChanged, this, [&](const QString &S){
         if(S == "所有时间") ui->appListDate->setEnabled(false);
         else ui->appListDate->setEnabled(true);
@@ -51,8 +52,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     ui->aiClearBtn->setObjectName("criticalBtn");
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
@@ -214,8 +214,19 @@ void MainWindow::showCaseInfo(QString date) {
     scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
+QString replaceT(const QString& str) {
+    QString newStr = str;
+    int len = str.length();
+    for (int i = 0; i < len; i ++) {
+        if (newStr[i] == 'T') {
+            newStr[i] = ' ';
+        }
+    }
+    return newStr;
+}
+
 void MainWindow::showTopicInfo(QString S) {
-    if(ui->topicComboBox->currentText() == "按话题Id排序") sortTopicById();
+    if(ui->topicComboBox->currentText() == "按话题ID排序") sortTopicById();
     else sortTopicByTime();
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
@@ -224,7 +235,7 @@ void MainWindow::showTopicInfo(QString S) {
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
             TopicDataBrief *p = new TopicDataBrief(scrollContent, patientId, requestSender, patientCredential);
-            p->setTopicInfo(i["topicId"].toString(), i["lastMessageTime"].toString());
+            p->setTopicInfo(i["topicId"].toString(), replaceT(i["lastMessageTime"].toString()));
             p->setParent(this);
             scrollLayout->addWidget(p);
 //            p->deleteLater();
@@ -275,8 +286,7 @@ QJsonObject MainWindow::queryByCaseId(QString Id) {
     exit(-1);
 }
 
-void MainWindow::on_Tabs_tabBarClicked(int index)
-{
+void MainWindow::on_Tabs_tabBarClicked(int index) {
     if(index == 0) {
         loadInformation();
     }
@@ -293,52 +303,25 @@ void MainWindow::on_Tabs_tabBarClicked(int index)
         loadTopicInfo();
     }
 }
-bool MainWindow::checkPhone(QString S){
-    if(S.length() != 11) return false;
-    if(S[0] != '1') return false;
-    for(int i = 1; i < 11; ++i)
-        if(!S[i].isDigit()) return false;
-    return true;
-}
-bool MainWindow::checkEmail(){
-    const std::regex emailRegex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
-    return std::regex_match(ui->email->text().toStdString(), emailRegex);
-}
 
-bool MainWindow::checkPassword(QString txt){
-    int len = txt.length();
-    if(len < 7 || len > 20) return false;
-    for(int i = 0; i < len; ++i) {
-        if(!txt[i].isDigit() && !txt[i].isLower() && !txt[i].isUpper()) return false;
-    }
-    return true;
-}
 
-QString transferGenderFromZHToEN(const QString& ZHContext) {
-    if (ZHContext == QString("男")) {
-        return "male";
-    } else {
-        return "female";
-    }
-}
 
-void MainWindow::on_changeinfoBtn_clicked()
-{
-    if(!checkEmail()) {
+void MainWindow::on_changeinfoBtn_clicked() {
+    if (!Util::checkEmail(ui->email->text().toStdString())) {
         QMessageBox::warning(this, "警告！", "请输入合法的邮箱！");
         return;
     }
-    else if(!checkPhone(ui->phone->text())){
+    if (!Util::checkPhone(ui->phone->text())){
         QMessageBox::warning(this, "警告！", "请输入合法的电话号码！");
         return;
     }
-    else if(!checkPhone(ui->emgcy->text())) {
+    if (!Util::checkPhone(ui->emgcy->text())) {
         QMessageBox::warning(this, "警告！", "请输入合法的紧急联系人电话！");
         return;
     }
     QJsonObject registerData;
     registerData["name"] = ui->name->text();
-    registerData["gender"] = transferGenderFromZHToEN(ui->gender->currentText());
+    registerData["gender"] = Util::transferGenderFromZHToEN(ui->gender->currentText());
     registerData["phone"] = ui->phone->text();
     registerData["birthday"] = ui->birthday->date().toString("yyyy-MM-dd");
     registerData["email"] = ui->email->text();
@@ -353,11 +336,11 @@ void MainWindow::on_changeinfoBtn_clicked()
 
 void MainWindow::on_updPassBtn_clicked()
 {
-    if(!checkPassword(ui->oldpass->text())){
+    if(!Util::checkPassword(ui->oldpass->text())){
         QMessageBox::warning(this, "警告！", "旧密码错误！");
         return;
     }
-    else if(!checkPassword(ui->newpass->text())) {
+    else if(!Util::checkPassword(ui->newpass->text())) {
         QMessageBox::warning(this, "警告！", "请输入合法的新密码！密码长度为7至20位，只由数字、大小写字母组成！");
         return;
     }
@@ -372,35 +355,31 @@ void MainWindow::on_updPassBtn_clicked()
     else QMessageBox::warning(this, "警告！", "旧密码错误！");
 }
 
-void MainWindow::on_docInfoCheck_clicked()
-{
+void MainWindow::on_docInfoCheck_clicked() {
     showDoctorInfo(ui->docInfoCOffice->currentText());
 }
 
-void MainWindow::on_appListCheck_clicked()
-{
+void MainWindow::on_appListCheck_clicked() {
     QString doctorId = ui->appListComboBox->currentText(), date = ui->appTimeComboBox->currentText();
     if(date != "所有时间") date = ui->appListDate->date().toString("yyyy-MM-dd");
 //    qDebug() << doctorId << " " << date << "\n";
     showAppointmentInfo(doctorId, date);
 }
 
-void MainWindow::on_caseCheckBtn_clicked()
-{
+void MainWindow::on_caseCheckBtn_clicked() {
     QString date;
     if(ui->caseComboBox->currentText() == "所有时间") date = "所有时间";
     else date = ui->caseDateTime->date().toString("yyyy-MM-dd");
     showCaseInfo(date);
 }
 
-void MainWindow::on_topicCheckBtn_clicked()
-{
+void MainWindow::on_topicCheckBtn_clicked() {
     showTopicInfo(ui->topicEnter->text());
 }
 
 void MainWindow::on_aiSendBtn_clicked()
 {
-    ui->aiRecieve->setText("正在等待AI回复");
+    ui->aiRecieve->setText("正在等待AI回复。");
     const int INITIAL = 0;
     const int INTERRUPTED = -1;
     const int FINISHED = 1;
@@ -433,7 +412,7 @@ void MainWindow::on_aiSendBtn_clicked()
             return;
         }
         status->status = INTERRUPTED;
-        emit aiResponseReceived("请求超时，智能助理暂时不可用", false);
+        emit aiResponseReceived("请求超时，智能助理暂时不可用。", false);
     });
 }
 
@@ -443,7 +422,7 @@ void MainWindow::on_aiClearBtn_clicked() {
 
 void MainWindow::onAiResponseReceived(const QString &resultData, bool success) {
     if (!success) {
-        QMessageBox::warning(this, "Warning", resultData);
+        QMessageBox::warning(this, "警告！", resultData);
         ui->aiRecieve->setText("");
     } else {
         ui->aiRecieve->setText(resultData);

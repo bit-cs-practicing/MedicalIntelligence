@@ -1,5 +1,7 @@
 #include "patientlogin.h"
 #include "ui_patientlogin.h"
+#include "util.h"
+
 #include <QMessageBox>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -16,44 +18,25 @@ PatientLogin::PatientLogin(QWidget *parent, RpcClient *rSender, CredentialManage
     ui->title->setObjectName("titleLabel");
 }
 
-PatientLogin::~PatientLogin()
-{
+PatientLogin::~PatientLogin() {
     delete ui;
-}
-
-bool PatientLogin::checkUsername(){
-    QString txt = ui->username->text();
-    int len = txt.length();
-    if(len != 18) return false;
-    for(int i = 0; i < len; ++i) {
-        if(!txt[i].isDigit() && (i != len - 1 || txt[i] != 'X')) return false;
-    }
-    return true;
-}
-
-bool PatientLogin::checkPassword(){
-    QString txt = ui->password->text();
-    int len = txt.length();
-    if(len < 7 || len > 20) return false;
-    for(int i = 0; i < len; ++i) {
-        if(!txt[i].isDigit() && !txt[i].isLower() && !txt[i].isUpper()) return false;
-    }
-    return true;
 }
 
 void PatientLogin::on_loginBtn_clicked()
 {
-    if(ui->username->text() == "" || ui->password->text() == "") {
+    const QString username = ui->username->text();
+    const QString password = ui->password->text();
+    if(username == "" || password == "") {
         QMessageBox::warning(this, "警告！", "用户名和密码不能为空！");
         return;
     }
-    else if(!checkUsername() || !checkPassword()) {
+    else if(!Util::checkIdCard(username) || !Util::checkPassword(password)) {
         QMessageBox::warning(this, "警告！", "用户不存在或密码错误！");
         return;
     }
     QJsonObject loginData;
-    loginData["idCard"] = ui->username->text();
-    loginData["password"] = ui->password->text();
+    loginData["idCard"] = username;
+    loginData["password"] = password;
     Response result = requestSender->rpc(Request("patient.login", patientCredential->get(), loginData));
     qDebug() << result.toStream() << "\n";
     if(!result.success) {

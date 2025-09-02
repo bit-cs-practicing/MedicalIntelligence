@@ -119,10 +119,18 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="1">
-        <widget class="QLineEdit" name="oldPass"/>
+        <widget class="QLineEdit" name="oldPass">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="newPass"/>
+        <widget class="QLineEdit" name="newPass">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
+        </widget>
        </item>
        <item row="2" column="1">
         <widget class="QLineEdit" name="checkPass"/>
@@ -224,8 +232,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>994</width>
-            <height>583</height>
+            <width>1002</width>
+            <height>628</height>
            </rect>
           </property>
          </widget>
@@ -289,7 +297,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>话题Id</string>
+          <string>话题ID</string>
          </property>
         </widget>
        </item>
@@ -300,7 +308,7 @@
         <widget class="QComboBox" name="topicComboBox">
          <item>
           <property name="text">
-           <string>按话题Id排序</string>
+           <string>按话题ID排序</string>
           </property>
          </item>
          <item>
@@ -320,7 +328,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_20">
          <property name="text">
-          <string>话题Id</string>
+          <string>话题ID</string>
          </property>
         </widget>
        </item>
@@ -341,8 +349,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>994</width>
-            <height>583</height>
+            <width>1002</width>
+            <height>628</height>
            </rect>
           </property>
          </widget>

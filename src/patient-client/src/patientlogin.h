@@ -20,19 +20,14 @@ public:
 
 private slots:
     void on_loginBtn_clicked();
-
     void on_registerBtn_clicked();
 
 private:
     Ui::PatientLogin *ui;
-    bool checkUsername();
-    bool checkPassword();
     std::unique_ptr<PatientRegister> registerBoard;
     std::unique_ptr<MainWindow> patientWindow;
     CredentialManager *patientCredential;
     RpcClient *requestSender;
-
-//    PatientRegister *registerBoard;
 };
 
 #endif // PATIENTLOGIN_H
