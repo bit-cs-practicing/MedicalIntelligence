@@ -13,6 +13,7 @@ DoctorMessage::DoctorMessage(QWidget *parent, TopicDataDetails *father) :
     ui->content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     ui->name->setReadOnly(true);
     adjustTextBrowserHeight();
+    ui->content->setObjectName("otherMessage");
 }
 
 DoctorMessage::~DoctorMessage()
@@ -40,6 +41,7 @@ void DoctorMessage::adjustTextBrowserHeight() {
     ui->content->setFixedWidth(finalWidth);
     ui->content->setFixedHeight(ui->content->document()->size().height());
     this->resize(ui->content->size());
-
+    ui->content->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->content->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     qDebug() << "finalWidth:" << finalWidth << " size:" << ui->content->size();
 }

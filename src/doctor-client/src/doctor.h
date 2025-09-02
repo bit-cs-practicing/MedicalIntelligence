@@ -41,6 +41,15 @@ private slots:
 
     void on_tabWidget_tabBarClicked(int index);
 
+    void on_aiClearBtn_clicked();
+
+    void on_aiSendBtn_clicked();
+
+    void onAiResponseReceived(const QString &resultData, bool success);
+
+signals:
+    void aiResponseReceived(const QString &resultData, bool success);
+
 private:
     Ui::Doctor *ui;
     bool checkId();

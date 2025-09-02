@@ -14,6 +14,7 @@ PatientRegister::PatientRegister(QWidget *parent, RpcClient *rSender, Credential
     ui(new Ui::PatientRegister), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
+    ui->register_2->setObjectName("okBtn");
 }
 
 PatientRegister::~PatientRegister() {

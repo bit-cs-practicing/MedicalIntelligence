@@ -9,6 +9,7 @@
 #include <QJsonObject>
 #include <QList>
 #include <QMessageBox>
+#include <QScrollBar>
 TopicDataDetails::TopicDataDetails(QWidget *parent, QString S, QString Id, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
     ui(new Ui::TopicDataDetails),
@@ -70,6 +71,7 @@ void TopicDataDetails::showMessage() {
     }
     ui->screen->setWidget(scrollContent);
     ui->screen->setWidgetResizable(true);
+    ui->screen->verticalScrollBar()->setValue(ui->screen->verticalScrollBar()->maximum());
 }
 
 void TopicDataDetails::sendMessage() {

@@ -10,6 +10,7 @@ PatientMessage::PatientMessage(QWidget *parent, TopicDataDetails *father) :
     ui->name->setReadOnly(true);
     ui->content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     adjustTextBrowserHeight();
+    ui->content->setObjectName("selfMessage");
 }
 
 PatientMessage::~PatientMessage()
@@ -37,7 +38,8 @@ void PatientMessage::adjustTextBrowserHeight() {
     ui->content->setFixedWidth(finalWidth);
     ui->content->setFixedHeight(ui->content->document()->size().height());
     this->resize(ui->content->size());
-
+    ui->content->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->content->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     qDebug() << "finalWidth:" << finalWidth << " size:" << ui->content->size();
 }
 void PatientMessage::setTextEnabled(bool flag) {

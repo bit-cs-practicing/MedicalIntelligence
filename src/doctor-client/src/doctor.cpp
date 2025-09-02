@@ -13,6 +13,8 @@
 #include <QStandardItemModel>
 #include <QDateTime>
 #include <QDebug>
+#include <QtConcurrent/QtConcurrent>
+#include <mutex>
 Doctor::Doctor(QWidget *parent, RpcClient *rClient, CredentialManager *cR) :
     QWidget(parent),
     ui(new Ui::Doctor), doctorCredential(cR), requestSender(rClient)
@@ -45,6 +47,7 @@ Doctor::Doctor(QWidget *parent, RpcClient *rClient, CredentialManager *cR) :
 //    caseScrollLayout->setAlignment(Qt::AlignTop);
 //    ui->CaseListScreen->setWidget(m_caseScrollContent);
     m_patientId = "";
+    connect(this, &Doctor::aiResponseReceived, this, &Doctor::onAiResponseReceived);
 }
 
 Doctor::~Doctor()
@@ -395,6 +398,7 @@ void Doctor::showTopicInfo(QString S) {
     else sortTopicByTime();
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
+    scrollLayout->setSizeConstraint(QLayout::SetMinimumSize);
     scrollContent->setLayout(scrollLayout);
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
@@ -407,6 +411,7 @@ void Doctor::showTopicInfo(QString S) {
     }
     ui->topicScreen->setWidget(scrollContent);
     ui->topicScreen->setWidgetResizable(true);
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 void Doctor::on_tabWidget_tabBarClicked(int index)
@@ -415,5 +420,57 @@ void Doctor::on_tabWidget_tabBarClicked(int index)
     else if(index == 2) loadAppInfo();
     else if(index == 4) {
         loadTopicInfo();
+    }
+}
+
+void Doctor::on_aiClearBtn_clicked()
+{
+    ui->aiSend->setText("");
+}
+
+void Doctor::on_aiSendBtn_clicked()
+{
+    ui->aiRecieve->setText("正在等待AI回复");
+    const int INITIAL = 0;
+    const int INTERRUPTED = -1;
+    const int FINISHED = 1;
+
+    struct LockedVal {
+        std::mutex lock;
+        int status = INITIAL;
+    };
+
+    auto status = std::make_shared<LockedVal>();
+
+    QtConcurrent::run([=]{
+        Response result = requestSender->rpc(Request("consultation.answerForPatient", doctorCredential->get(), QJsonObject{{"question", ui->aiSend->toPlainText()}}));
+        std::lock_guard(status->lock);
+        if (status->status == INTERRUPTED) {
+            return;
+        }
+        status->status = FINISHED;
+        qDebug() << result.data;
+        if(!result.success) {
+            emit aiResponseReceived(result.message, false);
+        } else {
+            emit aiResponseReceived(result.data["answer"].toString(), true);
+        }
+    });
+
+    QTimer::singleShot(30000, this, [=]() {
+        std::lock_guard(status->lock);
+        if (status->status == FINISHED) {
+            return;
+        }
+        status->status = INTERRUPTED;
+        emit aiResponseReceived("请求超时，智能助理暂时不可用", false);
+    });
+}
+void Doctor::onAiResponseReceived(const QString &resultData, bool success) {
+    if (!success) {
+        QMessageBox::warning(this, "Warning", resultData);
+        ui->aiRecieve->setText("");
+    } else {
+        ui->aiRecieve->setText(resultData);
     }
 }

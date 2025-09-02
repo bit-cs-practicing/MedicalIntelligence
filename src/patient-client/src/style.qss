@@ -1,0 +1,246 @@
+/* 全局字体和背景 */
+QWidget {
+    font-family: "Noto Sans SC", "Arial";
+    font-size: 14px;
+    background-color: #f4f6f9;   /* 界面浅灰背景 */
+    color: #333333;
+}
+
+/* 聊天气泡（QTextBrowser） */
+QTextBrowser {
+    border: 1px solid #c0c0c0;
+    border-radius: 12px;
+    padding: 6px 8px;
+    background-color: #ffffff;
+}
+
+/* 聊天气泡（患者消息，靠右，蓝色背景） */
+QTextBrowser#selfMessage {
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 6px 8px;
+}
+
+/* 聊天气泡（医生消息，靠左，灰色背景） */
+QTextBrowser#otherMessage {
+    background-color: #e6e6e6;
+    color: #333333;
+    border: none;
+    border-radius: 12px;
+    padding: 6px 8px;
+}
+
+/* 隐藏 QTextBrowser 滚动条 */
+QTextBrowser QScrollBar:vertical,
+QTextBrowser QScrollBar:horizontal {
+    width: 0px;
+    height: 0px;
+}
+
+/* 输入框（立体感） */
+QLineEdit {
+    border: 1px solid #b0b0b0;
+    border-radius: 6px;
+    padding: 4px 6px;
+    background-color: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #ffffff,
+        stop:1 #e6e6e6
+    );
+    selection-background-color: #0078d4;
+}
+
+QLineEdit:hover {
+    border: 1px solid #3399ff;
+}
+
+QLineEdit:focus {
+    border: 1px solid #0078d4;
+    background-color: #ffffff;
+}
+
+/* 按钮（发送按钮） */
+QPushButton#aiSendBtn {
+    background-color: #0078d4;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+QPushButton#aiSendBtn:hover {
+    background-color: #3399ff;
+}
+
+QPushButton#aiSendBtn:pressed {
+    background-color: #005a9e;
+}
+
+/* 普通按钮（关闭、提交等） */
+QPushButton {
+    background-color: #e6e6e6;
+    border: 1px solid #c0c0c0;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #d9d9d9;
+}
+
+QPushButton:pressed {
+    background-color: #c0c0c0;
+}
+QPushButton#okBtn {
+    background-color: #0078d4;   /* 主蓝色 */
+    color: white;
+    border-radius: 6px;
+    padding: 6px 14px;
+}
+
+QPushButton#okBtn:hover {
+    background-color: #3399ff;   /* hover 亮蓝 */
+}
+
+QPushButton#okBtn:pressed {
+    background-color: #005a9e;   /* 按下深蓝 */
+}
+
+QPushButton#changeinfoBtn {
+    background-color: #0078d4;   /* 主蓝色 */
+    color: white;
+    border-radius: 6px;
+    padding: 6px 14px;
+}
+
+QPushButton#changeinfoBtn:hover {
+    background-color: #3399ff;   /* hover 亮蓝 */
+}
+
+QPushButton#changeinfoBtn:pressed {
+    background-color: #005a9e;   /* 按下深蓝 */
+}
+
+/* 危险操作按钮（criticalBtn） */
+QPushButton#criticalBtn {
+    background-color: #d83b01;   /* 主红色 */
+    color: white;
+    border-radius: 6px;
+    padding: 6px 14px;
+}
+
+QPushButton#criticalBtn:hover {
+    background-color: #f1707a;   /* hover 亮红 */
+}
+
+QPushButton#criticalBtn:pressed {
+    background-color: #a80000;   /* 按下深红 */
+}
+
+
+
+
+
+
+
+
+/* 滚动条本体 */
+QScrollBar:vertical {
+    border: 1px solid #c0c0c0;
+    background: #f4f6f9;          /* 背景色 */
+    width: 12px;                  /* 滚动条宽度 */
+    margin: 0px 0px 0px 0px;
+    border-radius: 6px;           /* 圆角 */
+}
+
+/* 滚动块（thumb/handle） */
+QScrollBar::handle:vertical {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #ffffff,
+        stop:1 #c8d6f0
+    );                            /* 垂直渐变 */
+    border: 1px solid #a0a0a0;
+    border-radius: 6px;
+    min-height: 20px;             /* 最小高度 */
+}
+
+/* 鼠标悬停时的滚动块 */
+QScrollBar::handle:vertical:hover {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #dceeff,
+        stop:1 #99c2ff
+    );
+    border: 1px solid #3399ff;
+}
+
+/* 按下时的滚动块 */
+QScrollBar::handle:vertical:pressed {
+    background: qlineargradient(
+        x1:0, y1:0, x2:0, y2:1,
+        stop:0 #80bfff,
+        stop:1 #3399ff
+    );
+    border: 1px solid #0078d4;
+}
+
+/* 上/下箭头隐藏 */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* 空白区域 */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+
+QLabel#titleLabel {
+    font-size: 24pt;          /* 字号 */
+    font-weight: bold;        /* 粗体 */
+    color: #1a1a1a;           /* 深灰色，比纯黑柔和 */
+    qproperty-alignment: AlignCenter; /* 水平垂直居中 */
+}
+
+
+
+QTabWidget::pane {
+    border: none;
+}
+
+QTabWidget::tab-bar {
+    left: 0px;
+    top: 0px;
+}
+
+/* 左侧侧边栏 */
+QTabBar {
+    background: #f4f6f9;              /* 浅灰背景 */
+    border-right: 1px solid #d0d0d0;  /* 和右边内容区的分隔线 */
+}
+
+/* 每个 Tab */
+QTabBar::tab {
+    background: transparent;
+    color: #444;
+    padding: 10px 20px;
+    margin: 2px 0;
+    text-align: left;
+    min-width: 120px;
+    border-bottom: 4px solid transparent;
+}
+
+/* 悬停效果 */
+QTabBar::tab:hover {
+    background: #e6e6e6;
+}
+
+/* 选中效果 */
+QTabBar::tab:selected {
+    background: #ffffff;
+    color: #000;
+    border-bottom: 4px solid #0078d4;
+    font-weight: bold;
+}
