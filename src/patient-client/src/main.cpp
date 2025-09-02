@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
     CredentialManager patientCredential;
 
     PatientLogin w(nullptr, &Sender, &patientCredential);
+    w.setMinimumSize(800, 600);
     w.show();
 
     return a.exec();

@@ -28,5 +28,6 @@ void TopicDataBrief::on_details_clicked()
     //delete detailWindow;
     TopicDataDetails *p = new TopicDataDetails(nullptr, ui->topicId->text(), patientUserId, requestSender, patientCredential);
 //    detailWindow->deleteLater();
+    p->setMinimumSize(1200, 900);
     p->show();
 }
