@@ -24,6 +24,8 @@ PatientAppointment::PatientAppointment(QWidget *parent, RpcClient *rSender, Cred
             ui->endTime->setTime(QTime(x / 4, (x / 2 & 1) ? 59 : 29));
         }
     });
+    ui->closeWindow->setObjectName("criticalBtn");
+    ui->submit->setObjectName("okBtn");
 }
 
 PatientAppointment::~PatientAppointment()

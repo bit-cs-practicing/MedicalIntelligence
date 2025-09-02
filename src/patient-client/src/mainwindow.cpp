@@ -15,7 +15,7 @@
 #include <QtConcurrent/QtConcurrent>
 #include <mutex>
 #include <memory>
-
+#include <QCommonStyle>
 MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
     ui(new Ui::MainWindow), patientCredential(pC), requestSender(rSender)
@@ -40,15 +40,15 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     connect(this, &MainWindow::aiResponseReceived, this, &MainWindow::onAiResponseReceived);
     loadDoctorInfo();
 
-    ui->docInfoCheck->setObjectName("okButton");
-    ui->appListCheck->setObjectName("okButton");
-    ui->caseCheckBtn->setObjectName("okButton");
-    ui->topicCheckBtn->setObjectName("okButton");
-    ui->aiSendBtn->setObjectName("okButton");
-    ui->changeinfoBtn->setObjectName("okButton");
+    ui->docInfoCheck->setObjectName("okBtn");
+    ui->appListCheck->setObjectName("okBtn");
+    ui->caseCheckBtn->setObjectName("okBtn");
+    ui->topicCheckBtn->setObjectName("okBtn");
+    ui->aiSendBtn->setObjectName("okBtn");
+    ui->changeinfoBtn->setObjectName("okBtn");
 
-    ui->updPassBtn->setObjectName("criticalButton");
-    ui->aiClearBtn->setObjectName("criticalButton");
+    ui->updPassBtn->setObjectName("criticalBtn");
+    ui->aiClearBtn->setObjectName("criticalBtn");
 }
 
 MainWindow::~MainWindow()

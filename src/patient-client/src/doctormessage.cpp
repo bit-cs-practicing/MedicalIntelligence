@@ -13,6 +13,7 @@ DoctorMessage::DoctorMessage(QWidget *parent, TopicDataDetails *father) :
     ui->content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     ui->name->setReadOnly(true);
     adjustTextBrowserHeight();
+    ui->content->setObjectName("otherMessage");
 }
 
 DoctorMessage::~DoctorMessage()
