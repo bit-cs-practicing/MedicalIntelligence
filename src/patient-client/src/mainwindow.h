@@ -38,6 +38,7 @@ signals:
     void aiResponseReceived(const QString &resultData, bool success);
 
 private slots:
+
     void on_Tabs_tabBarClicked(int index);
 
     void on_changeinfoBtn_clicked();

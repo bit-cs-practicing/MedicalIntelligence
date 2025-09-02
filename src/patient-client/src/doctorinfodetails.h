@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QCloseEvent>
 #include <QDebug>
+#include "imagedownloader.h"
 namespace Ui {
 class DoctorInfoDetails;
 }
@@ -19,6 +20,12 @@ public:
 
 private:
     Ui::DoctorInfoDetails *ui;
+    ImageDownloader *downloader;
+
+private slots:
+    void onImageDownloaded(const QPixmap &pixmap);
+
+
 protected:
     void closeEvent(QCloseEvent *event) override {
 //        qDebug() << "yesyeah\n";
