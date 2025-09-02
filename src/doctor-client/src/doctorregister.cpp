@@ -80,3 +80,8 @@ void DoctorRegister::on_register_2_clicked() {
     this->hide();
     return;
 }
+
+void DoctorRegister::on_returnBtn_clicked() {
+    loginBoard->show();
+    this->hide();
+}
