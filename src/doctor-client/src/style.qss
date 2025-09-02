@@ -1,13 +1,14 @@
 /* 全局字体和背景 */
 QWidget {
     font-family: "Noto Sans SC", "Arial";
-    font-size: 22px;
+    font-size: 20px;
     background-color: #f4f6f9;   /* 界面浅灰背景 */
     color: #333333;
 }
 
 /* 聊天气泡（QTextBrowser） */
 QTextBrowser {
+    font-size: 16px;
     border: 1px solid #c0c0c0;
     border-radius: 12px;
     padding: 6px 8px;
@@ -16,6 +17,7 @@ QTextBrowser {
 
 /* 聊天气泡（患者消息，靠右，蓝色背景） */
 QTextBrowser#selfMessage {
+    font-size: 16px;
     background-color: #0078d4;
     color: white;
     border: none;
@@ -25,6 +27,7 @@ QTextBrowser#selfMessage {
 
 /* 聊天气泡（医生消息，靠左，灰色背景） */
 QTextBrowser#otherMessage {
+    font-size: 16px;
     background-color: #e6e6e6;
     color: #333333;
     border: none;

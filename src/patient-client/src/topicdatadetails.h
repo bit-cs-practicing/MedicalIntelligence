@@ -17,12 +17,13 @@ class TopicDataDetails : public QWidget
 public:
     explicit TopicDataDetails(QWidget *parent = nullptr, QString S = "", QString T = "", RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~TopicDataDetails();
+    void loadMessageInfo();
 private slots:
     void on_sendBtn_clicked();
 private:
     Ui::TopicDataDetails *ui;
     QString topicId, patientUserId;
-    void loadMessageInfo();
+//    void loadMessageInfo();
     void showMessage();
     void sendMessage();
     QJsonArray messageInformations;
