@@ -19,10 +19,16 @@
    </item>
    <item row="0" column="0">
     <widget class="QLineEdit" name="name">
+     <property name="minimumSize">
+      <size>
+       <width>125</width>
+       <height>31</height>
+      </size>
+     </property>
      <property name="maximumSize">
       <size>
        <width>125</width>
-       <height>16777215</height>
+       <height>31</height>
       </size>
      </property>
     </widget>

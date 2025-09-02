@@ -37,7 +37,8 @@ void PatientMessage::adjustTextBrowserHeight() {
     ui->content->setFixedWidth(finalWidth);
     ui->content->setFixedHeight(ui->content->document()->size().height());
     this->resize(ui->content->size());
-
+    ui->content->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->content->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     qDebug() << "finalWidth:" << finalWidth << " size:" << ui->content->size();
 }
 void PatientMessage::setTextEnabled(bool flag) {
