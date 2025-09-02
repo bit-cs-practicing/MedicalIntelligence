@@ -399,6 +399,17 @@ void Doctor::sortTopicByTime() {
     });
 }
 
+QString replaceT(const QString& str) {
+    QString newStr = str;
+    int len = str.length();
+    for (int i = 0; i < len; i ++) {
+        if (newStr[i] == 'T') {
+            newStr[i] = ' ';
+        }
+    }
+    return newStr;
+}
+
 void Doctor::showTopicInfo(QString S) {
     if(ui->topicComboBox->currentText() == "按话题Id排序") sortTopicById();
     else sortTopicByTime();
@@ -409,7 +420,7 @@ void Doctor::showTopicInfo(QString S) {
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
             TopicDataBrief *p = new TopicDataBrief(scrollContent, doctorCredential->get()->getUserId(), requestSender, doctorCredential);
-            p->setTopicInfo(i["topicId"].toString(), i["lastMessageTime"].toString());
+            p->setTopicInfo(i["topicId"].toString(), replaceT(i["lastMessageTime"].toString()));
             p->setParent(this);
             scrollLayout->addWidget(p);
 //            p->deleteLater();

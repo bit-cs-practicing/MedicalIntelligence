@@ -62,6 +62,14 @@ QLineEdit:focus {
 }
 
 /* 按钮（发送按钮） */
+QPushButton#sendBtn {
+    background-color: #0078d4;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+/* 按钮（发送按钮） */
 QPushButton#aiSendBtn {
     background-color: #0078d4;
     color: white;
