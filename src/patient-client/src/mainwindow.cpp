@@ -146,6 +146,7 @@ void MainWindow::loadInformation(){
 void MainWindow::showDoctorInfo(QString depart) {
     QWidget *scrollContent = new QWidget(this); // 滚动区域的内容容器
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent); // 容器的布局
+    scrollLayout->setSizeConstraint(QLayout::SetMinimumSize);
     scrollContent->setLayout(scrollLayout);
     doctorIdtoEmployeeId.clear();
     for(QJsonValue i : doctorInformations) {
@@ -161,11 +162,13 @@ void MainWindow::showDoctorInfo(QString depart) {
     }
     ui->docInfoScreen->setWidget(scrollContent);
     ui->docInfoScreen->setWidgetResizable(true); // 确保内容自适应滚动区域
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 void MainWindow::showAppointmentInfo(QString doctorId, QString dateTime) {
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
+    scrollLayout->setSizeConstraint(QLayout::SetMinimumSize);
     scrollContent->setLayout(scrollLayout);
     for(QJsonValue i : appointmentInformations) {
         if((doctorIdtoEmployeeId[i["doctorId"].toString()] == doctorId || doctorId == "所有医生") &&
@@ -180,11 +183,13 @@ void MainWindow::showAppointmentInfo(QString doctorId, QString dateTime) {
     }
     ui->appListScreen->setWidget(scrollContent);
     ui->appListScreen->setWidgetResizable(true);
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 void MainWindow::showCaseInfo(QString date) {
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
+    scrollLayout->setSizeConstraint(QLayout::SetMinimumSize);
     scrollContent->setLayout(scrollLayout);
     for(QJsonValue i : caseInformations) {
         if(i["visitDate"].toString() == date || date == "所有时间") {
@@ -196,6 +201,7 @@ void MainWindow::showCaseInfo(QString date) {
     }
     ui->caseScreen->setWidget(scrollContent);
     ui->caseScreen->setWidgetResizable(true);
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 void MainWindow::showTopicInfo(QString S) {
@@ -203,6 +209,7 @@ void MainWindow::showTopicInfo(QString S) {
     else sortTopicByTime();
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
+    scrollLayout->setSizeConstraint(QLayout::SetMinimumSize);
     scrollContent->setLayout(scrollLayout);
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
@@ -215,6 +222,7 @@ void MainWindow::showTopicInfo(QString S) {
     }
     ui->topicScreen->setWidget(scrollContent);
     ui->topicScreen->setWidgetResizable(true);
+    scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
 void MainWindow::setDoctorInfoComboBox() {

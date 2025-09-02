@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
-    <height>436</height>
+    <width>913</width>
+    <height>704</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,57 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="1">
-    <widget class="QLineEdit" name="photo"/>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>医生编号</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>挂号上限</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLineEdit" name="profile"/>
-   </item>
-   <item row="5" column="1">
     <widget class="QLineEdit" name="schedule"/>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="doctorId"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>个人介绍</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>工作时间</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>挂号费</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="regFee"/>
-   </item>
-   <item row="7" column="1">
-    <widget class="QLineEdit" name="limit"/>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
@@ -74,23 +24,76 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_4">
+   <item row="4" column="2">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>照片</string>
+      <string>挂号费</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
+   <item row="2" column="1" colspan="2">
     <widget class="QLineEdit" name="depart"/>
    </item>
-   <item row="1" column="1">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>医生编号</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
     <widget class="QLineEdit" name="name"/>
+   </item>
+   <item row="4" column="4">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>挂号上限</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QLineEdit" name="doctorId"/>
+   </item>
+   <item row="4" column="3">
+    <widget class="QLineEdit" name="regFee"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_8">
      <property name="text">
       <string>姓名</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>工作时间</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>个人介绍</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="5">
+    <widget class="QLineEdit" name="limit"/>
+   </item>
+   <item row="3" column="1" colspan="5">
+    <widget class="QLineEdit" name="profile"/>
+   </item>
+   <item row="0" column="4" rowspan="3" colspan="2">
+    <widget class="QLabel" name="picture">
+     <property name="minimumSize">
+      <size>
+       <width>297</width>
+       <height>375</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>正在加载图片...</string>
      </property>
     </widget>
    </item>
