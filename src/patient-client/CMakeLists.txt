@@ -22,8 +22,10 @@ file(GLOB_RECURSE FORMS "src/**/*.ui")
 file(GLOB_RECURSE FORMS "src/*.ui")
 file(GLOB_RECURSE RESOURCES "src/**/*.qrc")
 file(GLOB_RECURSE RESOURCES "src/*.qrc")
+file(GLOB_RECURSE STYLESHEETS "src/**/*.qss")
+file(GLOB_RECURSE STYLESHEETS "src/*.qss")
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${FORMS} ${RESOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${FORMS} ${RESOURCES} ${STYLESHEETS})
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network core)
 
