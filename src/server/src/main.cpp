@@ -187,6 +187,7 @@ int main(int argc, char *argv[]) {
 
     dispatcher->add("case.create", std::make_shared<CaseCreateHandler>(caseAppService));
     dispatcher->add("case.update", std::make_shared<CaseUpdateHandler>(caseAppService));
+    dispatcher->add("case.fetchByAppointment", std::make_shared<CaseFetchByAppointmentHandler>(caseAppService));
     dispatcher->add("case.listByPatient", std::make_shared<CaseListByPatientHandler>(caseAppService));
     dispatcher->add("case.listByDoctorAndPatient", std::make_shared<CaseListByDoctorAndPatientHandler>(caseAppService));
 

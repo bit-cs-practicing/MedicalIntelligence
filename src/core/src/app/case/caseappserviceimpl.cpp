@@ -84,6 +84,18 @@ QJsonObject CaseAppServiceImpl::update(const Credential& credential, const QJson
     return QJsonObject {};
 }
 
+QJsonObject CaseAppServiceImpl::fetchByAppointment(const QJsonObject& data) const {
+    auto appointmentId = Id(data["appointmentId"].toString());
+
+    auto caseOpt = caseRepository->getByAppointmentId(appointmentId);
+    if (!caseOpt.has_value()) {
+        throw std::logic_error("病例不存在");
+    }
+    auto caze = caseOpt.value();
+
+    return CaseAppServiceImpl::caseToJson(caze);
+}
+
 QJsonObject CaseAppServiceImpl::listByPatient(const Credential& credential, const QJsonObject&) const {
     credentialRegistry->check(credential);
 

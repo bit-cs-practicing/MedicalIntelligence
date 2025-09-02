@@ -11,6 +11,7 @@ public:
 
     virtual QJsonObject create(const Credential& credential, const QJsonObject& data) = 0;
     virtual QJsonObject update(const Credential& credential, const QJsonObject& data) = 0;
+    virtual QJsonObject fetchByAppointment(const QJsonObject& data) const = 0;
     virtual QJsonObject listByPatient(const Credential& credential, const QJsonObject& data) const = 0;
     virtual QJsonObject listByDoctorAndPatient(const Credential& credential, const QJsonObject& data) const = 0;
 };
