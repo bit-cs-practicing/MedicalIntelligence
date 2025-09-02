@@ -42,6 +42,6 @@ void AppointmentData::on_cancelBtn_clicked() {
 
     Response result = requestSender->rpc(Request("appointment.cancel", patientCredential->get(), cancelApplication));
     qDebug() << result.data << "\n";
-    if(result.success) QMessageBox::information(this, "Congratulations!", "取消成功");
-    else QMessageBox::warning(this, "Warning", "取消失败");
+    if(result.success) QMessageBox::information(this, "恭喜!", "取消成功");
+    else QMessageBox::warning(this, "警告！", "取消失败");
 }

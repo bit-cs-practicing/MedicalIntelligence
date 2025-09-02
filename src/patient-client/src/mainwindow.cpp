@@ -344,7 +344,7 @@ void MainWindow::on_updPassBtn_clicked()
     Response result = requestSender->rpc(Request("patient.updatePassword", patientCredential->get(), changePassData));
     qDebug() << result.data << "\n";
 
-    if(result.success) QMessageBox::information(this, "Congratulations!", "更改密码成功！");
+    if(result.success) QMessageBox::information(this, "恭喜!", "更改密码成功！");
     else QMessageBox::warning(this, "警告！", "旧密码错误！");
 }
 

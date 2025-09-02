@@ -52,10 +52,10 @@ void PatientAppointment::on_submit_clicked()
     Response result = requestSender->rpc(Request("appointment.create", patientCredential->get(), submitAppointment));
     qDebug() << result.data << "\n";
     if(result.success) {
-        QMessageBox::information(this, "Congratulations", "Your appointment ID is " + result.data["appointmentId"].toString());
+        QMessageBox::information(this, "恭喜！", "Your appointment ID is " + result.data["appointmentId"].toString());
         this->close();
     }
     else {
-        QMessageBox::warning(this, "Warning", "The time slot has been reserved.");
+        QMessageBox::warning(this, "警告！", "The time slot has been reserved.");
     }
 }

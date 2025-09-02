@@ -59,7 +59,7 @@ void PatientLogin::on_loginBtn_clicked()
     }
     else{
         patientCredential->set(Credential::parse(result.data["credential"].toString()));
-        QMessageBox::information(this, "Congratulations!", "登录成功！");
+        QMessageBox::information(this, "恭喜!", "登录成功！");
         if(!patientWindow) patientWindow = std::make_unique<MainWindow>(nullptr, requestSender, patientCredential);
         patientWindow->loadInformation();
         patientWindow->show();
