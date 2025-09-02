@@ -45,8 +45,8 @@ private slots:
 
     void on_updPassBtn_clicked();
 
-    void on_docInfoCheck_clicked();
 
+    void on_docInfoCheck_clicked();
 
     void on_appListCheck_clicked();
 
@@ -62,9 +62,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    bool checkPhone(QString);
-    bool checkEmail();
-    bool checkPassword(QString);
     QString patientId;
     QJsonArray doctorInformations;
     QJsonArray appointmentInformations;

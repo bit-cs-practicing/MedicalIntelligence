@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="widget_2">
       <attribute name="title">
@@ -297,7 +297,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>话题Id</string>
+          <string>话题ID</string>
          </property>
         </widget>
        </item>
@@ -308,7 +308,7 @@
         <widget class="QComboBox" name="topicComboBox">
          <item>
           <property name="text">
-           <string>按话题Id排序</string>
+           <string>按话题ID排序</string>
           </property>
          </item>
          <item>
@@ -328,7 +328,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_20">
          <property name="text">
-          <string>话题Id</string>
+          <string>话题ID</string>
          </property>
         </widget>
        </item>

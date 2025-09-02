@@ -2,7 +2,6 @@
 #define PATIENTREGISTER_H
 
 #include <QWidget>
-//#include "patientlogin.h"
 #include "infra/rpcclient/rpcclient.h"
 #include "infra/security/credentialmanager.h"
 namespace Ui {
@@ -23,11 +22,6 @@ private slots:
     void on_returnBtn_clicked();
 private:
     Ui::PatientRegister *ui;
-    bool checkIdCard();
-    bool checkPassword();
-    bool checkPhone(QString);
-    bool checkName();
-    bool checkEmail();
     PatientLogin *loginBoard;
     CredentialManager *patientCredential;
     RpcClient *requestSender;
