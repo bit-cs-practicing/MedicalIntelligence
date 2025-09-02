@@ -24,14 +24,14 @@
    <item row="7" column="1">
     <widget class="QLineEdit" name="emgcy">
      <property name="text">
-      <string>12345678901</string>
+      <string/>
      </property>
     </widget>
    </item>
    <item row="1" column="1">
     <widget class="QLineEdit" name="idCard">
      <property name="text">
-      <string>123456789012345678</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -59,7 +59,7 @@
    <item row="5" column="1">
     <widget class="QLineEdit" name="checkpass">
      <property name="text">
-      <string>12345678</string>
+      <string/>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -73,17 +73,10 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="name">
-     <property name="text">
-      <string>wxy</string>
-     </property>
-    </widget>
-   </item>
    <item row="4" column="1">
     <widget class="QLineEdit" name="password">
      <property name="text">
-      <string>12345678</string>
+      <string/>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -107,7 +100,7 @@
    <item row="3" column="1">
     <widget class="QLineEdit" name="email">
      <property name="text">
-      <string>12345@126.com</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -152,7 +145,7 @@
    <item row="6" column="1">
     <widget class="QLineEdit" name="phone">
      <property name="text">
-      <string>12345678901</string>
+      <string/>
      </property>
     </widget>
    </item>
@@ -160,6 +153,13 @@
     <widget class="QPushButton" name="returnBtn">
      <property name="text">
       <string>返回</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="name">
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </item>

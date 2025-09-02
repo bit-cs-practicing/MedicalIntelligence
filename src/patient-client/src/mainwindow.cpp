@@ -304,8 +304,6 @@ void MainWindow::on_Tabs_tabBarClicked(int index) {
     }
 }
 
-
-
 void MainWindow::on_changeinfoBtn_clicked() {
     if (!Util::checkEmail(ui->email->text().toStdString())) {
         QMessageBox::warning(this, "警告！", "请输入合法的邮箱！");

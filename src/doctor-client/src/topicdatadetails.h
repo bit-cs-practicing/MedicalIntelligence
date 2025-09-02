@@ -17,7 +17,8 @@ class TopicDataDetails : public QWidget
 public:
     explicit TopicDataDetails(QWidget *parent = nullptr, QString S = "", QString T = "", RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
     ~TopicDataDetails();
-
+private slots:
+    void on_sendBtn_clicked();
 private:
     Ui::TopicDataDetails *ui;
     QString topicId, patientUserId;
