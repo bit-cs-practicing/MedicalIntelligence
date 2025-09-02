@@ -4,12 +4,14 @@
 #include "patientmessage.h"
 #include "customtextedit.h"
 #include "triggerclosewindow.h"
+
 #include <QDebug>
 #include <QTimer>
 #include <QJsonObject>
 #include <QList>
 #include <QMessageBox>
 #include <QScrollBar>
+
 TopicDataDetails::TopicDataDetails(QWidget *parent, QString S, QString Id, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
     ui(new Ui::TopicDataDetails),
@@ -93,9 +95,11 @@ void TopicDataDetails::sendMessage() {
     loadMessageInfo();
 }
 
-TopicDataDetails::~TopicDataDetails()
-{
-//    qDebug() << "closed\n";
+void TopicDataDetails::on_sendBtn_clicked() {
+    sendMessage();
+}
+
+TopicDataDetails::~TopicDataDetails() {
     delete ui;
 }
 
