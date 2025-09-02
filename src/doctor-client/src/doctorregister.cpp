@@ -47,19 +47,19 @@ bool DoctorRegister::checkPassword(){
 void DoctorRegister::on_register_2_clicked() {
 
     if (!checkName()) {
-        QMessageBox::warning(this, "Warning", "Invalid name!");
+        QMessageBox::warning(this, "提示", "姓名非法!");
         return;
     }
     if (!checkPassword()) {
-        QMessageBox::warning(this, "Warning", "Ur password must be between 7 and 20 characters and shall not contain characters except numbers and upper or lower letters.");
+        QMessageBox::warning(this, "提示", "密码必须为 7 到 20 位的字符，且只能包含大小写字母与数字。");
         return;
     }
     if (ui->checkpass->text() != ui->password->text())  {
-        QMessageBox::warning(this, "Warning", "Check ur password again!");
+        QMessageBox::warning(this, "提示", "请检查你的密码");
         return;
     }
     if (!checkIdCard()) {
-        QMessageBox::warning(this, "Warning", "Invalid ID, check your ID or turn to database manager.");
+        QMessageBox::warning(this, "提示", "用户名无效，请检查你的用户名或联系数据库管理员。");
         return;
     }
 
@@ -72,10 +72,10 @@ void DoctorRegister::on_register_2_clicked() {
     qDebug() << result.data;
 
     if(!result.success) {
-        QMessageBox::warning(this, "警告！", "您已注册过账号！");
+        QMessageBox::warning(this, "提示", "您已注册过账号！");
         return;
     }
-    QMessageBox::information(this, "Congratulations!", "注册成功！将在3秒后返回登录界面。");
+    QMessageBox::information(this, "提示", "注册成功！将在3秒后返回登录界面。");
     loginBoard->show();
     this->hide();
     return;

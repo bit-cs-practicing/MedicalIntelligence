@@ -24,9 +24,9 @@ Doctor::Doctor(QWidget *parent, RpcClient *rClient, CredentialManager *cR) :
     loadDoctorInfo();
     ui->doctorName->setReadOnly(true);
     ui->employeeId->setReadOnly(true);
-    ui->workschedule->setPlaceholderText("Format example: 09:00-17:00");
-    ui->startTime->setPlaceholderText("Format example: 2025-8-30T09:00:00");
-    ui->endTime->setPlaceholderText("Format example: 2025-8-30T09:00:00");
+    ui->workschedule->setPlaceholderText("格式示例: 09:00-17:00");
+    ui->startTime->setPlaceholderText("格式示例: 2025-8-30T09:00:00");
+    ui->endTime->setPlaceholderText("格式示例: 2025-8-30T09:00:00");
     leaveHistory["startTime"] = QString("");
     leaveHistory["endTime"] = QString("");
     appointmentList.clear();
@@ -93,18 +93,18 @@ bool Doctor::checkDailyPatientLimit() {
 void Doctor::on_doneBtn_clicked() {
 
     if (!checkDepartment()) {
-        QMessageBox::warning(this, "Warning", "Department is not written.");
+        QMessageBox::warning(this, "提示", "未填写科室。");
         return;
     }
 
     if (!checkWorkschedule()) {
-        QMessageBox::warning(this, "Warning", "Wrong workschedule format.");
+        QMessageBox::warning(this, "提示", "工作时间表格式错误。");
         return;
     }
 
     QStringList times = ui->workschedule->text().split('-');
     if (times.size() != 2) {
-        QMessageBox::warning(this, "Warning", "Wrong workschedule format.");
+        QMessageBox::warning(this, "提示", "工作时间表格式错误。");
         return;
     }
 
@@ -112,26 +112,26 @@ void Doctor::on_doneBtn_clicked() {
     QTime endTime = QTime::fromString(times[1], "hh:mm");
 
     if (!startTime.isValid()) {
-        QMessageBox::warning(this, "Warning", "Invalid startTime");
+        QMessageBox::warning(this, "提示", "开始时间无效。");
         return;
     }
 
     if (!endTime.isValid()) {
-        QMessageBox::warning(this, "Warning", "Invalid endTime");
+        QMessageBox::warning(this, "提示", "结束时间无效。");
     }
 
     if (startTime >= endTime) {
-        QMessageBox::warning(this, "warning", "Start time must be earlier than end time.");
+        QMessageBox::warning(this, "提示", "开始时间必须早于结束时间。");
         return;
     }
 
     if (!checkRegistrationFee()) {
-        QMessageBox::warning(this, "Warning", "Line registration fee can only contain numbers");
+        QMessageBox::warning(this, "提示", "挂号费必须为实数。");
         return;
     }
 
     if (!checkDailyPatientLimit()) {
-        QMessageBox::warning(this, "Warning", "Line daily patient limit can only contain numbers");
+        QMessageBox::warning(this, "提示", "每日预约人数上限必须为非负整数。");
         return;
     }
 
@@ -147,11 +147,11 @@ void Doctor::on_doneBtn_clicked() {
     Response result = requestSender->rpc(Request("doctor.updateInfo", doctorCredential->get(), doctorInfo));
     qDebug() << result.data;
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
 
-    QMessageBox::information(this, "Congratulations!", "更改个人信息成功！");
+    QMessageBox::information(this, "提示", "更改个人信息成功！");
 //    QThread::sleep(5);
 }
 
@@ -174,12 +174,12 @@ bool Doctor::checkNewPassword() {
 void Doctor::on_doneBtn2_clicked() {
 
     if (!checkPassword()) {
-        QMessageBox::warning(this, "Warning", "Ur password must be between 7 and 20 characters and shall not contain characters except numbers and upper or lower letters.");
+        QMessageBox::warning(this, "提示", "密码必须为 7 到 20 位的字符，且只能包含大小写字母与数字。");
         return;
     }
 
     if (!checkNewPassword()) {
-        QMessageBox::warning(this, "Warning", "Check your password again.");
+        QMessageBox::warning(this, "提示", "请检查你的密码。");
         return;
     }
 
@@ -190,11 +190,11 @@ void Doctor::on_doneBtn2_clicked() {
     Response result = requestSender->rpc(Request("doctor.updatePassword", doctorCredential->get(), newPasswordData));
 
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "密码错误!");
+        QMessageBox::warning(this, "提示", "密码错误!");
         return;
     }
 
-    QMessageBox::information(this, "Update successful", "Will go to homepage after 5 seconds");
+    QMessageBox::information(this, "提示", "更新成功，将在 5 秒后返回首页。");
 }
 
 
@@ -265,7 +265,7 @@ void Doctor::on_selectAppoBtn_clicked()
 void Doctor::on_OKBtn_clicked()
 {
     if (m_appoId.isEmpty()) {
-        QMessageBox::warning(this, "Warning", "请去预约界面选择预约创建病例");
+        QMessageBox::warning(this, "提示", "请去预约界面选择预约创建病例");
         ui->tabWidget->setCurrentIndex(2);
         return;
     }
@@ -280,7 +280,7 @@ void Doctor::on_OKBtn_clicked()
     Response result = requestSender->rpc(Request("case.create", doctorCredential->get(), rqst));
     qDebug() << result.data;
     if(!result.success){
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
     ui->diagnosis->setText(""), ui->prescription->setText(""), ui->advice->setText("");
@@ -292,7 +292,7 @@ void Doctor::on_OKBtn_clicked()
     tmp.append(m_patientId);
     result = requestSender->rpc(Request("chat.createTopic", doctorCredential->get(), QJsonObject{{"participants", tmp}}));
     qDebug() << result.data;
-    QMessageBox::information(this, "Case completed", "Case has been saved! ");
+    QMessageBox::information(this, "提示", "病历已保存! ");
 
     m_appoId.clear();
 }
@@ -419,33 +419,33 @@ void Doctor::on_leaveReqBtn_clicked() {
     QRegularExpression isoRegex("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$");
     QRegularExpressionMatch smatch = isoRegex.match(startTime);
     if (!smatch.hasMatch()) {
-        QMessageBox::warning(this, "Warning", "Wrong starttime format.");
+        QMessageBox::warning(this, "提示", "开始时间格式错误。");
         return;
     }
     QRegularExpressionMatch ematch = isoRegex.match(endTime);
     if (!ematch.hasMatch()) {
-        QMessageBox::warning(this, "Warning", "Wrong endtime format.");
+        QMessageBox::warning(this, "提示", "结束时间格式错误。");
         return;
     }
 
     QDateTime startDt = QDateTime::fromString(startTime, Qt::ISODate);
     QDateTime endDt = QDateTime::fromString(endTime, Qt::ISODate);
     if (startDt >= endDt) {
-        QMessageBox::warning(this, "Warning", "Start time must be earlier than end time.");
+        QMessageBox::warning(this, "提示", "开始时间必须早于结束时间。");
         return;
     }
 
     Response result = requestSender->rpc(Request("attendance.leaveRequest", doctorCredential->get(), QJsonObject{{"startTime", startTime}, {"endTime", endTime}}));
 
     if (!result.success) {
-        QMessageBox::warning(this, "Warning", "You have leaves not cancelled before, request refused. ");
+        QMessageBox::warning(this, "提示", "你还有请假未销, 不能请假。 ");
         return;
     }
 
     leaveHistory["startTime"] = ui->startTime->text();
     leaveHistory["endTime"] = ui->endTime->text();
     leaved = true;
-    QMessageBox::information(this, "Request accepted.", "You've requested a leave, you shall not request for another leave before this leave is cancelled.");
+    QMessageBox::information(this, "提示", "请假成功，在销假之前，你不能再次请假。");
     return;
 }
 
@@ -455,17 +455,17 @@ void Doctor::on_leaveCancBtn_clicked() {
     Response result = requestSender->rpc(Request("attendance.fetchLastRequest", doctorCredential->get(), QJsonObject{}));
     qDebug() << result.data;
     if(!result.success){
-        QMessageBox::warning(this, "Warning", "您没有新的请假");
+        QMessageBox::warning(this, "提示", "您没有新的请假");
         return;
     }
     QJsonObject tmp = result.data;
     result = requestSender->rpc(Request("attendance.leaveCancel", doctorCredential->get(), tmp));
     qDebug() << result.data;
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
-    QMessageBox::information(this, "Congruatulations!", "销假成功!");
+    QMessageBox::information(this, "提示", "销假成功!");
     return;
 }
 
@@ -477,10 +477,10 @@ void Doctor::on_fetcLastRequestBtn_clicked() {
     Response result = requestSender->rpc(Request("attendance.checkIn", doctorCredential->get(), QJsonObject{}));
     qDebug() << result.data;
     if(!result.success){
-        QMessageBox::warning(this, "Warning", result.message);
+        QMessageBox::warning(this, "提示", result.message);
         return;
     }
-    QMessageBox::information(this, "Congratulations!", "签到成功，您的签到时间是：" + result.data["time"].toString());
+    QMessageBox::information(this, "提示", "签到成功，您的签到时间是：" + result.data["time"].toString());
 }
 
 
@@ -490,7 +490,7 @@ void Doctor::loadDoctorInfo() {
     Response result = requestSender->rpc(Request("doctor.fetchInfo", doctorCredential->get(), QJsonObject{{"doctorId", doctorCredential->get()->getUserId()}}));
     qDebug() << result.data;
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
     doctorInfo = result.data;
@@ -508,7 +508,7 @@ void Doctor::loadAppInfo() {
     Response result = requestSender->rpc(Request("appointment.listByDoctor", doctorCredential->get(), QJsonObject{{}}));
     qDebug() << result.data;
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
     QJsonArray appList = result.data["appointments"].toArray();
@@ -519,7 +519,7 @@ void Doctor::loadAppInfo() {
         int cnt = 5;
         while(!result.success && cnt--) result = requestSender->rpc(Request("patient.fetchInfo", doctorCredential->get(), QJsonObject{{"patientId", tmp["patientId"]}}));
         if(!result.success){
-            QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+            QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
             return;
         }
         qDebug() << result.data;
@@ -534,7 +534,7 @@ void Doctor::loadCaseInfo(QString patientId) {
     Response result = requestSender->rpc(Request("case.listByDoctorAndPatient", doctorCredential->get(), QJsonObject{{"patientId", patientId}}));
     qDebug() << result.data;
     if(!result.success){
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
     caseList.clear();
@@ -547,7 +547,7 @@ void Doctor::loadTopicInfo() {
     Response result = requestSender->rpc(Request("chat.listTopicsByUser", doctorCredential->get(), QJsonObject{}));
     qDebug() << result.data << "\n";
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
         return;
     }
 
@@ -595,7 +595,7 @@ void Doctor::on_tabWidget_tabBarClicked(int index)
     if(index == 0) loadDoctorInfo();
     else if(index == 2) loadAppInfo();
     else if(index == 4 && caseList.empty()) {
-        QMessageBox::warning(this, "Warning", "请去预约界面选择一个患者查看病例");
+        QMessageBox::warning(this, "提示", "请去预约界面选择一个患者查看病例");
         ui->tabWidget->setCurrentIndex(2);
     }
     else if(index == 6) {

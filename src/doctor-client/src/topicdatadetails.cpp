@@ -81,7 +81,7 @@ void TopicDataDetails::sendMessage() {
     Response result = requestSender->rpc(Request("chat.sendMessage", patientCredential->get(), sendOutMessage));
     qDebug() << result.data;
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请重新发送消息");
+        QMessageBox::warning(this, "提示", "服务器繁忙，请重新发送消息");
         return;
     }
 //    QJsonObject tempAddMessage = QJsonObject{

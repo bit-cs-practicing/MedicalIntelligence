@@ -39,15 +39,15 @@ void appoTuple::updateStatus(const QString &status) {
     m_currentStatus = status;
 
     if (status.toLower() == "scheduled") {
-        ui->pushButton->setText("CreateCase");
+        ui->pushButton->setText("创建病历");
         ui->pushButton->setEnabled(true);
     }
     else if (status.toLower() == "completed") {
-        ui->pushButton->setText("UpdateCase");
+        ui->pushButton->setText("更新病历");
         ui->pushButton->setEnabled(true);
     }
     else {
-        ui->pushButton->setText("Unavailable");
+        ui->pushButton->setText("无法创建病历");
         ui->pushButton->setEnabled(false);
     }
 }

@@ -17,11 +17,11 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>6</number>
+      <number>5</number>
      </property>
-     <widget class="QWidget" name="UpdateInfo">
+     <widget class="QWidget" name="widget_2">
       <attribute name="title">
-       <string>UpdateInfo</string>
+       <string>个人信息</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="6" column="1">
@@ -36,7 +36,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>EmployeeID</string>
+          <string>工号</string>
          </property>
         </widget>
        </item>
@@ -46,7 +46,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Profile</string>
+          <string>简介</string>
          </property>
         </widget>
        </item>
@@ -56,21 +56,21 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Photo(URL)</string>
+          <string>图片(URL)</string>
          </property>
         </widget>
        </item>
        <item row="5" column="0">
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>WorkSchedule</string>
+          <string>工作时间表</string>
          </property>
         </widget>
        </item>
        <item row="6" column="0">
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>RegistrationFee</string>
+          <string>挂号费</string>
          </property>
         </widget>
        </item>
@@ -80,14 +80,14 @@
        <item row="8" column="1">
         <widget class="QPushButton" name="doneBtn">
          <property name="text">
-          <string>Done</string>
+          <string>提交修改</string>
          </property>
         </widget>
        </item>
        <item row="7" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>DailyPatientLimit</string>
+          <string>每日预约人数上限</string>
          </property>
         </widget>
        </item>
@@ -97,7 +97,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Department</string>
+          <string>科室</string>
          </property>
         </widget>
        </item>
@@ -107,7 +107,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_12">
          <property name="text">
-          <string>Name</string>
+          <string>姓名</string>
          </property>
         </widget>
        </item>
@@ -115,7 +115,7 @@
      </widget>
      <widget class="QWidget" name="UpdatePassword">
       <attribute name="title">
-       <string>UpdatePassword</string>
+       <string>修改密码</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="1">
@@ -130,28 +130,28 @@
        <item row="3" column="1">
         <widget class="QPushButton" name="doneBtn2">
          <property name="text">
-          <string>Done</string>
+          <string>确认修改密码</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>NewPassword</string>
+          <string>新密码</string>
          </property>
         </widget>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>OldPassword</string>
+          <string>旧密码</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>Check Password</string>
+          <string>重复密码</string>
          </property>
         </widget>
        </item>
@@ -159,7 +159,7 @@
      </widget>
      <widget class="QWidget" name="AppointmentList">
       <attribute name="title">
-       <string>AppointmentList</string>
+       <string>预约查询</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_6">
        <item row="0" column="0" colspan="5">
@@ -168,49 +168,49 @@
        <item row="0" column="5">
         <widget class="QPushButton" name="selectAppoBtn">
          <property name="text">
-          <string>Search</string>
+          <string>查询</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_22">
          <property name="text">
-          <string>PatientName</string>
+          <string>病人姓名</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="label_24">
          <property name="text">
-          <string>PatientIdCard</string>
+          <string>病人身份证号</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
         <widget class="QLabel" name="label_23">
          <property name="text">
-          <string>Date</string>
+          <string>预约日期</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
         <widget class="QLabel" name="label_25">
          <property name="text">
-          <string>TimeSlot</string>
+          <string>预约时间段</string>
          </property>
         </widget>
        </item>
        <item row="1" column="4">
         <widget class="QLabel" name="label_26">
          <property name="text">
-          <string>Status</string>
+          <string>预约状态</string>
          </property>
         </widget>
        </item>
        <item row="1" column="5">
         <widget class="QLabel" name="label_29">
          <property name="text">
-          <string>Action</string>
+          <string>操作</string>
          </property>
         </widget>
        </item>
@@ -224,8 +224,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>994</width>
-            <height>583</height>
+            <width>1002</width>
+            <height>628</height>
            </rect>
           </property>
          </widget>
@@ -235,20 +235,20 @@
      </widget>
      <widget class="QWidget" name="CaseManaging">
       <attribute name="title">
-       <string>CaseManaging</string>
+       <string>病历管理</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="0">
         <widget class="QLabel" name="label_30">
          <property name="text">
-          <string>Diagnosis</string>
+          <string>诊断</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_31">
          <property name="text">
-          <string>Prescription</string>
+          <string>处方</string>
          </property>
         </widget>
        </item>
@@ -258,7 +258,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_32">
          <property name="text">
-          <string>Advice</string>
+          <string>医嘱</string>
          </property>
         </widget>
        </item>
@@ -271,7 +271,7 @@
        <item row="3" column="1">
         <widget class="QPushButton" name="OKBtn">
          <property name="text">
-          <string>OK</string>
+          <string>确认修改</string>
          </property>
         </widget>
        </item>
@@ -279,7 +279,7 @@
      </widget>
      <widget class="QWidget" name="CaseSearching">
       <attribute name="title">
-       <string>CaseSearching</string>
+       <string>病历搜索</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_8">
        <item row="0" column="0" colspan="5">
@@ -288,42 +288,42 @@
        <item row="0" column="5">
         <widget class="QPushButton" name="selectBtn_2">
          <property name="text">
-          <string>Search</string>
+          <string>查询</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_33">
          <property name="text">
-          <string>PatientName</string>
+          <string>病人姓名</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="label_34">
          <property name="text">
-          <string>PatientIDCard</string>
+          <string>病人身份证号</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
         <widget class="QLabel" name="label_35">
          <property name="text">
-          <string>Diagnosis</string>
+          <string>诊断</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
         <widget class="QLabel" name="label_36">
          <property name="text">
-          <string>Prescription</string>
+          <string>处方</string>
          </property>
         </widget>
        </item>
        <item row="1" column="4">
         <widget class="QLabel" name="label_37">
          <property name="text">
-          <string>Advice</string>
+          <string>医嘱</string>
          </property>
         </widget>
        </item>
@@ -337,8 +337,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>994</width>
-            <height>583</height>
+            <width>1002</width>
+            <height>628</height>
            </rect>
           </property>
          </widget>
@@ -356,7 +356,7 @@
      </widget>
      <widget class="QWidget" name="LeaveManaging">
       <attribute name="title">
-       <string>LeaveManaging</string>
+       <string>考勤管理</string>
       </attribute>
       <widget class="QLabel" name="label_28">
        <property name="geometry">
@@ -368,7 +368,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>EndTime</string>
+        <string>结束时间</string>
        </property>
       </widget>
       <widget class="QPushButton" name="leaveReqBtn">
@@ -381,7 +381,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Leave Request</string>
+        <string>申请请假</string>
        </property>
       </widget>
       <widget class="QLineEdit" name="endTime">
@@ -414,7 +414,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Leave Cancel</string>
+        <string>撤销请假</string>
        </property>
       </widget>
       <widget class="QPushButton" name="fetcLastRequestBtn">
@@ -427,7 +427,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Fetch Last Request</string>
+        <string>打卡</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_27">
@@ -440,7 +440,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>StartTime</string>
+        <string>开始时间</string>
        </property>
       </widget>
      </widget>
@@ -504,8 +504,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>994</width>
-            <height>583</height>
+            <width>1002</width>
+            <height>628</height>
            </rect>
           </property>
          </widget>

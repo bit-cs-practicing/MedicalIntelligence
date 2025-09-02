@@ -45,11 +45,11 @@ bool DoctorLogin::checkPassword() {
 void DoctorLogin::on_loginBtn_clicked()
 {
     if(ui->username->text() == "" || ui->password->text() == "") {
-        QMessageBox::warning(this, "Warning", "Username or password should not be empty.");
+        QMessageBox::warning(this, "提示", "用户名或密码不能为空。");
         return;
     }
     else if(!checkUsername() || !checkPassword()) {
-        QMessageBox::warning(this, "Warning", "Please check your username or password.");
+        QMessageBox::warning(this, "提示", "请检查你的用户名或密码格式。");
         return;
     }
     QJsonObject loginData;
@@ -59,7 +59,7 @@ void DoctorLogin::on_loginBtn_clicked()
     qDebug() << result.data;
 //    bool flag = false;
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "Username not exist or password wrong.");
+        QMessageBox::warning(this, "提示", "用户名不存在或密码错误。");
     }
     else {
         doctorCredential->set(Credential::parse(result.data["credential"].toString()));
