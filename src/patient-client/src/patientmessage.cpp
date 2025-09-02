@@ -10,6 +10,7 @@ PatientMessage::PatientMessage(QWidget *parent, TopicDataDetails *father) :
     ui->name->setReadOnly(true);
     ui->content->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     adjustTextBrowserHeight();
+    ui->content->setObjectName("selfMessage");
 }
 
 PatientMessage::~PatientMessage()

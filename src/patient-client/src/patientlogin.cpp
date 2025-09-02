@@ -12,7 +12,8 @@ PatientLogin::PatientLogin(QWidget *parent, RpcClient *rSender, CredentialManage
     registerBoard = nullptr;
     patientWindow = nullptr;
     ui->setupUi(this);
-    ui->loginBtn->setObjectName("okButton");
+    ui->loginBtn->setObjectName("okBtn");
+    ui->title->setObjectName("titleLabel");
 }
 
 PatientLogin::~PatientLogin()
