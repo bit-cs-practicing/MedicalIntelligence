@@ -21,17 +21,17 @@
     <widget class="QComboBox" name="status">
      <item>
       <property name="text">
-       <string>scheduled</string>
+       <string>已预约</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>completed</string>
+       <string>已完成</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>cancelled</string>
+       <string>已撤销</string>
       </property>
      </item>
     </widget>

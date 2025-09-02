@@ -13,7 +13,7 @@ class AppointmentData : public QWidget {
 
 public:
     explicit AppointmentData(QWidget *parent = nullptr, RpcClient *rSender = nullptr, CredentialManager *pC = nullptr);
-    void setAppointmentData(QString doctorName, QString doctorId, QString date, QString time, QString status, QString appId);
+    void setAppointmentData(const QString& doctorName, const QString& doctorId, const QString& date, const QString& time, const QString& status, const QString& appId);
     ~AppointmentData();
 
 private slots:

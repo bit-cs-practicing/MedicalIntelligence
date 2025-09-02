@@ -82,7 +82,7 @@ void TopicDataDetails::sendMessage() {
 //    };
     Response result = requestSender->rpc(Request("chat.sendMessage", patientCredential->get(), sendOutMessage));
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "警告！", "服务器繁忙，请刷新界面重试");
         return;
     }
     ui->message->setText("");

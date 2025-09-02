@@ -19,11 +19,27 @@ AppointmentData::~AppointmentData() {
     delete ui;
 }
 
-void AppointmentData::setAppointmentData(QString doctorName, QString doctorId, QString date, QString time, QString status, QString appId) {
+QString transferStatusFromENtoZH(const QString& ENStatus) {
+    if (ENStatus == "completed") {
+        return "已完成";
+    } else if (ENStatus == "scheduled"){
+        return "已预约";
+    } else {
+        return "已撤销";
+    }
+}
+
+void AppointmentData::setAppointmentData(
+    const QString& doctorName,
+    const QString& doctorId,
+    const QString& date,
+    const QString& time,
+    const QString& status,
+    const QString& appId) {
     ui->appId->setText(doctorName);
     ui->doctorId->setText(doctorId);
     ui->dateTime->setText(date + " " + time);
-    ui->status->setCurrentText(status);
+    ui->status->setCurrentText(transferStatusFromENtoZH(status));
     appointmentId = appId;
     if(status == "scheduled") ui->cancelBtn->setEnabled(true);
     else ui->cancelBtn->setEnabled(false);

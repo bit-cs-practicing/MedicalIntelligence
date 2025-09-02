@@ -18,14 +18,14 @@
     <item>
      <widget class="QPushButton" name="Patient">
       <property name="text">
-       <string>I am Patient</string>
+       <string>我是病人</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="Doctor">
       <property name="text">
-       <string>I am Doctor</string>
+       <string>我是医生</string>
       </property>
      </widget>
     </item>
@@ -37,7 +37,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>28</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

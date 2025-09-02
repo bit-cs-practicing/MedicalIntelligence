@@ -273,7 +273,7 @@
         <widget class="QComboBox" name="appTimeComboBox">
          <item>
           <property name="text">
-           <string>全部时间</string>
+           <string>所有时间</string>
           </property>
          </item>
          <item>
