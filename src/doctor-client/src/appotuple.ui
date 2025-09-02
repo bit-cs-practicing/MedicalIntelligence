@@ -30,13 +30,6 @@
     <widget class="QLineEdit" name="status"/>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>创建病例</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QPushButton" name="pushButton_2">
      <property name="text">
       <string>病例管理</string>

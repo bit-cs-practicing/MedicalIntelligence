@@ -40,10 +40,10 @@ Doctor::Doctor(QWidget *parent, RpcClient *rClient, CredentialManager *cR) :
     scrollLayout->setAlignment(Qt::AlignTop);
     ui->ListScreen->setWidget(m_scrollContent);
     m_appoId = "";
-    m_caseScrollContent = new QWidget;
-    QVBoxLayout *caseScrollLayout = new QVBoxLayout(m_caseScrollContent);
-    caseScrollLayout->setAlignment(Qt::AlignTop);
-    ui->CaseListScreen->setWidget(m_caseScrollContent);
+//    m_caseScrollContent = new QWidget;
+//    QVBoxLayout *caseScrollLayout = new QVBoxLayout(m_caseScrollContent);
+//    caseScrollLayout->setAlignment(Qt::AlignTop);
+//    ui->CaseListScreen->setWidget(m_caseScrollContent);
     m_patientId = "";
 }
 
@@ -197,58 +197,6 @@ void Doctor::on_doneBtn2_clicked() {
     QMessageBox::information(this, "提示", "更新成功，将在 5 秒后返回首页。");
 }
 
-
-
-
-void Doctor::handle_Appo_Action(const QString appoId, const QString currentStatus, QString pId) {
-    m_patientId = pId;
-    if (currentStatus.toLower() == "scheduled") {
-        for (QJsonObject &i : appointmentList) {
-            if (i["appointmentId"].toString() == appoId) {
-                m_appoId = appoId;
-                i["status"] = QString("completed");
-                openCase(appoId, true);
-                break;
-            }
-        }
-    }
-    else {
-        for (QJsonObject i : appointmentList) {
-            if (i["appointmentId"].toString() == appoId) {
-                m_appoId = appoId;
-                openCase(appoId, false);
-                break;
-            }
-        }
-    }
-}
-
-void Doctor::openCase(const QString appoId, bool created) {
-    QWidget *targetPage = ui->tabWidget->findChild<QWidget*>("CaseManaging");
-    if (targetPage) {
-        int index = ui->tabWidget->indexOf(targetPage);
-        ui->tabWidget->setCurrentIndex(index);
-    }
-
-    m_appoId = appoId;
-
-    if (created) {
-        for (const QJsonObject &i : caseList) {
-            if (i["appoId"].toString() == m_appoId) {
-                ui->diagnosis->setText(i["diagnosis"].toString());
-                ui->prescription->setText(i["prescription"].toString());
-                ui->advice->setText(i["advice"].toString());
-                break;
-            }
-        }
-    }
-    else {
-        ui->diagnosis->clear();
-        ui->prescription->clear();
-        ui->advice->clear();
-    }
-}
-
 void Doctor::on_selectAppoBtn_clicked()
 {
     QVBoxLayout *scrollLayout = qobject_cast<QVBoxLayout*>(m_scrollContent->layout());
@@ -260,41 +208,6 @@ void Doctor::on_selectAppoBtn_clicked()
     }
     QString name = ui->selectName->text();
     loadAppoList(name);
-}
-
-void Doctor::on_OKBtn_clicked()
-{
-    if (m_appoId.isEmpty()) {
-        QMessageBox::warning(this, "提示", "请去预约界面选择预约创建病例");
-        ui->tabWidget->setCurrentIndex(2);
-        return;
-    }
-
-    QString diagnosis = ui->diagnosis->text();
-    QString prescription = ui->prescription->text();
-    QString advice = ui->advice->text();
-
-    QJsonObject rqst = QJsonObject{
-    {"diagnosis", diagnosis}, {"prescription", prescription}, {"advice", advice}, {"appointmentId", m_appoId}
-    };
-    Response result = requestSender->rpc(Request("case.create", doctorCredential->get(), rqst));
-    qDebug() << result.data;
-    if(!result.success){
-        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
-        return;
-    }
-    ui->diagnosis->setText(""), ui->prescription->setText(""), ui->advice->setText("");
-
-    result = requestSender->rpc(Request("appointment.complete", doctorCredential->get(), QJsonObject{{"appointmentId", m_appoId}}));
-    qDebug() << result.data;
-    QJsonArray tmp;
-    tmp.append(doctorCredential->get()->getUserId());
-    tmp.append(m_patientId);
-    result = requestSender->rpc(Request("chat.createTopic", doctorCredential->get(), QJsonObject{{"participants", tmp}}));
-    qDebug() << result.data;
-    QMessageBox::information(this, "提示", "病历已保存! ");
-
-    m_appoId.clear();
 }
 
 
@@ -324,93 +237,12 @@ void Doctor::loadAppoList(QString tname) {
         if(tname != "" && ((tname.length() == 18 && tname != patId) || (tname.length() != 18 && tname != name))) continue;
 
         appoTuple *item = new appoTuple(patientId, appoId, name, patId, date, ts, st);
-        connect(item, &appoTuple::pushBtn, this, &Doctor::handle_Appo_Action);
-        connect(item, &appoTuple::pushBtn2, this, [&](QString pId){
-            loadCaseInfo(pId);
-            ui->tabWidget->setCurrentIndex(4);
-        });
+//        qDebug() << i;
+        item->setAppointmentDetails(i);
+        item->setRequestAndCredential(requestSender, doctorCredential);
         scrollLayout->addWidget(item);
     }
 }
-
-void Doctor::loadCaseList() {
-    QVBoxLayout *scrollLayout = qobject_cast<QVBoxLayout*>(m_caseScrollContent->layout());
-    if (!scrollLayout) { // 添加判断
-        qWarning() << "Scroll layout is null!";
-        return;
-    }
-    if (scrollLayout) {
-        QLayoutItem *child;
-        while ((child = scrollLayout->takeAt(0)) != nullptr) { // 从0开始！
-            delete child->widget(); // 删除Widget
-            delete child;           // 删除LayoutItem
-        }
-    }
-
-    qDebug() << "ScrollArea size:" << ui->CaseListScreen->size();
-    qDebug() << "Content widget size:" << m_caseScrollContent->size();
-
-    for (QJsonObject i : caseList) {
-        QString patientName = i["patientName"].toString();
-        QString patientIdCard = i["patientIdCard"].toString();
-        QString diagnosis = i["diagnosis"].toString();
-        QString prescription = i["prescription"].toString();
-        QString advice = i["advice"].toString();
-
-        CaseTuple *item = new CaseTuple(patientName, patientIdCard, diagnosis, prescription, advice);
-
-        scrollLayout->addWidget(item);
-        qDebug() << "Finished loading" << caseList.size() << "cases";
-    }
-}
-
-
-void Doctor::on_selectBtn_2_clicked()
-{
-    QVBoxLayout *scrollLayout = qobject_cast<QVBoxLayout*>(m_caseScrollContent->layout());
-    if (!scrollLayout) return;
-    QString name = ui->selectCase->text();
-    QLayoutItem *child;
-    while ((child = scrollLayout->takeAt(0)) != nullptr) {
-        delete child->widget();
-        delete child;
-    }
-
-    if (name.length() == 18 && name[0].isDigit()) {
-        for (const QJsonObject &i : caseList) {
-            if (i["patientIdCard"].toString() == name) {
-                addCaseItem(i);
-            }
-        }
-    }
-    else if (name.length() == 0) {
-        for (const QJsonObject &i : caseList) {
-             addCaseItem(i);
-        }
-    }
-    else {
-        for (const QJsonObject &i : caseList) {
-            if (i["patientName"].toString() == name) {
-                addCaseItem(i);
-            }
-        }
-    }
-}
-
-void Doctor::addCaseItem(const QJsonObject &caseRecord) {
-    QVBoxLayout *scrollLayout = qobject_cast<QVBoxLayout*>(m_caseScrollContent->layout());
-
-    QString patName = caseRecord["patientName"].toString();
-    QString patIdCard = caseRecord["patientIdCard"].toString();
-    QString diagnosis = caseRecord["diagnosis"].toString();
-    QString pre = caseRecord["prescription"].toString();
-    QString adv = caseRecord["advice"].toString();
-
-    CaseTuple *item = new CaseTuple(patName, patIdCard, diagnosis, pre, adv);
-    scrollLayout->addWidget(item);
-}
-
-
 
 void Doctor::on_leaveReqBtn_clicked() {
     QString startTime = ui->startTime->text();
@@ -530,19 +362,6 @@ void Doctor::loadAppInfo() {
     loadAppoList("");
 }
 
-void Doctor::loadCaseInfo(QString patientId) {
-    Response result = requestSender->rpc(Request("case.listByDoctorAndPatient", doctorCredential->get(), QJsonObject{{"patientId", patientId}}));
-    qDebug() << result.data;
-    if(!result.success){
-        QMessageBox::warning(this, "提示", "服务器繁忙，请刷新界面重试");
-        return;
-    }
-    caseList.clear();
-    QJsonArray cList = result.data["cases"].toArray();
-    for(QJsonValue i : cList) caseList.append(i.toObject());
-    loadCaseList();
-}
-
 void Doctor::loadTopicInfo() {
     Response result = requestSender->rpc(Request("chat.listTopicsByUser", doctorCredential->get(), QJsonObject{}));
     qDebug() << result.data << "\n";
@@ -594,11 +413,7 @@ void Doctor::on_tabWidget_tabBarClicked(int index)
 {
     if(index == 0) loadDoctorInfo();
     else if(index == 2) loadAppInfo();
-    else if(index == 4 && caseList.empty()) {
-        QMessageBox::warning(this, "提示", "请去预约界面选择一个患者查看病例");
-        ui->tabWidget->setCurrentIndex(2);
-    }
-    else if(index == 6) {
+    else if(index == 4) {
         loadTopicInfo();
     }
 }
