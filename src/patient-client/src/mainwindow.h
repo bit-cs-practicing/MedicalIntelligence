@@ -50,6 +50,10 @@ private slots:
 
     void on_topicCheckBtn_clicked();
 
+    void on_aiSendBtn_clicked();
+
+    void on_aiClearBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     bool checkPhone(QString);
