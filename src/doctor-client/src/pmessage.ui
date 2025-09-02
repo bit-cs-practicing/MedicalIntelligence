@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>MedicalIntelligence (Doctor Client)</string>
   </property>
   <widget class="QLineEdit" name="pName">
    <property name="geometry">
