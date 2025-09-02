@@ -38,10 +38,9 @@ void DoctorMessage::adjustTextBrowserHeight() {
     else{
         ui->content->document()->setTextWidth(-1);
     }
-    ui->content->setFixedWidth(finalWidth);
-    ui->content->setFixedHeight(ui->content->document()->size().height());
+    ui->content->setMaximumWidth(finalWidth + 60);
+    ui->content->setMinimumHeight(ui->content->document()->size().height());
     this->resize(ui->content->size());
     ui->content->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->content->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    qDebug() << "finalWidth:" << finalWidth << " size:" << ui->content->size();
 }
