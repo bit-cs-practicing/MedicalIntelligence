@@ -34,6 +34,9 @@ public:
     QJsonObject queryByDoctorId(QString Id);
     QJsonObject queryByCaseId(QString Id);
 
+signals:
+    void aiResponseReceived(const QString &resultData, bool success);
+
 private slots:
     void on_Tabs_tabBarClicked(int index);
 
@@ -53,6 +56,8 @@ private slots:
     void on_aiSendBtn_clicked();
 
     void on_aiClearBtn_clicked();
+
+    void onAiResponseReceived(const QString &resultData, bool success);
 
 private:
     Ui::MainWindow *ui;

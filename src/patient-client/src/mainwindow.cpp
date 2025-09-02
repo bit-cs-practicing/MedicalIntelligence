@@ -12,6 +12,10 @@
 #include <QDebug>
 #include <regex>
 #include <QThread>
+#include <QtConcurrent/QtConcurrent>
+#include <mutex>
+#include <memory>
+
 MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
     ui(new Ui::MainWindow), patientCredential(pC), requestSender(rSender)
@@ -33,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
         if(S == "所有时间") ui->caseDateTime->setEnabled(false);
         else ui->caseDateTime->setEnabled(true);
     });
+    connect(this, &MainWindow::aiResponseReceived, this, &MainWindow::onAiResponseReceived);
     loadDoctorInfo();
 }
 
@@ -366,17 +371,51 @@ void MainWindow::on_topicCheckBtn_clicked()
 void MainWindow::on_aiSendBtn_clicked()
 {
     ui->aiRecieve->setText("正在等待AI回复");
-    Response result = requestSender->rpc(Request("consultation.answerForPatient", patientCredential->get(), QJsonObject{{"question", ui->aiSend->toPlainText()}}));
-    qDebug() << result.data;
-    if(!result.success) {
-        QMessageBox::warning(this, "Warning", result.message);
-        ui->aiRecieve->setText("");
-        return;
-    }
-    ui->aiRecieve->setText(result.data["answer"].toString());
+    const int INITIAL = 0;
+    const int INTERRUPTED = -1;
+    const int FINISHED = 1;
+
+    struct LockedVal {
+        std::mutex lock;
+        int status = INITIAL;
+    };
+
+    auto status = std::make_shared<LockedVal>();
+
+    QtConcurrent::run([=]{
+        Response result = requestSender->rpc(Request("consultation.answerForPatient", patientCredential->get(), QJsonObject{{"question", ui->aiSend->toPlainText()}}));
+        std::lock_guard(status->lock);
+        if (status->status == INTERRUPTED) {
+            return;
+        }
+        status->status = FINISHED;
+        qDebug() << result.data;
+        if(!result.success) {
+            emit aiResponseReceived(result.message, false);
+        } else {
+            emit aiResponseReceived(result.data["answer"].toString(), true);
+        }
+    });
+
+    QTimer::singleShot(30000, this, [=]() {
+        std::lock_guard(status->lock);
+        if (status->status == FINISHED) {
+            return;
+        }
+        status->status = INTERRUPTED;
+        emit aiResponseReceived("请求超时，智能助理暂时不可用", false);
+    });
 }
 
-void MainWindow::on_aiClearBtn_clicked()
-{
+void MainWindow::on_aiClearBtn_clicked() {
     ui->aiSend->setText("");
+}
+
+void MainWindow::onAiResponseReceived(const QString &resultData, bool success) {
+    if (!success) {
+        QMessageBox::warning(this, "Warning", resultData);
+        ui->aiRecieve->setText("");
+    } else {
+        ui->aiRecieve->setText(resultData);
+    }
 }
