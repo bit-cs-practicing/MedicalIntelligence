@@ -49,17 +49,30 @@ ConsultationAnswer ConsultationDeepSeekProvider::getAnswer(const ConsultationQue
     QObject::disconnect(reply, &QNetworkReply::finished, &eventLoop, &QEventLoop::quit);
     QObject::disconnect(&timer, &QTimer::timeout, &eventLoop, &QEventLoop::quit);
 
-    static QString errorAnswer("服务器繁忙，请稍后再试。");
     if (isTimeOut) {
         qDebug() << "reponse timeout";
         reply->abort();
-        return errorAnswer;
+        throw std::runtime_error("reponse timeout");
     }
     if (reply->error() != QNetworkReply::NoError) {
-        qDebug() << "HTTP ERROR:" << reply->errorString();
-        return errorAnswer;
+        QString msg = "HTTP ERROR:" + reply->errorString();
+        qDebug() << msg;
+        throw std::runtime_error(msg.toStdString());
     }
+
     QByteArray responseData = reply->readAll();
-    qDebug() << "request succcess, reponse:" << responseData;
-    return QString(responseData);
+    qDebug() << "request succcess, reponse:" << responseData << '\n';
+    QJsonDocument responseDoc = QJsonDocument::fromJson(responseData);
+    QJsonObject returnObject(responseDoc.object());
+    if (!returnObject.contains("output")) {
+        throw std::runtime_error("Parsing failed.");
+    }
+    if (!returnObject.value("output").isObject()) {
+        throw std::runtime_error("Parsing failed.");
+    }
+    QJsonObject outputObject = returnObject.value("output").toObject();
+    if (!outputObject.contains("text")) {
+        throw std::runtime_error("Parsing failed.");
+    }
+    return ConsultationAnswer(outputObject.value("text").toString());
 }
