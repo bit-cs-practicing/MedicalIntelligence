@@ -1,7 +1,7 @@
 /* 全局字体和背景 */
 QWidget {
     font-family: "Noto Sans SC", "Arial";
-    font-size: 14px;
+    font-size: 22px;
     background-color: #f4f6f9;   /* 界面浅灰背景 */
     color: #333333;
 }
