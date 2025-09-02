@@ -277,3 +277,31 @@ QTabBar::tab:selected {
     border-bottom: 4px solid #0078d4;
     font-weight: bold;
 }
+
+QTextEdit {
+    border: 1px solid #c0c0c0;      /* 边框 */
+    border-radius: 12px;            /* 圆角 */
+    padding: 6px 8px;               /* 内边距 */
+    background-color: #ffffff;      /* 背景色 */
+    color: #333333;                 /* 文本颜色 */
+    font-size: 14px;                /* 默认字号 */
+    selection-background-color: #0078d4; /* 选中时高亮 */
+}
+
+/* 鼠标悬停时轻微变色 */
+QTextEdit:hover {
+    border: 1px solid #3399ff;
+}
+
+/* 获得焦点时 */
+QTextEdit:focus {
+    border: 1px solid #0078d4;
+    background-color: #fdfdfd;
+}
+
+/* 隐藏滚动条（和 QTextBrowser 一致） */
+QTextEdit QScrollBar:vertical,
+QTextEdit QScrollBar:horizontal {
+    width: 0px;
+    height: 0px;
+}
