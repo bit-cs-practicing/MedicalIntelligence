@@ -11,6 +11,7 @@
 #include <QJsonDocument>
 #include <QDebug>
 #include <regex>
+#include <QThread>
 MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *pC) :
     QWidget(parent),
     ui(new Ui::MainWindow), patientCredential(pC), requestSender(rSender)
@@ -360,4 +361,22 @@ void MainWindow::on_caseCheckBtn_clicked()
 void MainWindow::on_topicCheckBtn_clicked()
 {
     showTopicInfo(ui->topicEnter->text());
+}
+
+void MainWindow::on_aiSendBtn_clicked()
+{
+    ui->aiRecieve->setText("正在等待AI回复");
+    Response result = requestSender->rpc(Request("consultation.answerForPatient", patientCredential->get(), QJsonObject{{"question", ui->aiSend->toPlainText()}}));
+    qDebug() << result.data;
+    if(!result.success) {
+        QMessageBox::warning(this, "Warning", result.message);
+        ui->aiRecieve->setText("");
+        return;
+    }
+    ui->aiRecieve->setText(result.data["answer"].toString());
+}
+
+void MainWindow::on_aiClearBtn_clicked()
+{
+    ui->aiSend->setText("");
 }
