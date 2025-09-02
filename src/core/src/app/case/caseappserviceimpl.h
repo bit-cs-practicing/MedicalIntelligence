@@ -25,6 +25,7 @@ public:
 
     virtual QJsonObject create(const Credential& credential, const QJsonObject& data) override;
     virtual QJsonObject update(const Credential& credential, const QJsonObject& data) override;
+    virtual QJsonObject fetchByAppointment(const QJsonObject& data) const override;
     virtual QJsonObject listByPatient(const Credential& credential, const QJsonObject& data) const override;
     virtual QJsonObject listByDoctorAndPatient(const Credential& credential, const QJsonObject& data) const override;
 private:
