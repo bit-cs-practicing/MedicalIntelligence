@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     ui(new Ui::MainWindow), patientCredential(pC), requestSender(rSender)
 {
     ui->setupUi(this);
-    ui->Tabs->setCurrentIndex(0);
+    ui->Tabs->setCurrentIndex(6);
     ui->appTimeComboBox->setCurrentText("所有时间");
     ui->caseComboBox->setCurrentText("所有时间");
     ui->caseDateTime->setEnabled(false);
