@@ -28,6 +28,17 @@ private:
     std::shared_ptr<CaseAppService> service;
 };
 
+class CaseFetchByAppointmentHandler : public RpcHandler {
+public:
+    CaseFetchByAppointmentHandler(std::shared_ptr<CaseAppService> service): service(service) {}
+protected:
+    virtual Response handle(const QJsonObject &data) override {
+        return Response::ok(service->fetchByAppointment(data));
+    }
+private:
+    std::shared_ptr<CaseAppService> service;
+};
+
 class CaseListByPatientHandler : public RpcAuthHandler {
 public:
     CaseListByPatientHandler(std::shared_ptr<CaseAppService> service): service(service) {}

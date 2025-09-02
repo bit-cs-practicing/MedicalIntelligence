@@ -24,6 +24,7 @@
 - [病例管理模块](#病例管理模块)
   - [case.create](#casecreate)
   - [case.update](#caseupdate)
+  - [case.fetchByAppointment](#casefetchbyappointment)
   - [case.listByPatient](#caselistbypatient)
   - [case.listByDoctorAndPatient](#caselistbydoctorandpatient)
 - [考勤管理模块](#考勤管理模块)
@@ -1075,6 +1076,57 @@
 #### 响应字段
 
 - 无额外字段
+
+---
+
+### `case.fetchByAppointment`
+
+#### 功能描述
+
+根据预约 ID 获取对应的病例。
+
+- 系统根据预约 ID 查询其病例，如果病例不存在则返回错误。
+- 返回的病例包括病例 ID、就诊日期、诊断结果、处方和医嘱等基本信息。
+
+#### 请求格式
+
+```json
+{
+  "endpoint": "case.fetchByAppointment",
+  "credential": "",
+  "data": {
+    "appointmentId": "A001",
+  }
+}
+```
+
+#### 请求字段
+
+- `appointmentId (string)` 预约 ID
+
+#### 响应格式
+
+```json
+{
+  "success": true,
+  "message": "获取成功",
+  "data": {
+    "caseId": "C987654",
+    "visitDate": "2023-08-15",
+    "diagnosis": "慢性支气管炎",
+    "prescription": "氨溴索片 30mg 每日两次",
+    "advice": "避免受凉，按时复诊"
+  }
+}
+```
+
+#### 响应字段
+
+- `caseId (string)` 病例项唯一标识 ID
+- `visitDate (string)` 就诊日期，格式 `yyyy-MM-dd`
+- `diagnosis (string)` 诊断结果
+- `prescription (string)` 处方
+- `advice (string)` 医嘱
 
 ---
 
