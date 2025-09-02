@@ -20,7 +20,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -362,7 +362,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_20">
          <property name="text">
-          <string>话题Id</string>
+          <string>话题ID</string>
          </property>
         </widget>
        </item>
@@ -370,7 +370,7 @@
         <widget class="QComboBox" name="topicComboBox">
          <item>
           <property name="text">
-           <string>按话题Id排序</string>
+           <string>按话题ID排序</string>
           </property>
          </item>
          <item>
@@ -403,7 +403,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>话题Id</string>
+          <string>话题ID</string>
          </property>
         </widget>
        </item>
@@ -420,18 +420,11 @@
       <attribute name="title">
        <string>AI问诊</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_8">
+      <layout class="QGridLayout" name="gridLayout_8" rowstretch="0,3,8">
        <item row="0" column="0">
         <widget class="QPushButton" name="aiClearBtn">
          <property name="text">
-          <string>Clear</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="aiSendBtn">
-         <property name="text">
-          <string>Send</string>
+          <string>清空消息记录</string>
          </property>
         </widget>
        </item>
@@ -440,6 +433,13 @@
        </item>
        <item row="2" column="0" colspan="2">
         <widget class="QTextBrowser" name="aiRecieve"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="aiSendBtn">
+         <property name="text">
+          <string>发送消息</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
