@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     ui->appListDate->setEnabled(false);
     ui->appListDate->setDate(QDate::currentDate());
     ui->caseDateTime->setDate(QDate::currentDate());
-    ui->topicComboBox->setCurrentText("按话题Id排序");
+    ui->topicComboBox->setCurrentText("按话题ID排序");
     connect(ui->appTimeComboBox, &QComboBox::currentTextChanged, this, [&](const QString &S){
         if(S == "所有时间") ui->appListDate->setEnabled(false);
         else ui->appListDate->setEnabled(true);
@@ -204,8 +204,19 @@ void MainWindow::showCaseInfo(QString date) {
     scrollContent->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 }
 
+QString replaceT(const QString& str) {
+    QString newStr = str;
+    int len = str.length();
+    for (int i = 0; i < len; i ++) {
+        if (newStr[i] == 'T') {
+            newStr[i] = ' ';
+        }
+    }
+    return newStr;
+}
+
 void MainWindow::showTopicInfo(QString S) {
-    if(ui->topicComboBox->currentText() == "按话题Id排序") sortTopicById();
+    if(ui->topicComboBox->currentText() == "按话题ID排序") sortTopicById();
     else sortTopicByTime();
     QWidget *scrollContent = new QWidget(this);
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
@@ -214,7 +225,7 @@ void MainWindow::showTopicInfo(QString S) {
     for(QJsonObject i : topicInformations) {
         if(i["topicId"] == S || S == "") {
             TopicDataBrief *p = new TopicDataBrief(scrollContent, patientId, requestSender, patientCredential);
-            p->setTopicInfo(i["topicId"].toString(), i["lastMessageTime"].toString());
+            p->setTopicInfo(i["topicId"].toString(), replaceT(i["lastMessageTime"].toString()));
             p->setParent(this);
             scrollLayout->addWidget(p);
 //            p->deleteLater();
@@ -390,7 +401,7 @@ void MainWindow::on_topicCheckBtn_clicked()
 
 void MainWindow::on_aiSendBtn_clicked()
 {
-    ui->aiRecieve->setText("正在等待AI回复");
+    ui->aiRecieve->setText("正在等待AI回复。");
     const int INITIAL = 0;
     const int INTERRUPTED = -1;
     const int FINISHED = 1;
@@ -423,7 +434,7 @@ void MainWindow::on_aiSendBtn_clicked()
             return;
         }
         status->status = INTERRUPTED;
-        emit aiResponseReceived("请求超时，智能助理暂时不可用", false);
+        emit aiResponseReceived("请求超时，智能助理暂时不可用。", false);
     });
 }
 
@@ -433,7 +444,7 @@ void MainWindow::on_aiClearBtn_clicked() {
 
 void MainWindow::onAiResponseReceived(const QString &resultData, bool success) {
     if (!success) {
-        QMessageBox::warning(this, "Warning", resultData);
+        QMessageBox::warning(this, "警告！", resultData);
         ui->aiRecieve->setText("");
     } else {
         ui->aiRecieve->setText(resultData);
