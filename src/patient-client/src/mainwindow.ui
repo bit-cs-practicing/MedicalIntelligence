@@ -68,12 +68,12 @@
         <widget class="QComboBox" name="gender">
          <item>
           <property name="text">
-           <string>male</string>
+           <string>男</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>female</string>
+           <string>女</string>
           </property>
          </item>
         </widget>
@@ -190,8 +190,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>704</width>
-            <height>452</height>
+            <width>712</width>
+            <height>497</height>
            </rect>
           </property>
          </widget>
@@ -259,8 +259,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>704</width>
-            <height>452</height>
+            <width>712</width>
+            <height>496</height>
            </rect>
           </property>
          </widget>
@@ -273,12 +273,12 @@
         <widget class="QComboBox" name="appTimeComboBox">
          <item>
           <property name="text">
-           <string>All times</string>
+           <string>全部时间</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Specific time</string>
+           <string>具体时间</string>
           </property>
          </item>
         </widget>
@@ -338,8 +338,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>704</width>
-            <height>452</height>
+            <width>712</width>
+            <height>496</height>
            </rect>
           </property>
          </widget>
@@ -390,8 +390,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>704</width>
-            <height>452</height>
+            <width>712</width>
+            <height>497</height>
            </rect>
           </property>
          </widget>

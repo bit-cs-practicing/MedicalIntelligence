@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
 {
     ui->setupUi(this);
     ui->Tabs->setCurrentIndex(0);
-    ui->appTimeComboBox->setCurrentText("All times");
+    ui->appTimeComboBox->setCurrentText("所有时间");
     ui->caseComboBox->setCurrentText("所有时间");
     ui->caseDateTime->setEnabled(false);
     ui->appListDate->setEnabled(false);
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent, RpcClient *rSender, CredentialManager *p
     ui->caseDateTime->setDate(QDate::currentDate());
     ui->topicComboBox->setCurrentText("按话题Id排序");
     connect(ui->appTimeComboBox, &QComboBox::currentTextChanged, this, [&](const QString &S){
-        if(S == "All times") ui->appListDate->setEnabled(false);
+        if(S == "所有时间") ui->appListDate->setEnabled(false);
         else ui->appListDate->setEnabled(true);
     });
     connect(ui->caseComboBox, &QComboBox::currentTextChanged, this, [&](const QString &S){
@@ -41,7 +41,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setAppListComboBox() {
-    QStringList S = {"All Doctors"}, S2 = {"All times", "Specific time"};
+    QStringList S = {"所有医生"}, S2 = {"所有时间", "具体时间"};
     for(QJsonValue i : appointmentInformations) {
         QString tmp = doctorIdtoEmployeeId[i["doctorId"].toString()];
         if(!S.contains(tmp)) S.append(tmp);
@@ -55,7 +55,7 @@ void MainWindow::loadCaseInfo() {
     Response result = requestSender->rpc(Request("case.listByPatient", patientCredential->get(), QJsonObject{}));
     qDebug() << result.data << "\n";
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "警告！", "服务器繁忙，请刷新界面重试");
         return;
     }
 //    while(!caseInformations.empty()) caseInformations.removeAt(0);
@@ -80,7 +80,7 @@ void MainWindow::loadTopicInfo() {
     Response result = requestSender->rpc(Request("chat.listTopicsByUser", patientCredential->get(), QJsonObject{}));
     qDebug() << result.data << "\n";
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "警告！", "服务器繁忙，请刷新界面重试");
         return;
     }
 
@@ -97,7 +97,7 @@ void MainWindow::loadAppointmentInfo() {
     Response result = requestSender->rpc(Request("appointment.listByPatient", patientCredential->get(), QJsonObject{}));
     qDebug() << result.data << "\n";
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "警告！", "服务器繁忙，请刷新界面重试");
         return;
     }
 
@@ -105,7 +105,7 @@ void MainWindow::loadAppointmentInfo() {
 //    while(!appointmentInformations.empty()) appointmentInformations.removeAt(0);
 
     setAppListComboBox();
-    showAppointmentInfo("All Doctors", "All times");
+    showAppointmentInfo("所有医生", "所有时间");
 }
 
 void MainWindow::loadInformation(){
@@ -119,7 +119,7 @@ void MainWindow::loadInformation(){
     Response result = requestSender->rpc(Request("patient.fetchInfo", patientCredential->get(), sendRequest));
     qDebug() << result.data << "\n";
     if(!result.success) {
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新界面重试");
+        QMessageBox::warning(this, "警告！", "服务器繁忙，请刷新界面重试");
         return;
     }
 
@@ -135,7 +135,6 @@ void MainWindow::loadInformation(){
     ui->idCard->setEnabled(false);
     ui->gender->setEnabled(false);
     ui->birthday->setEnabled(false);
-//    patientId = registerData["patientId"].toString();
 }
 
 void MainWindow::showDoctorInfo(QString depart) {
@@ -146,9 +145,10 @@ void MainWindow::showDoctorInfo(QString depart) {
     for(QJsonValue i : doctorInformations) {
         doctorIdtoEmployeeId[i["doctorId"].toString()] = i["employeeId"].toString();
         doctorIdtoDoctorName[i["doctorId"].toString()] = i["name"].toString();
-        if(i["department"].toString() == depart || depart == "All") {
+        if(i["department"].toString() == depart || depart == "全部") {
             DoctorInfoBrief *p = new DoctorInfoBrief(scrollContent, requestSender, patientCredential);
-            p->setDoctorBriefInfo(i["employeeId"].toString(), i["name"].toString(), i["department"].toString(), i["doctorId"].toString());
+            p->setDoctorBriefInfo(i["employeeId"].toString(), i["name"].toString(),
+                                  i["department"].toString(), i["doctorId"].toString());
             p->setFatherMainWindow(this);
             scrollLayout->addWidget(p);
         }
@@ -162,9 +162,13 @@ void MainWindow::showAppointmentInfo(QString doctorId, QString dateTime) {
     QVBoxLayout *scrollLayout = new QVBoxLayout(scrollContent);
     scrollContent->setLayout(scrollLayout);
     for(QJsonValue i : appointmentInformations) {
-        if((doctorIdtoEmployeeId[i["doctorId"].toString()] == doctorId || doctorId == "All Doctors") && (i["date"].toString() == dateTime || dateTime == "All times")) {
+        if((doctorIdtoEmployeeId[i["doctorId"].toString()] == doctorId || doctorId == "所有医生") &&
+           (i["date"].toString() == dateTime || dateTime == "所有时间")) {
             AppointmentData *p = new AppointmentData(scrollContent, requestSender, patientCredential);
-            p->setAppointmentData(doctorIdtoDoctorName[i["doctorId"].toString()], doctorIdtoEmployeeId[i["doctorId"].toString()], i["date"].toString(), i["timeSlot"].toString(), i["status"].toString(), i["appointmentId"].toString());
+            p->setAppointmentData(doctorIdtoDoctorName[i["doctorId"].toString()],
+                                  doctorIdtoEmployeeId[i["doctorId"].toString()],
+                                  i["date"].toString(), i["timeSlot"].toString(),
+                                  i["status"].toString(), i["appointmentId"].toString());
             scrollLayout->addWidget(p);
         }
     }
@@ -208,7 +212,7 @@ void MainWindow::showTopicInfo(QString S) {
 }
 
 void MainWindow::setDoctorInfoComboBox() {
-    QStringList S = {"All"};
+    QStringList S = {"全部"};
     for(QJsonValue i : doctorInformations) {
         QString tmp = i["department"].toString();
         if(!S.contains(tmp)) S.append(tmp);
@@ -222,7 +226,7 @@ void MainWindow::setDoctorInfoComboBox() {
 void MainWindow::loadDoctorInfo() {
     Response result = requestSender->rpc(Request("doctor.fetchAllInfo", patientCredential->get(), QJsonObject{}));
     if(!result.success){
-        QMessageBox::warning(this, "Warning", "服务器繁忙，请刷新重试");
+        QMessageBox::warning(this, "警告！", "服务器繁忙，请刷新重试");
         return;
     }
 //    while(!doctorInformations.empty()) doctorInformations.removeAt(0);
@@ -230,7 +234,7 @@ void MainWindow::loadDoctorInfo() {
     doctorInformations = result.data["doctors"].toArray();
 
     setDoctorInfoComboBox();
-    showDoctorInfo("All");
+    showDoctorInfo("全部");
 }
 
 QJsonObject MainWindow::queryByDoctorId(QString Id) {
@@ -286,6 +290,14 @@ bool MainWindow::checkPassword(QString txt){
     return true;
 }
 
+QString transferGenderFromZHToEN(const QString& ZHContext) {
+    if (ZHContext == QString("男")) {
+        return "male";
+    } else {
+        return "female";
+    }
+}
+
 void MainWindow::on_changeinfoBtn_clicked()
 {
     if(!checkEmail()) {
@@ -302,7 +314,7 @@ void MainWindow::on_changeinfoBtn_clicked()
     }
     QJsonObject registerData;
     registerData["name"] = ui->name->text();
-    registerData["gender"] = ui->gender->currentText();
+    registerData["gender"] = transferGenderFromZHToEN(ui->gender->currentText());
     registerData["phone"] = ui->phone->text();
     registerData["birthday"] = ui->birthday->date().toString("yyyy-MM-dd");
     registerData["email"] = ui->email->text();
@@ -311,7 +323,7 @@ void MainWindow::on_changeinfoBtn_clicked()
     Response result = requestSender->rpc(Request("patient.updateInfo", patientCredential->get(), registerData));
     qDebug() << result.data << "\n";
 
-    if(result.success) QMessageBox::information(this, "Congratulations!", "个人信息更新成功！");
+    if(result.success) QMessageBox::information(this, "恭喜!", "个人信息更新成功！");
     else QMessageBox::warning(this, "警告！", "请重新提交表单！");
 }
 
@@ -344,7 +356,7 @@ void MainWindow::on_docInfoCheck_clicked()
 void MainWindow::on_appListCheck_clicked()
 {
     QString doctorId = ui->appListComboBox->currentText(), date = ui->appTimeComboBox->currentText();
-    if(date != "All times") date = ui->appListDate->date().toString("yyyy-MM-dd");
+    if(date != "所有时间") date = ui->appListDate->date().toString("yyyy-MM-dd");
 //    qDebug() << doctorId << " " << date << "\n";
     showAppointmentInfo(doctorId, date);
 }
