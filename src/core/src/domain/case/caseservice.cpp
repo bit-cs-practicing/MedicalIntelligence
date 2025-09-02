@@ -14,7 +14,7 @@ void CaseService::updateCase(
     std::optional<CasePrescription> prescription,
     std::optional<CaseAdvice> advice
 ) const {
-    auto appointmentOpt = appointmentRepository->getById(caze->getCaseId());
+    auto appointmentOpt = appointmentRepository->getById(caze->getAppointmentId());
     if (!appointmentOpt.has_value()) {
         throw std::runtime_error("无法找到病例对应的预约");
     }
