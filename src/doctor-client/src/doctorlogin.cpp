@@ -75,7 +75,7 @@ void DoctorLogin::on_loginBtn_clicked()
 
 void DoctorLogin::on_registerBtn_clicked()
 {
-    if(!registerBoard) registerBoard = std::make_unique<DoctorRegister>();
+    if(!registerBoard) registerBoard = std::make_unique<DoctorRegister>(nullptr, requestSender, doctorCredential);
     registerBoard -> show();
     registerBoard -> setLoginBoard(this);
     this -> hide();

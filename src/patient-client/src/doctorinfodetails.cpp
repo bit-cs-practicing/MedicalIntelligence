@@ -17,7 +17,7 @@ DoctorInfoDetails::DoctorInfoDetails(QWidget *parent) :
     downloader = new ImageDownloader(this);
     connect(downloader, &ImageDownloader::imageDownloaded,
             this, &DoctorInfoDetails::onImageDownloaded);
-    downloader->downloadImage(QUrl("http://youke1.picui.cn/s1/2025/09/01/68b5630301018.png"));
+//    downloader->downloadImage(QUrl("http://youke1.picui.cn/s1/2025/09/01/68b5630301018.png"));
 }
 
 DoctorInfoDetails::~DoctorInfoDetails()
@@ -36,6 +36,7 @@ void DoctorInfoDetails::onImageDownloaded(const QPixmap &pixmap) {
 }
 
 void DoctorInfoDetails::setInformations(QJsonObject info) {
+    downloader->downloadImage(QUrl(info["photo"].toString()));
     ui->doctorId->setText(info["employeeId"].toString());
     ui->depart->setText(info["department"].toString());
     ui->profile->setText(info["profile"].toString());

@@ -25,7 +25,7 @@ public:
     ~DoctorRegister();
 
 private slots:
-    void on_register_2_clicked();
+    void on_registerBtn_clicked();
 
     void on_returnBtn_clicked();
 

@@ -46,7 +46,7 @@ bool DoctorRegister::checkPassword(){
     return true;
 }
 
-void DoctorRegister::on_register_2_clicked() {
+void DoctorRegister::on_registerBtn_clicked() {
 
     if (!checkName()) {
         QMessageBox::warning(this, "提示", "姓名非法!");
@@ -69,7 +69,7 @@ void DoctorRegister::on_register_2_clicked() {
     registerData["name"] = ui->dname->text();
     registerData["idCard"] = ui->did->text();
     registerData["password"] = ui->password->text();
-
+    qDebug() << "yes";
     Response result = requestSender->rpc(Request("doctor.register", doctorCredential->get(), registerData));
     qDebug() << result.data;
 
