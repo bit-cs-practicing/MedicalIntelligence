@@ -107,7 +107,7 @@ void PatientRegister::on_register_2_clicked()
         return;
     }
     else{
-        QMessageBox::information(this, "Congratulations!", "注册成功！将在3秒后返回登录界面。");
+        QMessageBox::information(this, "恭喜!", "注册成功！将在3秒后返回登录界面。");
         QThread::sleep(3);
         loginBoard -> show();
         this -> hide();

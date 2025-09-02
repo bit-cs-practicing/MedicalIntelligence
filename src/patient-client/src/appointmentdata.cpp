@@ -19,11 +19,27 @@ AppointmentData::~AppointmentData() {
     delete ui;
 }
 
-void AppointmentData::setAppointmentData(QString doctorName, QString doctorId, QString date, QString time, QString status, QString appId) {
+QString transferStatusFromENtoZH(const QString& ENStatus) {
+    if (ENStatus == "completed") {
+        return "已完成";
+    } else if (ENStatus == "scheduled"){
+        return "已预约";
+    } else {
+        return "已撤销";
+    }
+}
+
+void AppointmentData::setAppointmentData(
+    const QString& doctorName,
+    const QString& doctorId,
+    const QString& date,
+    const QString& time,
+    const QString& status,
+    const QString& appId) {
     ui->appId->setText(doctorName);
     ui->doctorId->setText(doctorId);
     ui->dateTime->setText(date + " " + time);
-    ui->status->setCurrentText(status);
+    ui->status->setCurrentText(transferStatusFromENtoZH(status));
     appointmentId = appId;
     if(status == "scheduled") ui->cancelBtn->setEnabled(true);
     else ui->cancelBtn->setEnabled(false);
@@ -42,6 +58,6 @@ void AppointmentData::on_cancelBtn_clicked() {
 
     Response result = requestSender->rpc(Request("appointment.cancel", patientCredential->get(), cancelApplication));
     qDebug() << result.data << "\n";
-    if(result.success) QMessageBox::information(this, "Congratulations!", "取消成功");
-    else QMessageBox::warning(this, "Warning", "取消失败");
+    if(result.success) QMessageBox::information(this, "恭喜!", "取消成功");
+    else QMessageBox::warning(this, "警告！", "取消失败");
 }
